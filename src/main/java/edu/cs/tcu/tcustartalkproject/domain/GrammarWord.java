@@ -14,7 +14,7 @@ public class GrammarWord implements Serializable {
     private String desc;
 
     public GrammarWord() {
-
+        super();
     }
 
     public GrammarWord(String id, String type, String word, String pinyin, String desc){
