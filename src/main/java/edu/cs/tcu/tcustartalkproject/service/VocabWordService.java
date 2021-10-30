@@ -1,30 +1,38 @@
 package edu.cs.tcu.tcustartalkproject.service;
 
-import antlr.Grammar;
-import edu.cs.tcu.tcustartalkproject.dao.VocabWordDao;
+import edu.cs.tcu.tcustartalkproject.domain.Book;
+import edu.cs.tcu.tcustartalkproject.domain.GrammarWord;
 import edu.cs.tcu.tcustartalkproject.domain.VocabWord;
+import edu.cs.tcu.tcustartalkproject.repository.BookRepository;
+import edu.cs.tcu.tcustartalkproject.repository.GrammarWordRepository;
+import edu.cs.tcu.tcustartalkproject.repository.VocabWordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import java.util.Optional;
+import java.util.List;
 
 @Service
-@Transactional
 public class VocabWordService {
-    private VocabWordDao vocabWordDao;
+    @Autowired
+    private VocabWordRepository vocabWordRepository;
 
-    //    @Autowired
-    public VocabWordService(VocabWordDao vocabWordDao){
-        this.vocabWordDao = vocabWordDao;
+    public List<VocabWord> findAll() {
+        return vocabWordRepository.findAll();
     }
 
-    public String viewWord(String vocabWordId){
-        Optional<VocabWord> optionalVocabWord = vocabWordDao.findById(vocabWordId);
-        if (optionalVocabWord.isEmpty()){
-            throw new IllegalStateException("Vocab word with id " + vocabWordId + " is not present.");
-        }
-        VocabWord vocabWord = optionalVocabWord.get();
-        return (vocabWord.getWord() + "<br/>" + vocabWord.getDesc());
+    public VocabWord findById(final String id) {
+        return vocabWordRepository.findById(id).get();
+    }
+
+    public void delete(String id) {
+        vocabWordRepository.deleteById(id);
+    }
+
+    public VocabWord save(VocabWord vocabWord) {
+        return vocabWordRepository.save(vocabWord);
+    }
+
+    public VocabWord update(VocabWord vocabWord) {
+        return vocabWordRepository.save(vocabWord);
     }
 }

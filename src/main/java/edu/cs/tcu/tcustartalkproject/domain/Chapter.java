@@ -1,10 +1,11 @@
 package edu.cs.tcu.tcustartalkproject.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Chapter {
@@ -18,6 +19,10 @@ public class Chapter {
     @JsonBackReference
     @ManyToOne
     private Book book;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "chapter", cascade = CascadeType.ALL)
+    private List<GrammarWord> grammarWords = new ArrayList<GrammarWord>();
 
 
     public Chapter() {
@@ -63,16 +68,23 @@ public class Chapter {
         this.text = text;
     }
 
-    public String toString(){
-        String str = this.title + " " + this.text;
-        return str;
-    }
-
     public Book getBook() {
         return book;
     }
 
     public void setBook(Book book) {
         this.book = book;
+    }
+
+    public List<GrammarWord> getGrammarWords() {
+        return grammarWords;
+    }
+
+    public void setGrammarWords(List<GrammarWord> grammarWords) {
+        this.grammarWords = grammarWords;
+    }
+    public void addGrammarWords(GrammarWord grammarWord){
+        this.grammarWords.add(grammarWord);
+        grammarWord.setChapter(this);
     }
 }

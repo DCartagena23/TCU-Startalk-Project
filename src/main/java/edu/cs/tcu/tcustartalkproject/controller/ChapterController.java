@@ -1,14 +1,13 @@
 package edu.cs.tcu.tcustartalkproject.controller;
 
-import edu.cs.tcu.tcustartalkproject.domain.Book;
-import edu.cs.tcu.tcustartalkproject.domain.Chapter;
-import edu.cs.tcu.tcustartalkproject.domain.Result;
-import edu.cs.tcu.tcustartalkproject.domain.StatusCode;
+import edu.cs.tcu.tcustartalkproject.domain.*;
 import edu.cs.tcu.tcustartalkproject.service.BookService;
 import edu.cs.tcu.tcustartalkproject.service.ChapterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/chapters")
@@ -44,5 +43,13 @@ public class ChapterController {
     public Result delete(@PathVariable String id) {
         chapterService.delete(id);
         return new Result(StatusCode.SUCCESS, "Chapter Deleted!", null);
+    }
+
+    @RequestMapping("/gword/{id}")
+    @ResponseBody
+    public Result getGWord(@PathVariable String id) {
+        Chapter chapter = chapterService.findById(id);
+        final List<GrammarWord> gword = chapter.getGrammarWords();
+        return new Result(StatusCode.SUCCESS, "Get GWord Success", gword);
     }
 }
