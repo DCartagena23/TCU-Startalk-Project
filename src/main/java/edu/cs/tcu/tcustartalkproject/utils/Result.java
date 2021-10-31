@@ -1,4 +1,4 @@
-package edu.cs.tcu.tcustartalkproject.domain;
+package edu.cs.tcu.tcustartalkproject.utils;
 
 import java.io.Serializable;
 

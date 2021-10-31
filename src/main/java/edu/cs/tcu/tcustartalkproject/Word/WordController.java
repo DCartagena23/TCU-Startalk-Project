@@ -1,9 +1,7 @@
-package edu.cs.tcu.tcustartalkproject.controller;
+package edu.cs.tcu.tcustartalkproject.Word;
 
-import edu.cs.tcu.tcustartalkproject.domain.Result;
-import edu.cs.tcu.tcustartalkproject.domain.StatusCode;
-import edu.cs.tcu.tcustartalkproject.domain.Word;
-import edu.cs.tcu.tcustartalkproject.service.WordService;
+import edu.cs.tcu.tcustartalkproject.utils.Result;
+import edu.cs.tcu.tcustartalkproject.utils.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

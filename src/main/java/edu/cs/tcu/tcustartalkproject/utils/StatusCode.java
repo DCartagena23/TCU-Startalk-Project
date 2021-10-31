@@ -1,4 +1,4 @@
-package edu.cs.tcu.tcustartalkproject.domain;
+package edu.cs.tcu.tcustartalkproject.utils;
 
 public class StatusCode {
     public static final int SUCCESS = 200;//Success

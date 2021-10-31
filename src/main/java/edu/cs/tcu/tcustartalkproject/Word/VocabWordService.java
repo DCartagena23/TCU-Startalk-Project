@@ -1,11 +1,7 @@
-package edu.cs.tcu.tcustartalkproject.service;
+package edu.cs.tcu.tcustartalkproject.Word;
 
-import edu.cs.tcu.tcustartalkproject.domain.Book;
-import edu.cs.tcu.tcustartalkproject.domain.GrammarWord;
-import edu.cs.tcu.tcustartalkproject.domain.VocabWord;
-import edu.cs.tcu.tcustartalkproject.repository.BookRepository;
-import edu.cs.tcu.tcustartalkproject.repository.GrammarWordRepository;
-import edu.cs.tcu.tcustartalkproject.repository.VocabWordRepository;
+import edu.cs.tcu.tcustartalkproject.Word.VocabWord;
+import edu.cs.tcu.tcustartalkproject.Word.VocabWordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

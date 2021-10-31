@@ -1,19 +1,17 @@
-package edu.cs.tcu.tcustartalkproject.controller;
+package edu.cs.tcu.tcustartalkproject.Word;
 
 
-import edu.cs.tcu.tcustartalkproject.domain.*;
-import edu.cs.tcu.tcustartalkproject.service.BookService;
-import edu.cs.tcu.tcustartalkproject.service.ChapterService;
-import edu.cs.tcu.tcustartalkproject.service.GrammarWordService;
+import edu.cs.tcu.tcustartalkproject.Chapter.Chapter;
+import edu.cs.tcu.tcustartalkproject.Chapter.ChapterService;
+import edu.cs.tcu.tcustartalkproject.utils.Result;
+import edu.cs.tcu.tcustartalkproject.utils.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("/gwords")
-public class GWordController {
+public class GrammarWordController {
 
     @Autowired
     private ChapterService chapterService;

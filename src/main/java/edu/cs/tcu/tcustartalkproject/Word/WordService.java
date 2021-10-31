@@ -1,8 +1,8 @@
-package edu.cs.tcu.tcustartalkproject.service;
+package edu.cs.tcu.tcustartalkproject.Word;
 
 
-import edu.cs.tcu.tcustartalkproject.domain.Word;
-import edu.cs.tcu.tcustartalkproject.repository.WordRepository;
+import edu.cs.tcu.tcustartalkproject.Word.Word;
+import edu.cs.tcu.tcustartalkproject.Word.WordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

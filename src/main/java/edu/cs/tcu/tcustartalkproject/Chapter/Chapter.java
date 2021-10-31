@@ -1,7 +1,9 @@
-package edu.cs.tcu.tcustartalkproject.domain;
+package edu.cs.tcu.tcustartalkproject.Chapter;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import edu.cs.tcu.tcustartalkproject.Book.Book;
+import edu.cs.tcu.tcustartalkproject.Word.GrammarWord;
 
 import javax.persistence.*;
 import java.util.ArrayList;

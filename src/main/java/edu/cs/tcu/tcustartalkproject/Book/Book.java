@@ -1,6 +1,7 @@
-package edu.cs.tcu.tcustartalkproject.domain;
+package edu.cs.tcu.tcustartalkproject.Book;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import edu.cs.tcu.tcustartalkproject.Chapter.Chapter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;

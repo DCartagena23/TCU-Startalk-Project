@@ -1,10 +1,8 @@
-package edu.cs.tcu.tcustartalkproject.controller;
+package edu.cs.tcu.tcustartalkproject.Book;
 
-import edu.cs.tcu.tcustartalkproject.domain.Book;
-import edu.cs.tcu.tcustartalkproject.domain.Chapter;
-import edu.cs.tcu.tcustartalkproject.domain.Result;
-import edu.cs.tcu.tcustartalkproject.domain.StatusCode;
-import edu.cs.tcu.tcustartalkproject.service.BookService;
+import edu.cs.tcu.tcustartalkproject.Chapter.Chapter;
+import edu.cs.tcu.tcustartalkproject.utils.Result;
+import edu.cs.tcu.tcustartalkproject.utils.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

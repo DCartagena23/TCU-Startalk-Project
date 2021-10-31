@@ -1,7 +1,9 @@
-package edu.cs.tcu.tcustartalkproject.datainitializer;
+package edu.cs.tcu.tcustartalkproject.utils;
 
-import edu.cs.tcu.tcustartalkproject.domain.*;
-import edu.cs.tcu.tcustartalkproject.service.*;
+import edu.cs.tcu.tcustartalkproject.Book.Book;
+import edu.cs.tcu.tcustartalkproject.Book.BookService;
+import edu.cs.tcu.tcustartalkproject.Chapter.Chapter;
+import edu.cs.tcu.tcustartalkproject.Word.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

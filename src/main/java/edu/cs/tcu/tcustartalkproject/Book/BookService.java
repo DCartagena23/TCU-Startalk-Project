@@ -1,7 +1,5 @@
-package edu.cs.tcu.tcustartalkproject.service;
+package edu.cs.tcu.tcustartalkproject.Book;
 
-import edu.cs.tcu.tcustartalkproject.domain.Book;
-import edu.cs.tcu.tcustartalkproject.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,30 +1,23 @@
-package edu.cs.tcu.tcustartalkproject.domain;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
+package edu.cs.tcu.tcustartalkproject.Word;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
 @Entity
-public class GrammarWord implements Serializable {
+public class VocabWord implements Serializable {
     @Id
     private String id;
     private String word;
     @Column(length=10000)
     private String desc;
 
-    @JsonBackReference
-    @ManyToOne
-    private Chapter chapter;
+    public VocabWord() {
 
-    public GrammarWord() {
-        super();
     }
 
-    public GrammarWord(String id, String word, String desc){
+    public VocabWord(String id, String type, String word, String pinyin, String desc){
         this.id = id;
         this.word = word;
         this.desc = desc;
@@ -52,13 +45,5 @@ public class GrammarWord implements Serializable {
 
     public void setDesc(String desc) {
         this.desc = desc;
-    }
-
-    public Chapter getChapter() {
-        return chapter;
-    }
-
-    public void setChapter(Chapter chapter) {
-        this.chapter = chapter;
     }
 }

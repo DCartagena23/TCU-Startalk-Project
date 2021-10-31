@@ -1,4 +1,4 @@
-package edu.cs.tcu.tcustartalkproject.domain;
+package edu.cs.tcu.tcustartalkproject.Word;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
