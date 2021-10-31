@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/words")
 public class WordController {
+    private final WordService wordService;
 
     @Autowired
-    private WordService wordService;
-
+    public WordController(WordService wordService){
+        this.wordService = wordService;
+    }
 
     @RequestMapping("/findOne/{id}")
     @ResponseBody
@@ -32,18 +34,14 @@ public class WordController {
     @PostMapping
     @ResponseBody
     public Result save(@RequestBody Word word) {
-
         Word savedWord = wordService.save(word);
-
         return new Result(StatusCode.SUCCESS, "Word Saved!", savedWord);
     }
 
     @PutMapping
     @ResponseBody
     public Result update(@RequestBody Word word) {
-
-        Word updateWord = wordService.save(word);
-
-        return new Result(StatusCode.SUCCESS, "Word Updated!", updateWord);
+        Word updatedWord = wordService.update(word);
+        return new Result(StatusCode.SUCCESS, "Word Updated!", updatedWord);
     }
 }

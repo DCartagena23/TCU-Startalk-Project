@@ -15,7 +15,7 @@ public class Book {
     @Id
     private String id;
     private String title;
-    private String description;
+    private String desc;
     private String author;
     private double price;
 
@@ -23,10 +23,10 @@ public class Book {
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private List<Chapter> chapter = new ArrayList<Chapter>();
 
-    public Book(String id, String title, String description, String author, double price) {
+    public Book(String id, String title, String desc, String author, double price) {
         this.id = id;
         this.title = title;
-        this.description = description;
+        this.desc = desc;
         this.author = author;
         this.price = price;
     }
@@ -45,12 +45,12 @@ public class Book {
     }
 
 
-    public String getDescription() {
-        return description;
+    public String getDesc() {
+        return desc;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDesc(String description) {
+        this.desc = description;
     }
 
     public String getTitle() {

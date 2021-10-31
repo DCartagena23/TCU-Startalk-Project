@@ -9,8 +9,11 @@ import java.util.List;
 
 @Service
 public class VocabWordService {
+    private final VocabWordRepository vocabWordRepository;
     @Autowired
-    private VocabWordRepository vocabWordRepository;
+    public VocabWordService(VocabWordRepository vocabWordRepository){
+        this.vocabWordRepository = vocabWordRepository;
+    }
 
     public List<VocabWord> findAll() {
         return vocabWordRepository.findAll();

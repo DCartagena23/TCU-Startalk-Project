@@ -23,6 +23,10 @@ public class VocabWord implements Serializable {
         this.desc = desc;
     }
 
+    public VocabWord(String id) {
+        this.id = id;
+    }
+
     public String getId() {
         return id;
     }

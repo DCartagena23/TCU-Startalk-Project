@@ -14,44 +14,49 @@ import java.util.List;
 @Controller
 @RequestMapping("/chapters")
 public class ChapterController {
+    private final ChapterService chapterService;
+    private final BookService bookService;
 
     @Autowired
-    private ChapterService chapterService;
-
-    @Autowired
-    private BookService bookService;
+    public ChapterController(ChapterService chapterService, BookService bookService){
+        this.chapterService = chapterService;
+        this.bookService = bookService;
+    }
 
 
     @RequestMapping("/findOne/{id}")
     @ResponseBody
-    public Result getProduct(@PathVariable String id) {
+    public Result getChapter(@PathVariable String id) {
         Chapter chapter = chapterService.findById(id);
-        return new Result(StatusCode.SUCCESS, "Find One Product Success", chapter);
+        return new Result(StatusCode.SUCCESS, "Find Chapter Success", chapter);
     }
 
     @PutMapping
     @RequestMapping("/{bookId}")
     @ResponseBody
-    public Result update(@PathVariable String bookId, @RequestBody Chapter chapter) {
+    public Result updateChapter(@PathVariable String bookId, @RequestBody Chapter chapter) {
+        // TO-DO: Review update. This method has unclear name. Should it be addChapter or updateChapter?
+        // Review the request mapping path
+        // Why does the book add a new chapter  every time updating a chapter?
+        // Where is POST mapping?
         Book book = bookService.findById(bookId);
         book.addChapter(chapter);
         bookService.save(book);
-
         return new Result(StatusCode.SUCCESS, "Chapter Updated!", chapter);
     }
 
     @DeleteMapping("/delete/{id}")
     @ResponseBody
-    public Result delete(@PathVariable String id) {
+    public Result deleteChapter(@PathVariable String id) {
         chapterService.delete(id);
         return new Result(StatusCode.SUCCESS, "Chapter Deleted!", null);
     }
 
-    @RequestMapping("/gword/{id}")
+    @RequestMapping("/getGrammarWords/{id}")
     @ResponseBody
-    public Result getGWord(@PathVariable String id) {
+    public Result getGrammarWords(@PathVariable String id) {
         Chapter chapter = chapterService.findById(id);
-        final List<GrammarWord> gword = chapter.getGrammarWords();
-        return new Result(StatusCode.SUCCESS, "Get GWord Success", gword);
+        final List<GrammarWord> grammarWords = chapter.getGrammarWords();
+        return new Result(StatusCode.SUCCESS, "Get Grammar Words Success", grammarWords);
     }
 }

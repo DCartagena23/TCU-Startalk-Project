@@ -10,8 +10,12 @@ import java.util.List;
 
 @Service
 public class WordService {
+    private final WordRepository wordRepository;
+
     @Autowired
-    private WordRepository wordRepository;
+    public WordService(WordRepository wordRepository){
+        this.wordRepository = wordRepository;
+    }
 
     public List<Word> findAll() {
         return wordRepository.findAll();

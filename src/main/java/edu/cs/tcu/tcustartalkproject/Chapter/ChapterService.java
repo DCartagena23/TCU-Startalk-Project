@@ -1,7 +1,5 @@
 package edu.cs.tcu.tcustartalkproject.Chapter;
 
-import edu.cs.tcu.tcustartalkproject.Chapter.Chapter;
-import edu.cs.tcu.tcustartalkproject.Chapter.ChapterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,8 +7,12 @@ import java.util.List;
 
 @Service
 public class ChapterService {
+    private final ChapterRepository chapterRepository;
+
     @Autowired
-    private ChapterRepository chapterRepository;
+    public ChapterService(ChapterRepository chapterRepository) {
+        this.chapterRepository = chapterRepository;
+    }
 
     public List<Chapter> findAll() {
         return chapterRepository.findAll();

@@ -9,8 +9,12 @@ import java.util.List;
 
 @Service
 public class GrammarWordService {
+    private final GrammarWordRepository grammarWordRepository;
+
     @Autowired
-    private GrammarWordRepository grammarWordRepository;
+    public GrammarWordService(GrammarWordRepository grammarWordRepository){
+        this.grammarWordRepository = grammarWordRepository;
+    }
 
     public List<GrammarWord> findAll() {
         return grammarWordRepository.findAll();

@@ -5,11 +5,10 @@ import javax.persistence.Id;
 
 @Entity
 public class Word {
+    // TO-DO: Consider removing this domain. Every word can be Vocab Word.
     @Id
     private String id;
-
     private String pinyin = "";
-    private String note = "";
 
     public Word() {
         super();
@@ -18,13 +17,11 @@ public class Word {
     public Word(String id) {
         this.id = id;
         this.pinyin = "";
-        this.note = "";
     }
 
-    public Word(String id, String pinyin, String note) {
+    public Word(String id, String pinyin) {
         this.id = id;
         this.pinyin = pinyin;
-        this.note = note;
     }
 
     public String getId() {
@@ -41,12 +38,5 @@ public class Word {
 
     public void setPinyin(String pinyin) {
         this.pinyin = pinyin;
-    }
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
     }
 }

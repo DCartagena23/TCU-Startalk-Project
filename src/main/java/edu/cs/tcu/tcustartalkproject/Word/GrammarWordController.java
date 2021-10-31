@@ -10,39 +10,44 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/gwords")
+@RequestMapping("/grammarWords")
 public class GrammarWordController {
 
-    @Autowired
-    private ChapterService chapterService;
+    private final ChapterService chapterService;
+    private final GrammarWordService grammarWordService;
 
     @Autowired
-    private GrammarWordService gWordService;
-
+    public GrammarWordController(ChapterService chapterService, GrammarWordService grammarWordService){
+        this.chapterService = chapterService;
+        this.grammarWordService = grammarWordService;
+    }
 
     @RequestMapping("/findOne/{id}")
     @ResponseBody
-    public Result getProduct(@PathVariable String id) {
-        GrammarWord gword = gWordService.findById(id);
-        return new Result(StatusCode.SUCCESS, "Find One Product Success", gword);
+    public Result getGrammarWord(@PathVariable String id) {
+        GrammarWord grammarWord = grammarWordService.findById(id);
+        return new Result(StatusCode.SUCCESS, "Find One Grammar Word Success", grammarWord);
     }
 
     @PutMapping
     @RequestMapping("/{chapterId}")
     @ResponseBody
-    public Result update(@PathVariable String chapterId, @RequestBody GrammarWord gword) {
+    public Result update(@PathVariable String chapterId, @RequestBody GrammarWord grammarWord) {
+        // TO-DO: Review update. This method has unclear name. Should it be addGrammarWord or updateGrammarWord?
+        // Review the request mapping path
+        // Why does the chapter add a new grammarWord  every time updating grammarWord?
+        // Where is POST mapping?
         Chapter chapter = chapterService.findById(chapterId);
-        chapter.addGrammarWords(gword);
+        chapter.addGrammarWords(grammarWord);
         chapterService.save(chapter);
-
-        return new Result(StatusCode.SUCCESS, "GWord Updated!", gword);
+        return new Result(StatusCode.SUCCESS, "Grammar Word Updated!", grammarWord);
     }
 
     @DeleteMapping("/delete/{id}")
     @ResponseBody
     public Result delete(@PathVariable String id) {
-        gWordService.delete(id);
-        return new Result(StatusCode.SUCCESS, "GWord Deleted!", null);
+        grammarWordService.delete(id);
+        return new Result(StatusCode.SUCCESS, "Grammar Word Deleted!", null);
     }
 
 }

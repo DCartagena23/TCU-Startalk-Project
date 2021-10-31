@@ -12,51 +12,54 @@ import java.util.List;
 @Controller
 @RequestMapping("/books")
 public class BookController {
+    private final BookService bookService;
+
     @Autowired
-    private BookService bookService;
+    public BookController(BookService bookService){
+        this.bookService = bookService;
+    }
 
     @RequestMapping("/findAll")
     @ResponseBody
-    public Result findAll() {
+    public Result findAllBooks() {
         final List<Book> books = bookService.findAll();
-        return new Result(StatusCode.SUCCESS, "Find All Success", books);
+        return new Result(StatusCode.SUCCESS, "Find All Book Success", books);
     }
 
     @RequestMapping("/findOne/{id}")
     @ResponseBody
-    public Result getProduct(@PathVariable String id) {
+    public Result getBook(@PathVariable String id) {
         Book book = bookService.findById(id);
-        return new Result(StatusCode.SUCCESS, "Find One Product Success", book);
-    }
-
-    @PutMapping
-    @ResponseBody
-    public Result update(@RequestBody Book book) {
-
-        Book updateBook = bookService.save(book);
-
-        return new Result(StatusCode.SUCCESS, "Book Updated!", updateBook);
+        return new Result(StatusCode.SUCCESS, "Find Book Success", book);
     }
 
     @PostMapping
     @ResponseBody
-    public Result save(@RequestBody Book book) {
-
+    public Result saveBook(@RequestBody Book book) {
+        // TO-DO: Review save and update
+        // Why are PUT and POST identical?
         Book savedBook = bookService.save(book);
-
         return new Result(StatusCode.SUCCESS, "Book Saved!", savedBook);
+    }
+
+    @PutMapping
+    @ResponseBody
+    public Result updateBook(@RequestBody Book book) {
+        // TO-DO: Review save and update
+        Book updateBook = bookService.save(book);
+        return new Result(StatusCode.SUCCESS, "Book Updated!", updateBook);
     }
 
     @DeleteMapping("/delete/{id}")
     @ResponseBody
-    public Result delete(@PathVariable String id) {
+    public Result deleteBook(@PathVariable String id) {
         bookService.delete(id);
         return new Result(StatusCode.SUCCESS, "Book Deleted!", null);
     }
 
-    @RequestMapping("/chapter/{id}")
+    @RequestMapping("/getChapters/{id}")
     @ResponseBody
-    public Result getChapter(@PathVariable String id) {
+    public Result getChapters(@PathVariable String id) {
         Book book = bookService.findById(id);
         final List<Chapter> chapters = book.getChapter();
         return new Result(StatusCode.SUCCESS, "Get Chapter Success", chapters);
