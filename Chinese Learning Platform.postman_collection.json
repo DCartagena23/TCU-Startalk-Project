@@ -1,0 +1,475 @@
+{
+	"info": {
+		"_postman_id": "2efec8bb-6a1c-405f-a05f-42a1f9929165",
+		"name": "Chinese Learning Platform",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "books/findAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/books/findAll",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"books",
+						"findAll"
+					]
+				},
+				"description": "Find All Books"
+			},
+			"response": []
+		},
+		{
+			"name": "books/findOne/{id}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/books/findOne/a8c84cfb-9d53-4e73-b0d5-f6b9184a253d",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"books",
+						"findOne",
+						"a8c84cfb-9d53-4e73-b0d5-f6b9184a253d"
+					]
+				},
+				"description": "Find One Book given bookId."
+			},
+			"response": []
+		},
+		{
+			"name": "books/saveBook",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n            \"id\": \"ec9f94e8-7dbb-40db-8600-587e900365\",\n            \"title\": \"Harry Potter and the Sorcerer’s Shisssst\",\n            \"desc\": \"Bla\",\n            \"author\": \"JKR\",\n            \"price\": 35.99,\n            \"chapter\": [\n                {\n                    \"id\": \"2b1c67f8-4c5e-4d51-92f6-f80ba19da634\",\n                    \"number\": 1,\n                    \"title\": \"Name 1\",\n                    \"text\": \"亂數假文產生器。\\n亂數假文產生器。\",\n                    \"grammarWords\": [\n                        {\n                            \"id\": \"53a27554-cc2d-498b-ba44-8e1f0de07682\",\n                            \"word\": \"亂數\",\n                            \"desc\": \"Meaning 1\"\n                        },\n                        {\n                            \"id\": \"22634adb-9dce-4b27-9c1b-3d2d23350c62\",\n                            \"word\": \"生器\",\n                            \"desc\": \"Meaning 2\"\n                        }\n                    ]\n                },\n                {\n                    \"id\": \"9fc93a48-9ec4-42f8-b90f-70aa944aee8f\",\n                    \"number\": 2,\n                    \"title\": \"Name 2\",\n                    \"text\": \"亂數假文產生器。\\n亂數假文產生器。\",\n                    \"grammarWords\": []\n                }\n            ]\n        }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/books/saveBook",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"books",
+						"saveBook"
+					]
+				},
+				"description": "Save a book given a body."
+			},
+			"response": []
+		},
+		{
+			"name": "books/updateBook",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n            \"id\": \"ec9f94e8-7dbb-40db-8600-587e900365\",\n            \"title\": \"Harry Potter and the TCU\",\n            \"desc\": \"Bla\",\n            \"author\": \"JKR\",\n            \"price\": 35.99,\n            \"chapter\": [\n                {\n                    \"id\": \"2b1c67f8-4c5e-4d51-92f6-f80ba19da634\",\n                    \"number\": 1,\n                    \"title\": \"Name 1\",\n                    \"text\": \"亂數假文產生器。\\n亂數假文產生器。\",\n                    \"grammarWords\": [\n                        {\n                            \"id\": \"53a27554-cc2d-498b-ba44-8e1f0de07682\",\n                            \"word\": \"亂數\",\n                            \"desc\": \"Meaning 1\"\n                        },\n                        {\n                            \"id\": \"22634adb-9dce-4b27-9c1b-3d2d23350c62\",\n                            \"word\": \"生器\",\n                            \"desc\": \"Meaning 2\"\n                        }\n                    ]\n                },\n                {\n                    \"id\": \"9fc93a48-9ec4-42f8-b90f-70aa944aee8f\",\n                    \"number\": 2,\n                    \"title\": \"Name 2\",\n                    \"text\": \"亂數假文產生器。\\n亂數假文產生器。\",\n                    \"grammarWords\": []\n                }\n            ]\n        }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/books/updateBook",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"books",
+						"updateBook"
+					]
+				},
+				"description": "Update a book given a body."
+			},
+			"response": []
+		},
+		{
+			"name": "books/deleteBook/{id}",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/books/deleteBook/ec9f94e8-7dbb-40db-8600-587e900365",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"books",
+						"deleteBook",
+						"ec9f94e8-7dbb-40db-8600-587e900365"
+					]
+				},
+				"description": "Delete a book given bookId."
+			},
+			"response": []
+		},
+		{
+			"name": "books/getChapters/{id}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/books/getChapters/d4bc8684-f332-4059-a4bf-ed7d0956adc0",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"books",
+						"getChapters",
+						"d4bc8684-f332-4059-a4bf-ed7d0956adc0"
+					]
+				},
+				"description": "View all chapters of a book given bookId."
+			},
+			"response": []
+		},
+		{
+			"name": "chapters/findOne/{id}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/chapters/findOne/d140dc73-1ce8-4e39-b34e-040c3faffd77",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"chapters",
+						"findOne",
+						"d140dc73-1ce8-4e39-b34e-040c3faffd77"
+					]
+				},
+				"description": "Find one chapter given chapterId."
+			},
+			"response": []
+		},
+		{
+			"name": "chapters/saveChapter/{bookId}",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n            \"id\": \"7893fiss-e3f\",\n            \"number\": 3,\n            \"title\": \"Name 3\",\n            \"text\": \"亂數假文產生器。\\n亂數假文產生器。\",\n            \"grammarWords\": []\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/chapters/saveChapter/d4bc8684-f332-4059-a4bf-ed7d0956adc0",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"chapters",
+						"saveChapter",
+						"d4bc8684-f332-4059-a4bf-ed7d0956adc0"
+					]
+				},
+				"description": "Save a chapter given a body and bookId."
+			},
+			"response": []
+		},
+		{
+			"name": "chapters/updateChapter/{bookId}",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"d140dc73-1ce8-4e39-b34e-040c3faffd77\",\n    \"number\": 3,\n    \"title\": \"Name 3\",\n    \"text\": \"亂數假文產生器。d\",\n    \"grammarWords\": []\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/chapters/updateChapter/564603b2-95a6-4f96-9031-761c4e3e0e3e",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"chapters",
+						"updateChapter",
+						"564603b2-95a6-4f96-9031-761c4e3e0e3e"
+					]
+				},
+				"description": "Update a chapter given a body and bookId."
+			},
+			"response": []
+		},
+		{
+			"name": "chapters/deleteChapter/{id}",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/chapters/deleteChapter/7893fiss-e3f",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"chapters",
+						"deleteChapter",
+						"7893fiss-e3f"
+					]
+				},
+				"description": "Delete a chapter given chapterId."
+			},
+			"response": []
+		},
+		{
+			"name": "chapters/getGrammarWords/{id}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/chapters/getGrammarWords/c8a4da86-873d-4822-897d-9e551946c5b6",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"chapters",
+						"getGrammarWords",
+						"c8a4da86-873d-4822-897d-9e551946c5b6"
+					]
+				},
+				"description": "Get all Grammar Words associated with a chapter given chapterId."
+			},
+			"response": []
+		},
+		{
+			"name": "grammarWords/findOne/{id}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/grammarWords/findOne/307e8942-9671-4aaf-aeb1-cfd997a9130d",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"grammarWords",
+						"findOne",
+						"307e8942-9671-4aaf-aeb1-cfd997a9130d"
+					]
+				},
+				"description": "Get one Grammar Word given grammarWordId."
+			},
+			"response": []
+		},
+		{
+			"name": "grammarWords/saveGrammarWord/{chapterId}",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": \"7489724ds-af3f-ds\",\n        \"word\": \"据说ddsadasd\",\n        \"desc\": \"据说 It is said; According to; Based on<br/>据说 is used at the beginning of a sentence to express a source of information. If the information source is specified, we have to split 据 and 说and put it in between .\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/grammarWords/saveGrammarWord/5ffbefd4-f33a-4e23-8f3c-53b7fd6beb2c",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"grammarWords",
+						"saveGrammarWord",
+						"5ffbefd4-f33a-4e23-8f3c-53b7fd6beb2c"
+					]
+				},
+				"description": "Save one Grammar Word given a body and chapterId."
+			},
+			"response": []
+		},
+		{
+			"name": "grammarWords/updateGrammarWord/{chapterId}",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": \"7489724ds-af3f-ds\",\n        \"word\": \"据说ddsadasd\",\n        \"desc\": \"ddasdasd .\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/grammarWords/updateGrammarWord/5ffbefd4-f33a-4e23-8f3c-53b7fd6beb2c",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"grammarWords",
+						"updateGrammarWord",
+						"5ffbefd4-f33a-4e23-8f3c-53b7fd6beb2c"
+					]
+				},
+				"description": "Update one Grammar Word given a body and chapterId."
+			},
+			"response": []
+		},
+		{
+			"name": "grammarWords/deleteGrammarWord/{id}",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/grammarWords/deleteGrammarWord/7489724ds-af3f-ds",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"grammarWords",
+						"deleteGrammarWord",
+						"7489724ds-af3f-ds"
+					]
+				},
+				"description": "Delete one Grammar Word given a grammarWordId."
+			},
+			"response": []
+		},
+		{
+			"name": "vocabWords/findOne/{id}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/vocabWords/findOne/f30c63ac-fe7f-4a75-8377-e9b5b768aeb8",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"vocabWords",
+						"findOne",
+						"f30c63ac-fe7f-4a75-8377-e9b5b768aeb8"
+					]
+				},
+				"description": "Get one Vocab Word given a vocabWordId."
+			},
+			"response": []
+		},
+		{
+			"name": "vocabWords/saveVocabWords",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": \"hfdjd032-f32-f3f\",\n        \"word\": \"单纯\",\n        \"pinyin\": \"Dānchún\",\n        \"desc\": \"Definition: Simple Love ft. Obito\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/vocabWords/saveVocabWord",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"vocabWords",
+						"saveVocabWord"
+					]
+				},
+				"description": "Save one Vocab Word given a body."
+			},
+			"response": []
+		},
+		{
+			"name": "vocabWord/updateVocabWord",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": \"hfdjd032-f32-f3f\",\n        \"word\": \"单纯\",\n        \"pinyin\": \"Dānchún\",\n        \"desc\": \"Definition: Simple Love ft. Obito, Seachains\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/vocabWords/updateVocabWord",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"vocabWords",
+						"updateVocabWord"
+					]
+				},
+				"description": "Update one Vocab Word given a body."
+			},
+			"response": []
+		},
+		{
+			"name": "vocabWord/deleteVocabWord",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/vocabWords/deleteVocabWord/hfdjd032-f32-f3f",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"vocabWords",
+						"deleteVocabWord",
+						"hfdjd032-f32-f3f"
+					]
+				},
+				"description": "Delete one Vocab Word given a vocabWordId."
+			},
+			"response": []
+		}
+	]
+}

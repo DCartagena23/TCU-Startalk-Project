@@ -3,7 +3,10 @@ package edu.cs.tcu.tcustartalkproject.utils;
 import edu.cs.tcu.tcustartalkproject.Book.Book;
 import edu.cs.tcu.tcustartalkproject.Book.BookService;
 import edu.cs.tcu.tcustartalkproject.Chapter.Chapter;
-import edu.cs.tcu.tcustartalkproject.Word.*;
+import edu.cs.tcu.tcustartalkproject.Chapter.ChapterService;
+import edu.cs.tcu.tcustartalkproject.GrammarWord.GrammarWord;
+import edu.cs.tcu.tcustartalkproject.GrammarWord.GrammarWordService;
+import edu.cs.tcu.tcustartalkproject.VocabWord.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -17,10 +20,10 @@ public class DBInitializer implements CommandLineRunner {
     private BookService bookService;
 
     @Autowired
-    private VocabWordService vocabWordService;
+    private ChapterService chapterService;
 
     @Autowired
-    private WordService wordService;
+    private VocabWordService vocabWordService;
 
     @Autowired
     private GrammarWordService grammarWordService;
@@ -44,13 +47,6 @@ public class DBInitializer implements CommandLineRunner {
         Chapter c3 = new Chapter(UUID.randomUUID().toString(),1,"Name 3","");
         Chapter c4 = new Chapter(UUID.randomUUID().toString(),2,"Name 4","");
 
-        Word w1 = new Word("亂");
-        GrammarWord gw1 = new GrammarWord(UUID.randomUUID().toString(),"亂數","Meaning 1");
-        GrammarWord gw2 = new GrammarWord(UUID.randomUUID().toString(),"生器","Meaning 2");
-
-        c1.addGrammarWords(gw1);
-        c1.addGrammarWords(gw2);
-
         b1.addChapter(c1);
         b1.addChapter(c2);
         b2.addChapter(c3);
@@ -63,8 +59,6 @@ public class DBInitializer implements CommandLineRunner {
         bookService.save(b5);
         bookService.save(b6);
         bookService.save(b7);
-
-        wordService.save(w1);
 
         GrammarWord grammarWord1 = new GrammarWord();
         grammarWord1.setId(UUID.randomUUID().toString());
@@ -85,70 +79,50 @@ public class DBInitializer implements CommandLineRunner {
         grammarWord3.setWord("（比方说/像）X啊，Y啊。");
         grammarWord3.setDesc("This pattern is used to list more than one example of the topic. The particle \"M\" is" +
                 "used more frequently in speaking.");
+
+        c1.addGrammarWords(grammarWord1);
+        c1.addGrammarWords(grammarWord2);
+        c1.addGrammarWords(grammarWord3);
+
         grammarWordService.save(grammarWord1);
         grammarWordService.save(grammarWord2);
         grammarWordService.save(grammarWord3);
 
         VocabWord vocabWord1 = new VocabWord();
-        vocabWord1.setId("201");
+        vocabWord1.setId(UUID.randomUUID().toString());
         vocabWord1.setWord("单纯");
-        vocabWord1.setDesc("单纯 \n Definition: Simple \n Pinyin: Dānchún");
+        vocabWord1.setPinyin("Dānchún");
+        vocabWord1.setDesc("Definition: Simple");
 
         VocabWord vocabWord2 = new VocabWord();
-        vocabWord2.setId("202");
+        vocabWord2.setId(UUID.randomUUID().toString());
         vocabWord2.setWord("观念");
-        vocabWord2.setDesc("观念 \n Definition: Idea \n Pinyin: Guānniàn");
+        vocabWord2.setPinyin("Guānniàn");
+        vocabWord2.setDesc("Definition: Idea");
 
         VocabWord vocabWord3 = new VocabWord();
-        vocabWord3.setId("203");
+        vocabWord3.setId(UUID.randomUUID().toString());
         vocabWord3.setWord("社会 制度");
-        vocabWord3.setDesc("社会 制度 \n Definition: Social system \n Pinyin: Shèhuì zhìdù");
+        vocabWord3.setPinyin("Shèhuì zhìdù");
+        vocabWord3.setDesc("Definition: Social system");
 
         VocabWord vocabWord4 = new VocabWord();
-        vocabWord4.setId("204");
+        vocabWord4.setId(UUID.randomUUID().toString());
         vocabWord4.setWord("经济");
-        vocabWord4.setDesc("经济 \n Definition: Economy \n Pinyin: Jīngjì");
+        vocabWord4.setPinyin("Jīngjì");
+        vocabWord4.setDesc("Definition: Economy");
 
         VocabWord vocabWord5 = new VocabWord();
-        vocabWord5.setId("205");
+        vocabWord5.setId(UUID.randomUUID().toString());
         vocabWord5.setWord("挤");
-        vocabWord5.setDesc("挤 \n Definition: Squeeze \n Pinyin: Jǐ");
+        vocabWord5.setPinyin("Jǐ");
+        vocabWord5.setDesc("Definition: Squeeze");
 
         VocabWord vocabWord6 = new VocabWord();
-        vocabWord6.setId("206");
+        vocabWord6.setId(UUID.randomUUID().toString());
         vocabWord6.setWord("保持");
-        vocabWord6.setDesc("保持 \n Definition: Keep \n Pinyin: Bǎochí");
-
-        VocabWord vocabWord7 = new VocabWord();
-        vocabWord7.setId("207");
-        vocabWord7.setWord("隐私");
-        vocabWord7.setDesc("隐私 \n Definition: Privacy \n Pinyin: Yǐnsī");
-
-        VocabWord vocabWord8 = new VocabWord();
-        vocabWord8.setId("208");
-        vocabWord8.setWord("单位");
-        vocabWord8.setDesc("单位 \n Definition: Unit \n Pinyin: Dānwèi");
-
-        VocabWord vocabWord9 = new VocabWord();
-        vocabWord9.setId("209");
-        vocabWord9.setWord("年龄");
-        vocabWord9.setDesc("年龄 \n Definition: Age \n Pinyin: Niánlíng");
-
-        VocabWord vocabWord10 = new VocabWord();
-        vocabWord10.setId("210");
-        vocabWord10.setWord("学历");
-        vocabWord10.setDesc("学历 \n Definition: Education \n Pinyin: Xuélì");
-
-        VocabWord vocabWord11 = new VocabWord();
-        vocabWord11.setId("211");
-        vocabWord11.setWord("秘密");
-        vocabWord11.setDesc("秘密 \n Definition: Secret \n Pinyin: Mìmì");
-
-        VocabWord vocabWord12 = new VocabWord();
-        vocabWord12.setId("212");
-        vocabWord12.setWord("公开");
-        vocabWord12.setDesc("公开 \n Definition: Public \n Pinyin: Gōngkāi");
-
+        vocabWord6.setPinyin("Bǎochí");
+        vocabWord6.setDesc("Definition: Keep");
 
         vocabWordService.save(vocabWord1);
         vocabWordService.save(vocabWord2);
@@ -156,12 +130,5 @@ public class DBInitializer implements CommandLineRunner {
         vocabWordService.save(vocabWord4);
         vocabWordService.save(vocabWord5);
         vocabWordService.save(vocabWord6);
-        vocabWordService.save(vocabWord7);
-        vocabWordService.save(vocabWord8);
-        vocabWordService.save(vocabWord9);
-        vocabWordService.save(vocabWord10);
-        vocabWordService.save(vocabWord11);
-        vocabWordService.save(vocabWord12);
-
     }
 }

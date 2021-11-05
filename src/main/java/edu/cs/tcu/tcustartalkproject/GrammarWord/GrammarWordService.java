@@ -1,7 +1,7 @@
-package edu.cs.tcu.tcustartalkproject.Word;
+package edu.cs.tcu.tcustartalkproject.GrammarWord;
 
-import edu.cs.tcu.tcustartalkproject.Word.GrammarWord;
-import edu.cs.tcu.tcustartalkproject.Word.GrammarWordRepository;
+import edu.cs.tcu.tcustartalkproject.GrammarWord.GrammarWord;
+import edu.cs.tcu.tcustartalkproject.GrammarWord.GrammarWordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

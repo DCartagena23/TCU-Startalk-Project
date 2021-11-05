@@ -1,12 +1,10 @@
-package edu.cs.tcu.tcustartalkproject.Word;
+package edu.cs.tcu.tcustartalkproject.VocabWord;
 
 import edu.cs.tcu.tcustartalkproject.utils.Result;
 import edu.cs.tcu.tcustartalkproject.utils.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/vocabWords")
@@ -18,30 +16,30 @@ public class VocabWordController {
         this.vocabWordService = vocabWordService;
     }
 
-    @RequestMapping("/findOne/{id}")
+    @GetMapping("/findOne/{id}")
     @ResponseBody
     public Result getVocabWord(@PathVariable String id) {
         VocabWord vocabWord = vocabWordService.findById(id);
-        return new Result(StatusCode.SUCCESS, "Find One Product Success", vocabWord);
+        return new Result(StatusCode.SUCCESS, "Find One Vocab Word Success", vocabWord);
     }
 
-    @PostMapping
+    @PostMapping("/saveVocabWord")
     @ResponseBody
-    public Result save(@RequestBody VocabWord vocabWord) {
+    public Result saveVocabWord(@RequestBody VocabWord vocabWord) {
         VocabWord savedVocabWord = vocabWordService.save(vocabWord);
         return new Result(StatusCode.SUCCESS, "Vocab Word Saved!", savedVocabWord);
     }
 
-    @PutMapping
+    @PutMapping("/updateVocabWord")
     @ResponseBody
-    public Result update(@RequestBody VocabWord vocabWord) {
+    public Result updateVocabWord(@RequestBody VocabWord vocabWord) {
         VocabWord updatedWord = vocabWordService.update(vocabWord);
         return new Result(StatusCode.SUCCESS, "Vocab Word Updated!", updatedWord);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/deleteVocabWord/{id}")
     @ResponseBody
-    public Result delete(@PathVariable String id) {
+    public Result deleteVocabWord(@PathVariable String id) {
         vocabWordService.delete(id);
         return new Result(StatusCode.SUCCESS, "Vocab Word Deleted!", null);
     }

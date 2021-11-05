@@ -19,45 +19,42 @@ public class BookController {
         this.bookService = bookService;
     }
 
-    @RequestMapping("/findAll")
+    @GetMapping("/findAll")
     @ResponseBody
     public Result findAllBooks() {
         final List<Book> books = bookService.findAll();
         return new Result(StatusCode.SUCCESS, "Find All Book Success", books);
     }
 
-    @RequestMapping("/findOne/{id}")
+    @GetMapping("/findOne/{id}")
     @ResponseBody
     public Result getBook(@PathVariable String id) {
         Book book = bookService.findById(id);
         return new Result(StatusCode.SUCCESS, "Find Book Success", book);
     }
 
-    @PostMapping
+    @PostMapping("/saveBook")
     @ResponseBody
     public Result saveBook(@RequestBody Book book) {
-        // TO-DO: Review save and update
-        // Why are PUT and POST identical?
         Book savedBook = bookService.save(book);
         return new Result(StatusCode.SUCCESS, "Book Saved!", savedBook);
     }
 
-    @PutMapping
+    @PutMapping("/updateBook")
     @ResponseBody
     public Result updateBook(@RequestBody Book book) {
-        // TO-DO: Review save and update
-        Book updateBook = bookService.save(book);
+        Book updateBook = bookService.update(book);
         return new Result(StatusCode.SUCCESS, "Book Updated!", updateBook);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/deleteBook/{id}")
     @ResponseBody
     public Result deleteBook(@PathVariable String id) {
         bookService.delete(id);
         return new Result(StatusCode.SUCCESS, "Book Deleted!", null);
     }
 
-    @RequestMapping("/getChapters/{id}")
+    @GetMapping("/getChapters/{id}")
     @ResponseBody
     public Result getChapters(@PathVariable String id) {
         Book book = bookService.findById(id);

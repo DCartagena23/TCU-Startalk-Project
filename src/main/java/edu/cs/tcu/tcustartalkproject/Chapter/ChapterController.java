@@ -1,7 +1,7 @@
 package edu.cs.tcu.tcustartalkproject.Chapter;
 
 import edu.cs.tcu.tcustartalkproject.Book.Book;
-import edu.cs.tcu.tcustartalkproject.Word.GrammarWord;
+import edu.cs.tcu.tcustartalkproject.GrammarWord.GrammarWord;
 import edu.cs.tcu.tcustartalkproject.Book.BookService;
 import edu.cs.tcu.tcustartalkproject.utils.Result;
 import edu.cs.tcu.tcustartalkproject.utils.StatusCode;
@@ -24,35 +24,39 @@ public class ChapterController {
     }
 
 
-    @RequestMapping("/findOne/{id}")
+    @GetMapping("/findOne/{id}")
     @ResponseBody
     public Result getChapter(@PathVariable String id) {
         Chapter chapter = chapterService.findById(id);
         return new Result(StatusCode.SUCCESS, "Find Chapter Success", chapter);
     }
 
-    @PutMapping
-    @RequestMapping("/{bookId}")
+    @PostMapping("/saveChapter/{bookId}")
     @ResponseBody
-    public Result updateChapter(@PathVariable String bookId, @RequestBody Chapter chapter) {
-        // TO-DO: Review update. This method has unclear name. Should it be addChapter or updateChapter?
-        // Review the request mapping path
-        // Why does the book add a new chapter  every time updating a chapter?
-        // Where is POST mapping?
+    public Result saveChapter(@PathVariable String bookId, @RequestBody Chapter chapter) {
         Book book = bookService.findById(bookId);
         book.addChapter(chapter);
-        bookService.save(book);
+        bookService.update(book);
+        return new Result(StatusCode.SUCCESS, "Chapter Saved!", chapter);
+    }
+
+    @PutMapping("/updateChapter/{bookId}")
+    @ResponseBody
+    public Result updateChapter(@PathVariable String bookId, @RequestBody Chapter chapter) {
+        Book book = bookService.findById(bookId);
+        book.addChapter(chapter);
+        bookService.update(book);
         return new Result(StatusCode.SUCCESS, "Chapter Updated!", chapter);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/deleteChapter/{id}")
     @ResponseBody
     public Result deleteChapter(@PathVariable String id) {
         chapterService.delete(id);
         return new Result(StatusCode.SUCCESS, "Chapter Deleted!", null);
     }
 
-    @RequestMapping("/getGrammarWords/{id}")
+    @GetMapping("/getGrammarWords/{id}")
     @ResponseBody
     public Result getGrammarWords(@PathVariable String id) {
         Chapter chapter = chapterService.findById(id);

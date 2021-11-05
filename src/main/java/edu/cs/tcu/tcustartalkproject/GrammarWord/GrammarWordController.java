@@ -1,4 +1,4 @@
-package edu.cs.tcu.tcustartalkproject.Word;
+package edu.cs.tcu.tcustartalkproject.GrammarWord;
 
 
 import edu.cs.tcu.tcustartalkproject.Chapter.Chapter;
@@ -29,23 +29,27 @@ public class GrammarWordController {
         return new Result(StatusCode.SUCCESS, "Find One Grammar Word Success", grammarWord);
     }
 
-    @PutMapping
-    @RequestMapping("/{chapterId}")
+    @PostMapping("/saveGrammarWord/{chapterId}")
     @ResponseBody
-    public Result update(@PathVariable String chapterId, @RequestBody GrammarWord grammarWord) {
-        // TO-DO: Review update. This method has unclear name. Should it be addGrammarWord or updateGrammarWord?
-        // Review the request mapping path
-        // Why does the chapter add a new grammarWord  every time updating grammarWord?
-        // Where is POST mapping?
+    public Result saveGrammarWord(@PathVariable String chapterId, @RequestBody GrammarWord grammarWord) {
         Chapter chapter = chapterService.findById(chapterId);
         chapter.addGrammarWords(grammarWord);
-        chapterService.save(chapter);
+        chapterService.update(chapter);
+        return new Result(StatusCode.SUCCESS, "Grammar Word Saved!", grammarWord);
+    }
+
+    @PutMapping("/updateGrammarWord/{chapterId}")
+    @ResponseBody
+    public Result updateGrammarWord(@PathVariable String chapterId, @RequestBody GrammarWord grammarWord) {
+        Chapter chapter = chapterService.findById(chapterId);
+        chapter.addGrammarWords(grammarWord);
+        chapterService.update(chapter);
         return new Result(StatusCode.SUCCESS, "Grammar Word Updated!", grammarWord);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/deleteGrammarWord/{id}")
     @ResponseBody
-    public Result delete(@PathVariable String id) {
+    public Result deleteGrammarWord(@PathVariable String id) {
         grammarWordService.delete(id);
         return new Result(StatusCode.SUCCESS, "Grammar Word Deleted!", null);
     }

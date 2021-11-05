@@ -3,7 +3,7 @@ package edu.cs.tcu.tcustartalkproject.Chapter;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import edu.cs.tcu.tcustartalkproject.Book.Book;
-import edu.cs.tcu.tcustartalkproject.Word.GrammarWord;
+import edu.cs.tcu.tcustartalkproject.GrammarWord.GrammarWord;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -85,6 +85,7 @@ public class Chapter {
     public void setGrammarWords(List<GrammarWord> grammarWords) {
         this.grammarWords = grammarWords;
     }
+
     public void addGrammarWords(GrammarWord grammarWord){
         this.grammarWords.add(grammarWord);
         grammarWord.setChapter(this);

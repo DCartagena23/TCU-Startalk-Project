@@ -1,7 +1,5 @@
-package edu.cs.tcu.tcustartalkproject.Word;
+package edu.cs.tcu.tcustartalkproject.VocabWord;
 
-import edu.cs.tcu.tcustartalkproject.Word.VocabWord;
-import edu.cs.tcu.tcustartalkproject.Word.VocabWordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
