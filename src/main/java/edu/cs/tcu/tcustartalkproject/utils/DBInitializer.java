@@ -1,5 +1,7 @@
 package edu.cs.tcu.tcustartalkproject.utils;
 
+import com.github.houbb.segment.support.segment.result.impl.SegmentResultHandlers;
+import com.github.houbb.segment.util.SegmentHelper;
 import edu.cs.tcu.tcustartalkproject.Book.Book;
 import edu.cs.tcu.tcustartalkproject.Book.BookService;
 import edu.cs.tcu.tcustartalkproject.Chapter.Chapter;
@@ -11,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+
+import java.util.List;
+import java.util.ListIterator;
 import java.util.UUID;
 
 @Component
@@ -42,7 +47,7 @@ public class DBInitializer implements CommandLineRunner {
         Book b6 = new Book(UUID.randomUUID().toString(),"Harry Potter and the Half-Blood Prince", "Bla","JKR", 35.99);
         Book b7 = new Book(UUID.randomUUID().toString(),"Harry Potter and the Deathly Hallows", "Bla","JKR", 35.99);
 
-        Chapter c1 = new Chapter(UUID.randomUUID().toString(), 1,"Name 1","亂數假文產生器。\n亂數假文產生器。");
+        Chapter c1 = new Chapter(UUID.randomUUID().toString(), 1,"Name 1","亂數假文產生器。亂數假文產生器。亂數假文產生器。亂數假文產生器。亂數假文產生器。亂數假文產生器。亂數假文產生器。亂數假文產生器。亂數假文產生器。亂數假文產生器。亂數假文產生器。亂數假文產生器。亂數假文產生器。亂數假文產生器。亂數假文產生器。亂數假文產生器。亂數假文產生器。亂數假文產生器。亂數假文產生器。\n亂數假文產生器。");
         Chapter c2 = new Chapter(UUID.randomUUID().toString(), 2,"Name 2","亂數假文產生器。\n亂數假文產生器。");
         Chapter c3 = new Chapter(UUID.randomUUID().toString(),1,"Name 3","");
         Chapter c4 = new Chapter(UUID.randomUUID().toString(),2,"Name 4","");
@@ -130,5 +135,6 @@ public class DBInitializer implements CommandLineRunner {
         vocabWordService.save(vocabWord4);
         vocabWordService.save(vocabWord5);
         vocabWordService.save(vocabWord6);
+
     }
 }
