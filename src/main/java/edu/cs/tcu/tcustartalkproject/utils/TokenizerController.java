@@ -11,6 +11,7 @@ import com.github.houbb.segment.support.segment.result.impl.SegmentResultHandler
 import com.github.houbb.segment.util.SegmentHelper;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.StringTokenizer;
 
 @Controller
 public class TokenizerController {
@@ -18,13 +19,26 @@ public class TokenizerController {
     @PostMapping("/tokenize")
     @ResponseBody
     public Result tokenize(@RequestBody Chapter chapter) {
-        List<String> resultList = SegmentHelper.segment(chapter.getText(), SegmentResultHandlers.word());
-        ListIterator<String> resultIterator = resultList.listIterator();
-        String str = "";
-        while (resultIterator.hasNext()) {
-            str = str+ " " +resultIterator.next();
+        StringTokenizer st = new StringTokenizer(chapter.getText(),"\n");
+        String finalString = "";
+        String temp = "";
+        while (st.hasMoreTokens()){
+            List<String> resultList = SegmentHelper.segment(st.nextToken().replaceAll("\\s", ""), SegmentResultHandlers.word());
+            ListIterator<String> resultIterator = resultList.listIterator();
+            String str = "";
+            while (resultIterator.hasNext()) {
+                temp = resultIterator.next();
+                if (!resultIterator.hasNext()){
+                    str = str + temp;
+                }
+                else str = str+temp+ " ";
+            }
+            if (!st.hasMoreTokens()){
+                finalString = finalString + str;
+            }
+            else finalString = finalString + str + "\n";
         }
-        chapter.setText(str);
+        chapter.setText(finalString);
         return new Result(StatusCode.SUCCESS, "Tokenize Success", chapter);
     }
 
