@@ -16,7 +16,10 @@ public class Chapter {
 
     private Integer number = null;
     private String title = null;
+    @Column(columnDefinition="text")
     private String text = null;
+
+    private String timeStamp = null;
 
     @JsonBackReference
     @ManyToOne
@@ -44,6 +47,14 @@ public class Chapter {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(String timeStamp) {
+        this.timeStamp = timeStamp;
     }
 
     public Integer getNumber() {

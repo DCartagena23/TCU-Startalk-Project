@@ -1,7 +1,6 @@
 package edu.cs.tcu.tcustartalkproject.utils;
 
-import com.github.houbb.segment.support.segment.result.impl.SegmentResultHandlers;
-import com.github.houbb.segment.util.SegmentHelper;
+
 import edu.cs.tcu.tcustartalkproject.Book.Book;
 import edu.cs.tcu.tcustartalkproject.Book.BookService;
 import edu.cs.tcu.tcustartalkproject.Chapter.Chapter;
@@ -14,8 +13,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 
-import java.util.List;
-import java.util.ListIterator;
 import java.util.UUID;
 
 @Component
@@ -52,6 +49,7 @@ public class DBInitializer implements CommandLineRunner {
         Chapter c3 = new Chapter(UUID.randomUUID().toString(),1,"Name 3","");
         Chapter c4 = new Chapter(UUID.randomUUID().toString(),2,"Name 4","");
 
+        c1.setTimeStamp("1:00/2:00/3:00/4:00/5:00/6:00");
         b1.addChapter(c1);
         b1.addChapter(c2);
         b2.addChapter(c3);
