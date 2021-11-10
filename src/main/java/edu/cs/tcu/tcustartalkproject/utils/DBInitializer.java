@@ -44,7 +44,7 @@ public class DBInitializer implements CommandLineRunner {
         Book b6 = new Book(UUID.randomUUID().toString(),"Harry Potter and the Half-Blood Prince", "Bla","JKR", 35.99);
         Book b7 = new Book(UUID.randomUUID().toString(),"Harry Potter and the Deathly Hallows", "Bla","JKR", 35.99);
 
-        Chapter c1 = new Chapter(UUID.randomUUID().toString(), 1,"Name 1","亂數假文產生器。亂數假文產生器。\n亂數假文產生器。");
+        Chapter c1 = new Chapter(UUID.randomUUID().toString(), 1,"Name 1","洁面仪配合洁面深层清洁毛孔 清洁鼻孔面膜碎觉使劲挤才能出一点点皱纹 脸颊毛孔修复的看不见啦 草莓鼻历史遗留问题没辙 脸和脖子差不多颜色的皮肤才是健康的 长期使用安全健康的比同龄人显小五到十岁 28岁的妹子看看你们的鱼尾纹");
         Chapter c2 = new Chapter(UUID.randomUUID().toString(), 2,"Name 2","亂數假文產生器。\n亂數假文產生器。");
         Chapter c3 = new Chapter(UUID.randomUUID().toString(),1,"Name 3","");
         Chapter c4 = new Chapter(UUID.randomUUID().toString(),2,"Name 4","");
