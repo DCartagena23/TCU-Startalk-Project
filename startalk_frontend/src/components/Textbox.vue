@@ -1,0 +1,302 @@
+<template>
+            <b-col cols="8">
+                <div id="textbook">
+                    <div id="textbokx">
+                                            在
+        茂密
+        的
+        大
+        森林
+        里
+        ，
+        一
+        只
+        饥饿
+        的
+        老虎
+        逮
+        住
+        了
+        一
+        只
+        狐狸
+        。
+        老虎
+        张开
+        大
+        嘴
+        就要
+        把
+        狐狸
+        吃掉
+        。“
+        慢
+        着
+        ”！
+        狐狸
+        虽然
+        很
+        害怕
+        但
+        还是
+        装出
+        一
+        副
+        很
+        神气
+        的
+        样子
+        说
+        ，“
+        你
+        知道
+        我
+        是
+        谁
+        吗
+        ？
+        我
+        可是
+        玉皇大帝
+        派
+        来
+        管理
+        百兽
+        的
+        兽
+        王
+        ，
+        你
+        要是
+        吃
+        了
+        我
+        ，
+        玉皇大帝
+        是
+        决
+        不会
+        放过
+        你
+        的
+        ”。
+        
+        老虎
+        有点儿
+        不
+        相信
+        ，
+        心想
+        这
+        家伙
+        又
+        瘦
+        又
+        小
+        ，
+        怎么
+        会
+        是
+        兽
+        王
+        呢
+        ？
+        狐狸
+        见
+        老虎
+        有些
+        迟疑
+        就
+        说
+        ：“
+        如果
+        你
+        不
+        相信
+        ，
+        就
+        跟
+        在
+        我
+        后面
+        。
+        咱们
+        到
+        森林
+        里
+        走
+        一
+        趟
+        看看
+        动物
+        们
+        见到
+        我
+        害怕
+        不
+        害怕
+        。”
+        
+        老虎
+        被
+        狐狸
+        说动
+        了
+        ，
+        答应
+        跟
+        他
+        走
+        一
+        趟
+        。
+        狐狸
+        得意洋洋
+        ，
+        昂
+        着
+        头
+        ，
+        大
+        模
+        大样
+        地
+        走
+        在
+        前面
+        。
+        
+        老虎
+        不知
+        是
+        计
+        ，
+        瞪
+        着
+        两
+        只
+        眼睛
+        ，
+        一
+        步
+        不
+        落地
+        紧跟
+        在
+        后面
+        。
+        
+        森林
+        里
+        的
+        小
+        动物
+        们
+        玩儿
+        得
+        正
+        高兴
+        ，
+        忽然
+        听到
+        树
+        上
+        的
+        小鸟
+        报信
+        。
+        他们
+        扭头
+        一
+        看
+        ，
+        只
+        见
+        狐狸
+        神气
+        十足
+        地
+        走
+        在
+        前面
+        ，
+        后面
+        跟着
+        一
+        只
+        龇牙咧嘴
+        的
+        老虎
+        ，
+        他们
+        被
+        吓
+        得
+        四处
+        逃窜
+        。
+        
+        狐狸
+        仗
+        着
+        老虎
+        耍
+        足
+        了
+        威风
+        ，
+        可
+        老虎
+        还
+        以为
+        动物
+        们
+        是
+        害怕
+        狐狸
+        呢
+        ，
+        就
+        把
+        狐狸
+        的话
+        当真
+        了
+        ，
+        再也
+        不
+        敢
+        吃
+        他
+        了
+        。
+        <audio controls style="width:95%; margin:5px">
+            <source src="../assets/Privacy.mp3" type="audio/mp3" id="sound">
+          Your browser does not support the audio element.
+        </audio>
+        <b-button variant="info" v-show="toggleEditButton">Edit Passage</b-button>
+                    </div>
+                </div>
+                <b-button variant="info" style="float: left; margin: 5px 5px 5px 0;"> Previous Page</b-button>
+                <b-button variant="info" style="float: right; margin: 5px 0 5px 5px;"> Next Page</b-button>
+            </b-col>
+</template>
+
+<style scoped>
+#textbook{
+    padding:25px;
+    /* margin:25px; */
+    text-align: center;
+    border-width: 2px;
+    border-style: solid;
+}
+</style>
+
+<script>
+export default {
+    name:"Textbox",
+    props:{
+        toggleEditButton:Boolean
+    }
+}
+</script>
