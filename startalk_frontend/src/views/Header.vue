@@ -3,7 +3,7 @@
         <b-col>
                 <Logo :toggleHome="toggleHome" />
         </b-col>
-        <b-col cols="5">
+        <b-col cols="6">
             <div>
                 <!-- <div class="nav" v-on:click="toggleAccount">Textbook</div>
                 <div class="nav" v-on:click="toggleAccount">Assignment</div>
@@ -12,6 +12,7 @@
                 <NavButton title="Textbook" :toggleFunction="toggleTextbook" />
                 <NavButton title="Assignment" :toggleFunction="toggleAssignment" />
                 <NavButton title="Exam" :toggleFunction="toggleExam"/>
+                <NavButton title="Grades" :toggleFunction="toggleGrades"/>
                 <NavButton title="Forum" :toggleFunction="toggleForum"/>
             </div>
         </b-col>
@@ -85,6 +86,7 @@ export default {
         toggleForum:Function,
         toggleHome:Function,
         toggleAccount:Function,
+        toggleGrades:Function,
         accountMode:String
     }
 }

@@ -80,7 +80,7 @@
         你
         的
         ”。
-        
+
         老虎
         有点儿
         不
@@ -136,7 +136,7 @@
         不
         害怕
         。”
-        
+
         老虎
         被
         狐狸
@@ -165,7 +165,7 @@
         在
         前面
         。
-        
+
         老虎
         不知
         是
@@ -185,7 +185,7 @@
         在
         后面
         。
-        
+
         森林
         里
         的
@@ -235,7 +235,7 @@
         四处
         逃窜
         。
-        
+
         狐狸
         仗
         着
@@ -274,10 +274,10 @@
             <source src="../assets/Privacy.mp3" type="audio/mp3" id="sound">
           Your browser does not support the audio element.
         </audio>
-        <b-button variant="info" v-show="toggleEditButton">Edit Passage</b-button>
                     </div>
                 </div>
                 <b-button variant="info" style="float: left; margin: 5px 5px 5px 0;"> Previous Page</b-button>
+                <b-button variant="info" v-on:click="toggleEditPassage" v-show="toggleEditButton" style="margin: 5px 0 0 0">Edit Passage</b-button>
                 <b-button variant="info" style="float: right; margin: 5px 0 5px 5px;"> Next Page</b-button>
             </b-col>
 </template>
@@ -296,7 +296,8 @@
 export default {
     name:"Textbox",
     props:{
-        toggleEditButton:Boolean
+        toggleEditButton:Boolean,
+        toggleEditPassage:Function
     }
 }
 </script>

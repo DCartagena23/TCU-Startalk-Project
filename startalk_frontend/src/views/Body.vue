@@ -3,7 +3,7 @@
         <TextboxHead />
         <b-row>
             <TextbookSidebar />
-            <Textbox :toggleEditButton="toggleEditButton" />
+            <Textbox :toggleEditButton="toggleEditButton" :toggleEditPassage="toggleEditPassage" />
             <b-col></b-col>
         </b-row>
     </div>
@@ -26,7 +26,8 @@ export default {
         TextbookSidebar
     },
     props:{
-        toggleEditButton:Boolean
+        toggleEditButton:Boolean,
+        toggleEditPassage:Function
     },
 }
 </script>
