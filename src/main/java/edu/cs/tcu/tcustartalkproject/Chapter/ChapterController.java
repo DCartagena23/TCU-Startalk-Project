@@ -3,6 +3,7 @@ package edu.cs.tcu.tcustartalkproject.Chapter;
 import edu.cs.tcu.tcustartalkproject.Book.Book;
 import edu.cs.tcu.tcustartalkproject.GrammarWord.GrammarWord;
 import edu.cs.tcu.tcustartalkproject.Book.BookService;
+import edu.cs.tcu.tcustartalkproject.Pinyin.Pinyin;
 import edu.cs.tcu.tcustartalkproject.utils.Result;
 import edu.cs.tcu.tcustartalkproject.utils.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,5 +63,13 @@ public class ChapterController {
         Chapter chapter = chapterService.findById(id);
         final List<GrammarWord> grammarWords = chapter.getGrammarWords();
         return new Result(StatusCode.SUCCESS, "Get Grammar Words Success", grammarWords);
+    }
+
+    @GetMapping("/getPinyin/{id}")
+    @ResponseBody
+    public Result getPinyin(@PathVariable String id) {
+        Chapter chapter = chapterService.findById(id);
+        final List<Pinyin> pinyin = chapter.getPinyin();
+        return new Result(StatusCode.SUCCESS, "Get Grammar Words Success", pinyin);
     }
 }
