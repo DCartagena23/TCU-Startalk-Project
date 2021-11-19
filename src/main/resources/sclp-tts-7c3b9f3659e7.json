@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "sclp-tts",
+  "private_key_id": "7c3b9f3659e776e8d4632f6014b1da647200f4cb",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCCqO+2NbmmPpKN\nQoMNTAkPf96ON+rDB2MzrmByIRlkj1NixWcaQFERAZbw0ZKLi7pzkgeoRoQHzxze\n1p19f09riArvz9JMVpzq8GYCodDmnnwxywY3zzSboBO/kyUO+s0aIUsC9wcurfBF\npyiO/f1Pa+1Wx1oCo2c8VZpoigLvpO4SVDvt2IaZ9ZjbwvntmDjB3WnZ1Fnmy+mq\nrpVb4w40etqQlNWBvfjcPZaG0FSjZgk7a/dHNh3iT3fvfwU6Ud48SsRopnKjEsA+\nViFXKHCc2YHgvBUh7DysQAWpWlXxs/O9BCu6lmsI8jynagIJcRcLR+K1n6vBvO8S\nmywm46vfAgMBAAECggEAFUHeO2XC6NIgo7d2J3v/CV+DWjNXZW2BQo+UhLJFNaq/\nz+pP24x/4+Vp+joOaSz4I69WwZY0tX8zsj7LwUwszqYufqpFYO1tJX1WYLKU5cBT\nx6zBO+PhKjnr8ezC8wyeFn840KhXVHfbXGmqsUDkrRQ2Y+TrtvwrYpHcHN/p7wpJ\nvUsXoo+/VzoKrZoHc5t1LInou3TA3102I3XSWwwQI62HnYD75mJCdcL6Car7Lfao\ned8c1K5+Dsaet4V4fXau/QbIGJa4l48b9/dPSAAUa0CrBkFCtgSbHC16dFb8K86J\nlBMnX6cYtZLJ/TS3+Vs5dthVPPiGIhGqoRxrpPgksQKBgQC3MvBu9N32vj9kmThP\nnaaQQF+idaBtNDEbbZBehaTGaSq+47oEHUk5nMyB87XHchYTurQr5MHjPDjKN6Ej\nh8ek1IVb2MOBYMuy4tiEKoxCMHpNwUay8d5yfWu2Zm5gGl2Tbx4thxjy2dE7ua4e\nGccpZceW9mpF7ulBbCPMAZ7QZwKBgQC2lSG4NFZzGmqA8Iwg69NSuiDayFPuAeQS\nQhzuG0Lixn6yLPC+wo/8YldnGsxjL1TYr7cEbb8xnVtVq8sW9/jTifdvD0+GtHN7\nR71vF5OuCQJqTobdDAP/rIGa1ynURcPoTgp4Ej/T5rpAnFLqWFFJ4d3V/N8Qbj0i\n61M5Bjq9yQKBgHG3BNda14yZevAOy41f5kwUKUjGitY+V10XHU4O1sDx9r6WzJhR\nNWq1kZv4kxVCE8IbWksEq/VJJFchQLy1Q49k+4KPgouEceyQMqWXY4iSXth06FWb\nHOEkSP/nhQvSUdN6XdkUyr+zxNS15QZ6Kc3gh4uFWWIfclpRrcasGtBxAoGBAIXy\nDEXF57ITrBSh5Dt2ppanQ9kdZC1Up8wZQn4P89bIhkQSoh9gPx+JydMzHsSZAabh\n6eNO3Bf69/l2ycw06Q/PxH1ufwo0sg+8BqZMZqQjqejxaREbcoeMN5yvwtkewWVY\nc2e5A6hiOTuTM2UGm8QW9pa5J7A3H5TRjUFlZ4y5AoGBAJ/RVtXmNlPYTR4rvwXf\nRRplr6q58alm1IfDppHFEo8LyK2i1QEBkYv1zq9u9MZKFjOsQD8+vEmzCFJCUBw2\nozcazRWNN5ZwP4hClK3q+afhUBZ0J047F5ocPOSoSUINCVwXvHTqwOrNcOeOvmHH\nX1S4JAVcvzg7oDZjnCoQbUww\n-----END PRIVATE KEY-----\n",
+  "client_email": "dcartagena@sclp-tts.iam.gserviceaccount.com",
+  "client_id": "115753593217628180911",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/dcartagena%40sclp-tts.iam.gserviceaccount.com"
+}
