@@ -1,0 +1,411 @@
+{
+   "products":[
+      {
+         "id":1,
+         "name":"Dragon Liver",
+         "description":"A Dragon liver was the liver taken from a dragon. They cost sixteen Sickles an ounce, and were used as potion-ingredients, particularly in the brewing of Doxycide and the Healing Potion.",
+         "price":16.00,
+         "inStock":true,
+         "imageURL":"/images/products/DragonLiver.png",
+         "comments":[
+            
+         ]
+      },
+      {
+         "id":2,
+         "name":"Golden Snitch",
+         "description":"The Golden Snitch, often simply called the Snitch, is the third and smallest ball used in Quidditch. It is a walnut-sized gold-coloured sphere with silver wings. It flies around the Quidditch field at high speeds, sometimes pausing and hovering in place.",
+         "price":1.25,
+         "inStock":false,
+         "imageURL":"/images/products/GoldenSnitch.png",
+         "comments":[
+            {
+               "id":1,
+               "text":"I'm so sad this product is no longer available!"
+            },
+            {
+               "id":2,
+               "text":"When do you expect to have it back?"
+            }
+         ]
+      },
+      {
+         "id":3,
+         "name":"Unicorn Hair",
+         "description":"Unicorn hair was a powerful magical substance with a variety of uses, originating on the body of a unicorn. It can be used as the core of wands. It was frequently shed from the creature.",
+         "price":2.50,
+         "inStock":true,
+         "imageURL":"/images/products/UnicornHair.png",
+         "comments":[
+            
+         ]
+      },
+      {
+         "id":4,
+         "name":"Horn of Bicon",
+         "description":"Bicorns possessed two large horns. These horns were shed annually and were gathered when the Bicorn was not looking. One powdered horn was a required ingredient for Polyjuice Potion. It was not found in the student store-cupboard, but Professor Snape kept one in his office.",
+         "price":18.75,
+         "inStock":true,
+         "imageURL":"/images/products/BicornHorn.png",
+         "comments":[
+            
+         ]
+      },
+      {
+         "id":5,
+         "name":"Floating Candle",
+         "description":"The Great Hall floating candles are sticks of wax floating and covering the entire ceiling of the Great Hall to give the Hogwarts students light while they are eating during a feast, breakfast, lunch or dinner.",
+         "price":6.34,
+         "inStock":true,
+         "imageURL":"/images/products/FloatingCandle.jpg",
+         "comments":[
+            
+         ]
+      },
+      {
+         "id":6,
+         "name":"Gobstone",
+         "description":"A Gobstone is a round ball used to play popular wizarding game Gobstones. Gobstones are similar to ordinary Muggle marbles, except that when a player loses a point in Gobstones, the stone spits a putrid liquid at the player. Sold in sets of thirty, Gobstones are most commonly made of stone, but may also be made of precious metals, such as gold.",
+         "price":1.99,
+         "inStock":true,
+         "imageURL":"/images/products/Gobstone.png",
+         "comments":[
+            
+         ]
+      },
+      {
+         "id":7,
+         "name":"Butterbeer",
+         "description":"Butterbeer was a popular wizarding beverage described as tasting \"a little bit like less-sickly butterscotch\". It was served at numerous locations in the wizarding world and had a very slight alcoholic content. Students of Hogwarts School of Witchcraft and Wizardry would often buy it when visiting Hogsmeade.",
+         "price":3.07,
+         "inStock":true,
+         "imageURL":"/images/products/Butterbeer.jpg",
+         "comments":[
+            
+         ]
+      },
+      {
+         "id":8,
+         "name":"Winged Catapult",
+         "description":"A winged catapult is a magical catapult with wings which allows it to fly. ",
+         "price":2.58,
+         "inStock":true,
+         "imageURL":"/images/products/WingedCatapult.png",
+         "comments":[
+            
+         ]
+      },
+      {
+         "id":9,
+         "name":"Threat Meter",
+         "description":"The Threat meter was a magical device not unlike to the Magical Exposure Threat measurer at the headquarters of the Magical Congress of the United States of America, New York, and was by the Statute of Secrecy Task Force in the 21st century to identify the danger a given Foundable posted to the Statute of Secrecy. It was discovered that the more likely a Foundable is to break the International Statute of Secrecy, the higher the threat given by the system became, and the more difficult it was to return it to whence it came.",
+         "price":3.02,
+         "inStock":true,
+         "imageURL":"/images/products/ThreatMeter.png",
+         "comments":[
+            {
+               "id":11,
+               "text":"Made bread with this and it was great!"
+            },
+            {
+               "id":12,
+               "text":"Note: this comes actually mixed with wheat flour"
+            }
+         ]
+      },
+      {
+         "id":10,
+         "name":"Invisible Ink",
+         "description":"Invisible Ink was a type of magical ink that transfigures anything written in it to become invisible. Text written in invisible ink can be rendered visible again in two ways, either by using a Revealer or the spell Aparecium.",
+         "price":2.58,
+         "inStock":true,
+         "imageURL":"/images/products/InvisibleInk.jpg",
+         "comments":[
+            
+         ]
+      },
+      {
+         "id":11,
+         "name":"Remembrall",
+         "description":"A Remembrall is a magical large marble-sized glass ball that contains smoke which turns red when its owner or user has forgotten something. It turns clear once whatever was forgotten is remembered.",
+         "price":5.98,
+         "inStock":true,
+         "imageURL":"/images/products/Remembrall.gif",
+         "comments":[
+            
+         ]
+      },
+      {
+         "id":12,
+         "name":"Flipendo Button",
+         "description":"Flipendo Buttons were magical buttons in Hogwarts School of Witchcraft and Wizardry and other places such as Ollivanders that were bound to only activate when the Knockback Jinx, Flipendo, was cast on them.",
+         "price":2.08,
+         "inStock":false,
+         "imageURL":"/images/products/FlipendoButton.png",
+         "comments":[
+            
+         ]
+      },
+      {
+         "id":13,
+         "name":"Chocolate Frog",
+         "description":"Chocolate frogs were a very popular wizarding sweet made from chocolate in the form of a frog. They came with a collectible card of a famous witch or wizard in each pack. The frogs were made of seventy percent croakoa. Presumably, this substance was what allowws them to magically act like an actual frog.",
+         "price":1.75,
+         "inStock":false,
+         "imageURL":"/images/products/ChocolateFrog.png",
+         "comments":[
+            {
+               "id":3,
+               "text":"Very tasty! I'd definitely buy it again!"
+            },
+            {
+               "id":4,
+               "text":"My kids love it!"
+            },
+            {
+               "id":5,
+               "text":"Good, my basic breakfast cereal. Though maybe a bit in the sweet side..."
+            },
+            {
+               "id":6,
+               "text":"Not that I find it bad, but I think the vanilla flavouring is too intrusive"
+            },
+            {
+               "id":7,
+               "text":"I agree with the excessive flavouring, but still one of my favourites!"
+            },
+            {
+               "id":8,
+               "text":"Cheaper than at the local store!"
+            },
+            {
+               "id":9,
+               "text":"I'm sorry to disagree, but IMO these are far too sweet"
+            },
+            {
+               "id":10,
+               "text":"Good. Pricey though."
+            }
+         ]
+      },
+      {
+         "id":14,
+         "name":"Unicorn Blood",
+         "description":"Unicorn blood was a thick, silvery magical substance that runs within a unicorn's veins. The blood of a unicorn will keep you alive, even if you are an inch from death, but at a terrible price. You have slain something pure and defenceless to save yourself, and you will have but a half-life, a cursed life, from the moment the blood touches your lips.",
+         "price":5.01,
+         "inStock":false,
+         "imageURL":"/images/products/UnicornBlood.png",
+         "comments":[
+            {
+               "id":13,
+               "text":"Awesome Spanish oil. Buy it now."
+            },
+            {
+               "id":14,
+               "text":"Would definitely buy it again. Best one I've tasted"
+            },
+            {
+               "id":15,
+               "text":"A bit acid for my taste, but still a very nice one."
+            },
+            {
+               "id":16,
+               "text":"Definitely not the average olive oil. Really good."
+            }
+         ]
+      },
+      {
+         "id":15,
+         "name":"Gillyweed",
+         "description":"Gillyweed was a magical plant that, when eaten, allowed a human to breathe underwater. It was said to resemble a bundle of slimy, grey-green rat tails. When eaten, it gave the consumer gills, allowing them to breathe underwater, and webbing between the fingers and toes, allowing them to swim underwater with ease. Gillyweed was native to the Mediterranean Sea.",
+         "price":2.40,
+         "inStock":true,
+         "imageURL":"/images/products/Gillyweed.png",
+         "comments":[
+            
+         ]
+      },
+      {
+         "id":16,
+         "name":"Dittany",
+         "description":"Dittany is a magical plant used in potion-making. It is a powerful healing herb and restorative. Its use makes fresh skin grow over a wound and after application the wound seems several days old.",
+         "price":2.19,
+         "inStock":true,
+         "imageURL":"/images/products/Dittany.png",
+         "comments":[
+            {
+               "id":17,
+               "text":"Great value!"
+            }
+         ]
+      },
+      {
+         "id":17,
+         "name":"Granian Hair",
+         "description":"Granian hair is hair taken from a Granian Winged horse, which can be used as a potion ingredient, such as in the Exstimulo Potion.",
+         "price":3.24,
+         "inStock":true,
+         "imageURL":"/images/products/GranianHair.png",
+         "comments":[
+            
+         ]
+      },
+      {
+         "id":18,
+         "name":"Fluxweed",
+         "description":"Fluxweed was a magical plant and member of the mustard family known for its healing properties.",
+         "price":3.17,
+         "inStock":true,
+         "imageURL":"/images/products/Fluxweed.png",
+         "comments":[
+            
+         ]
+      },
+      {
+         "id":19,
+         "name":"Owl Treat",
+         "description":"Owl Treats are pet food intended for consumption by owls.",
+         "price":8.88,
+         "inStock":true,
+         "imageURL":"/images/products/OwlTreat.png",
+         "comments":[
+            
+         ]
+      },
+      {
+         "id":20,
+         "name":"Top Dog Biscuits",
+         "description":"Top Dog Biscuits was a wizarding brand of dog food. The box had a picture of a fully clothed dog eating falling dog treats with colourful letters around it spelling \"WOLF 'EM DOWN!\". These dog biscuits also, according to the box, bit the dog back.",
+         "price":3.90,
+         "inStock":false,
+         "imageURL":"/images/products/TopDogBiscuits.png",
+         "comments":[
+            
+         ]
+      },
+      {
+         "id":21,
+         "name":"Knotgrass",
+         "description":"Knotgrass is a plant with magical properties. It is used in Potion-making, and is an essential ingredient in the making of the Polyjuice Potion, as well as in the brewing of the alcoholic beverage Knotgrass Mead.",
+         "price":10.13,
+         "inStock":true,
+         "imageURL":"/images/products/Knotgrass.png",
+         "comments":[
+            
+         ]
+      },
+      {
+         "id":22,
+         "name":"Butterscotch",
+         "description":"Butterscotch is a type of confectionery that may also be used in some potions, such as the Dawdle Draught, where it is used to give off an alluring, sweet scent. It is also the prime ingredient in Butterbeer, which tastes like \"less-sickly butterscotch.\"",
+         "price":2.44,
+         "inStock":true,
+         "imageURL":"/images/products/Butterscotch.png",
+         "comments":[
+            
+         ]
+      },
+      {
+         "id":23,
+         "name":"Billywig Sting",
+         "description":"The sting of the Billywig caused giddiness, followed by levitation. Dried billywig stings were used as ingredients in several potions, including the Antidote to Uncommon Poisons and the Wideye Potion. It was also rumoured to be an ingredient in the popular sweet Fizzing Whizzbees. The stings produced a slime, which was is also used in potion-making.",
+         "price":2.30,
+         "inStock":true,
+         "imageURL":"/images/products/BillywigSting.png",
+         "comments":[
+            
+         ]
+      },
+      {
+         "id":24,
+         "name":"Caterpillar",
+         "description":"Sliced caterpillars are used as an ingredient in the Shrinking Solution.",
+         "price":2.48,
+         "inStock":true,
+         "imageURL":"/images/products/Caterpillars.png",
+         "comments":[
+            {
+               "id":18,
+               "text":"My favourite :)"
+            }
+         ]
+      },
+      {
+         "id":25,
+         "name":"Peacock Feather",
+         "description":"Peacock feathers were the feathers of a peacock. They were used in Dragon Tonic. Also, Quills could be made out of these feathers. Gilderoy Lockhart owned a peacock feather quill that he used for signing autographs, which matched his flamboyant nature. Garrick Ollivander's peacock would lose its feathers if it got scared, and sold them at one Knut for each feather.",
+         "price":4.72,
+         "inStock":true,
+         "imageURL":"/images/products/PeacockFeather.png",
+         "comments":[
+            
+         ]
+      },
+      {
+         "id":26,
+         "name":"Erumpent horn",
+         "description":"An Erumpent horn is the horn of an Erumpent, a magical beast. The horn contains a fluid that causes whatever it is injected into to explode. They are highly prized as potion ingredients, but are listed as a Class-B Tradeable Material.",
+         "price":6.46,
+         "inStock":true,
+         "imageURL":"/images/products/ErumpentHorn.png",
+         "comments":[
+            
+         ]
+      },
+      {
+         "id":27,
+         "name":"Nagini's venom",
+         "description":"The venom produced from the snake-form of the Maledictus, Nagini, was an extremely potent poison that prevents the wounds of the victim from healing. This would lead to severe blood loss that must be compensated with a Blood-Replenishing Potion, or the blood loss severity would turn fatal. There was an antidote to it, though apparently hard to find. The venom is capable of melting stitches, rendering it an ineffective treatment.",
+         "price":3.48,
+         "inStock":false,
+         "imageURL":"/images/products/Nagini.jpg",
+         "comments":[
+            
+         ]
+      },
+      {
+         "id":28,
+         "name":"Bitter Root",
+         "description":"Bitter root (alternatively spelled bitterroot) is a plant that can be used as a potion ingredient. It is used in the Exstimulo Potion, Strong Exstimulo Potion and Potent Exstimulo Potion, and is presumably one the ingredients used to brew the Burning Bitterroot Balm, a healing potion.",
+         "price":18.34,
+         "inStock":true,
+         "imageURL":"/images/products/BitterRoot.png",
+         "comments":[
+            
+         ]
+      },
+      {
+         "id":29,
+         "name":"Hermit Crab Shell",
+         "description":"The shell of a hermit crab is used an ingredient in making potions, such as the Dawdle Draught.",
+         "price":3.52,
+         "inStock":true,
+         "imageURL":"/images/products/HermitCrabShell.png",
+         "comments":[
+            
+         ]
+      },
+      {
+         "id":30,
+         "name":"Beetle Eye",
+         "description":"Beetle eyes are the eyes of beetles and a common potion ingredient.",
+         "price":4.00,
+         "inStock":true,
+         "imageURL":"/images/products/BeetleEyes.png",
+         "comments":[
+            {
+               "id":19,
+               "text":"Too hard! I would not buy again"
+            },
+            {
+               "id":20,
+               "text":"Taste is OK, but I agree with previous comment that bars are too hard to eat"
+            },
+            {
+               "id":21,
+               "text":"Would definitely NOT buy again. Simply unedible!"
+            }
+         ]
+      }
+   ]
+}
