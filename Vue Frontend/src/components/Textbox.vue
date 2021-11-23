@@ -1,5 +1,5 @@
 <template>
-            <b-col cols="8">
+            <div class="col-8">
                 <div id="textbook">
                     <div id="textbokx">
                                             在
@@ -80,7 +80,7 @@
         你
         的
         ”。
-
+        
         老虎
         有点儿
         不
@@ -136,7 +136,7 @@
         不
         害怕
         。”
-
+        
         老虎
         被
         狐狸
@@ -165,7 +165,7 @@
         在
         前面
         。
-
+        
         老虎
         不知
         是
@@ -185,7 +185,7 @@
         在
         后面
         。
-
+        
         森林
         里
         的
@@ -235,7 +235,7 @@
         四处
         逃窜
         。
-
+        
         狐狸
         仗
         着
@@ -276,10 +276,10 @@
         </audio>
                     </div>
                 </div>
-                <b-button variant="info" style="float: left; margin: 5px 5px 5px 0;"> Previous Page</b-button>
-                <b-button variant="info" v-on:click="toggleEditPassage" v-show="toggleEditButton" style="margin: 5px 0 0 0">Edit Passage</b-button>
-                <b-button variant="info" style="float: right; margin: 5px 0 5px 5px;"> Next Page</b-button>
-            </b-col>
+                <button type="button" class="btn btn-info" style="float: left; margin: 5px 5px 5px 0;"> Previous Page</button>
+                <button type="button" class="btn btn-info" v-on:click="toggleEditMode" v-show="toggleEditButton" style="margin: 5px 0 0 0">Edit Passage</button>
+                <button type="button" class="btn btn-info" style="float: right; margin: 5px 0 5px 5px;"> Next Page</button>
+            </div>
 </template>
 
 <style scoped>
@@ -297,7 +297,7 @@ export default {
     name:"Textbox",
     props:{
         toggleEditButton:Boolean,
-        toggleEditPassage:Function
+        toggleEditMode:Function
     }
 }
 </script>

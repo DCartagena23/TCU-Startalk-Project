@@ -1,8 +1,8 @@
 <template>
 <div>
-    <b-row>
+    <div class="row">
         Exam
-    </b-row>
+    </div>
 </div>
 </template>
 

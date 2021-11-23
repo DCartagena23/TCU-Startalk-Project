@@ -1,8 +1,8 @@
 <template>
 <div>
-     <b-row>
-        Grades
-    </b-row>
+    <div class="row">
+        Assignment
+    </div>
 </div>
 </template>
 
@@ -12,6 +12,6 @@
 
 <script>
 export default {
-   name:"Grades"
+    name: "Assignment"
 }
 </script>

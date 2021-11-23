@@ -1,8 +1,8 @@
 <template>
     <div>
-        <b-row>
-            Account
-        </b-row>
+        <div class="row">
+            Home
+        </div>
     </div>
 </template>
 
@@ -12,6 +12,6 @@
 
 <script>
 export default {
-    name:"Account"
+    name:"Home"
 }
 </script>

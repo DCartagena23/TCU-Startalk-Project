@@ -1,12 +1,12 @@
 <template>
     <b-row>
-        <b-col></b-col>
-        <b-col col="3">
+        <div class="col"></div>
+        <div class="col-3">
             <div>
                 Copyright Copyright Copyright
             </div>
-        </b-col>
-        <b-col></b-col>
+        </div>
+        <div class="col"></div>
     </b-row>
 </template>
 

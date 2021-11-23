@@ -2,19 +2,17 @@
   <div id="app">
     <!-- <img alt="Vue logo" src="./assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-    <b-container>
+    <div class="container">
       <Header :toggleEdit="toggleEdit" :toggleAssignment="toggleAssignment" :toggleTextbook="toggleTextbook" :toggleExam="toggleExam" :toggleGrades="toggleGrades" :toggleForum="toggleForum" :toggleHome="toggleHome" :toggleAccount="toggleAccount" :accountMode="accountMode" />
       <Home v-show="toggleHomeBool" />
-      <Body :toggleEditButton="toggleEditButton" v-show="toggleTextbookBool" :toggleEditPassage="toggleEditPassage"/>
+      <Body :toggleEditButton="toggleEditButton" v-show="toggleTextbookBool" :toggleEditMode="toggleEditMode"/>
       <Assignment v-show="toggleAssignmentBool" />
       <Exam v-show="toggleExamBool" />
       <Grades v-show="toggleGradesBool" />
       <Forum v-show="toggleForumBool" />
       <Account v-show="toggleAccountBool" />
-      <EditPassage v-show="togglePassageBool" :toggleEditChapter="toggleEditChapter" />
-      <EditChapter v-show="toggleChapterBool" />
       <Footer  />
-    </b-container>
+    </div>
   </div>
 </template>
 
@@ -28,8 +26,6 @@ import Exam from './views/Exam.vue'
 import Grades from './views/Grades.vue'
 import Forum from './views/Forum.vue'
 import Account from './views/Account.vue'
-import EditPassage from './views/EditPassage.vue'
-import EditChapter from './views/EditChapter.vue'
 
 export default {
   name: 'App',
@@ -42,8 +38,6 @@ export default {
     Exam,
     Forum,
     Account,
-    EditPassage,
-    EditChapter,
     Grades
   },
   data:function(){
@@ -56,8 +50,6 @@ export default {
       toggleForumBool:false,
       toggleAccountBool:false,
       toggleHomeBool:false,
-      togglePassageBool:false,
-      toggleChapterBool:false,
       accountMode:"Student"
     }
   },
@@ -77,8 +69,6 @@ export default {
       this.toggleForumBool = false;
       this.toggleAccountBool = false;
       this.toggleHomeBool = false;
-      this.togglePassageBool = false;
-      this.toggleChapterBool = false;
       this.toggleGradesBool = false;
     },
     toggleAssignment: function(){
@@ -88,10 +78,8 @@ export default {
       this.toggleForumBool = false;
       this.toggleHomeBool = false;
       this.toggleAccountBool = false;
-      this.togglePassageBool = false;
-      this.toggleChapterBool = false;
       this.toggleGradesBool = false;
-
+  
     },
     toggleExam: function(){
       this.toggleExamBool=true;
@@ -100,8 +88,6 @@ export default {
       this.toggleHomeBool = false;
       this.toggleAccountBool = false;
       this.toggleForumBool = false;
-      this.togglePassageBool = false;
-      this.toggleChapterBool = false;
       this.toggleGradesBool = false;
     },
     toggleGrades: function(){
@@ -112,8 +98,6 @@ export default {
       this.toggleHomeBool = false;
       this.toggleAccountBool = false;
       this.toggleForumBool = false;
-      this.togglePassageBool = false;
-      this.toggleChapterBool = false;
       this.toggleGradesBool = false;
     },
     toggleForum: function(){
@@ -123,8 +107,6 @@ export default {
       this.toggleAssignmentBool = false;
       this.toggleExamBool = false;
       this.toggleAccountBool = false;
-      this.togglePassageBool = false;
-      this.toggleChapterBool = false;
       this.toggleGradesBool = false;
     },
     toggleHome: function(){
@@ -134,8 +116,6 @@ export default {
       this.toggleExamBool = false;
       this.toggleForumBool = false;
       this.toggleAccountBool = false;
-      this.togglePassageBool = false;
-      this.toggleChapterBool = false;
       this.toggleGradesBool = false;
     },
     toggleAccount:function(){
@@ -145,32 +125,11 @@ export default {
       this.toggleAssignmentBool = false;
       this.toggleExamBool = false;
       this.toggleForumBool = false;
-      this.togglePassageBool = false;
-      this.toggleChapterBool = false;
       this.toggleGradesBool = false;
     },
-    toggleEditPassage:function(){
-      this.togglePassageBool = true;
-      this.toggleAccountBool = false;
-      this.toggleTextbookBool = false;
-      this.toggleHomeBool = false;
-      this.toggleAssignmentBool = false;
-      this.toggleExamBool = false;
-      this.toggleForumBool = false;
-      this.toggleChapterBool = false;
-      this.toggleGradesBool = false;
-    },
-    toggleEditChapter:function(){
-      this.togglePassageBool = false;
-      this.toggleAccountBool = false;
-      this.toggleTextbookBool = false;
-      this.toggleHomeBool = false;
-      this.toggleAssignmentBool = false;
-      this.toggleExamBool = false;
-      this.toggleForumBool = false;
-      this.toggleChapterBool = true;
-      this.toggleGradesBool = false;
-    },
+    toggleEditMode:function(){
+        this.$router.push({path:"/books"});
+    }
   }
 }
 </script>

@@ -1,9 +1,9 @@
 <template>
-    <b-row>
-        <b-col>
+    <div class="row">
+        <div class="col">
                 <Logo :toggleHome="toggleHome" />
-        </b-col>
-        <b-col cols="6">
+        </div>
+        <div class="col-6">
             <div>
                 <!-- <div class="nav" v-on:click="toggleAccount">Textbook</div>
                 <div class="nav" v-on:click="toggleAccount">Assignment</div>
@@ -15,14 +15,14 @@
                 <NavButton title="Grades" :toggleFunction="toggleGrades"/>
                 <NavButton title="Forum" :toggleFunction="toggleForum"/>
             </div>
-        </b-col>
-        <b-col>
+        </div>
+        <div class="col">
             <div>
                 <!-- <div class="nav2" v-show="toggle"> Account </div> -->
                 <AccountDrop :toggleEdit="toggleEdit" :toggleAccount="toggleAccount" :accountMode="accountMode" />
             </div>
-        </b-col>
-    </b-row>
+        </div>
+    </div>
 </template>
 
 <style scoped>

@@ -1,11 +1,11 @@
 <template>
     <div>
         <TextboxHead />
-        <b-row>
+        <div class="row">
             <TextbookSidebar />
-            <Textbox :toggleEditButton="toggleEditButton" :toggleEditPassage="toggleEditPassage" />
-            <b-col></b-col>
-        </b-row>
+            <Textbox :toggleEditButton="toggleEditButton" :toggleEditMode="toggleEditMode"/>
+            <div class="col"></div>
+        </div>
     </div>
     
 </template>
@@ -27,7 +27,7 @@ export default {
     },
     props:{
         toggleEditButton:Boolean,
-        toggleEditPassage:Function
+        toggleEditMode:Function
     },
 }
 </script>

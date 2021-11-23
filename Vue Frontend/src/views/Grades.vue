@@ -1,7 +1,9 @@
 <template>
-    <b-row>
-        Edit Chapter
-    </b-row>
+<div>
+     <div class="row">
+        Grades
+     </div>
+</div>
 </template>
 
 <style scoped>
@@ -10,6 +12,6 @@
 
 <script>
 export default {
-    name:"EditChapter"
+   name:"Grades"
 }
 </script>
