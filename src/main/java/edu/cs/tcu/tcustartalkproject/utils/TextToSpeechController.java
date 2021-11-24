@@ -34,7 +34,7 @@ public class TextToSpeechController {
             try (OutputStream outfile = new FileOutputStream("./Vue Frontend/src/assets/tts.mp3")) {
                 outfile.write(audioContents.toByteArray());
                 System.out.println("Audio content written to file \"output.mp3\"");
-                return new Result(StatusCode.SUCCESS, "TTS Success", outfile);
+                return new Result(StatusCode.SUCCESS, "TTS Success", null);
             }
         }
     }
