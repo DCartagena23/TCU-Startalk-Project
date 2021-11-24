@@ -54,8 +54,8 @@ public class DBInitializer implements CommandLineRunner {
         String str1 = "洁面仪配合洁面深层清洁毛孔 清洁鼻孔面膜碎觉使劲挤才能出一点点皱纹 脸颊毛孔修复的看不见啦 草莓鼻历史遗留问题没辙 脸和脖子差不多颜色的皮肤才是健康的 长期使用安全健康的比同龄人显小五到十岁 28岁的妹子看看你们的鱼尾纹";
         String str2 = "亂數 假 文 產 生器 。\n亂數 假 文 產 生器 。";
 
-        c1.setTextFormString(str1);
-        c2.setTextFormString(str2);
+        c1.setTextFromString(str1);
+        c2.setTextFromString(str2);
 
         b1.addChapter(c1);
         b1.addChapter(c2);

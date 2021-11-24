@@ -84,7 +84,7 @@ public class Chapter {
         this.text = text;
     }
 
-    public void setTextFormString(String str){
+    public void setTextFromString(String str){
         List<String> text = new ArrayList<String>();
         StringTokenizer st = new StringTokenizer(str,"\n");
         while (st.hasMoreTokens()){

@@ -48,7 +48,7 @@ public class PinyinController {
 
     @DeleteMapping("/deletePinyin/{id}")
     @ResponseBody
-    public Result deleteGrammarWord(@PathVariable String id) {
+    public Result deletePinyin(@PathVariable String id) {
         pinyinService.delete(id);
         return new Result(StatusCode.SUCCESS, "Pinyin Deleted!", null);
     }
