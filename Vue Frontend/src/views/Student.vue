@@ -17,15 +17,15 @@
 </template>
 
 <script>
-import Header from './views/Header.vue'
-import Body from './views/Body.vue'
-import Footer from './views/Footer.vue'
-import Home from './views/Home.vue'
-import Assignment from './views/Assignment.vue'
-import Exam from './views/Exam.vue'
-import Grades from './views/Grades.vue'
-import Forum from './views/Forum.vue'
-import Account from './views/Account.vue'
+import Header from '@/views/Header.vue'
+import Body from '@/views/Body.vue'
+import Footer from '@/views/Footer.vue'
+import Home from '@/views/Home.vue'
+import Assignment from '@/views/Assignment.vue'
+import Exam from '@/views/Exam.vue'
+import Grades from '@/views/Grades.vue'
+import Forum from '@/views/Forum.vue'
+import Account from '@/views/Account.vue'
 
 export default {
   name: 'App',
@@ -139,7 +139,6 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   margin-top: 15px;
 }

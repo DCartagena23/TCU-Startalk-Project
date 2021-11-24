@@ -6,7 +6,6 @@
         <th>Name</th>
         <th>Author</th>
         <th>Description</th>
-        <th>Price</th>
         <th>Operations</th>
       </tr>
     </thead>
