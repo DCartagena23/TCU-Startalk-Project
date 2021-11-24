@@ -1,10 +1,10 @@
 package edu.cs.tcu.tcustartalkproject.utils;
+
 import edu.cs.tcu.tcustartalkproject.Chapter.Chapter;
 import org.ansj.domain.Term;
 import org.ansj.splitWord.analysis.ToAnalysis;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.*;
 
 @Controller
@@ -36,7 +36,6 @@ public class TokenizerController {
                 String tmp = ((Term)iterator.next()).getRealName();
                 // Concat term if it is not equal to ' '
                 if (!tmp.equals(" ")){
-
                     str.add(tmp);
                 }
             }
