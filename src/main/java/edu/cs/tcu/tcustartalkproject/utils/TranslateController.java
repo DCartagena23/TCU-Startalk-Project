@@ -7,7 +7,9 @@ import com.google.cloud.translate.v3.Translation;
 import com.google.cloud.translate.v3.TranslationServiceClient;
 import java.io.IOException;
 import com.google.cloud.translate.*;
+import org.springframework.stereotype.Controller;
 
+@Controller
 public class TranslateController {
 
     // Translate text to target language.
