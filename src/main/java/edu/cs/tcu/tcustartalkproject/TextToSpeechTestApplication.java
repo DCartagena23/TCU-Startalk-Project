@@ -12,7 +12,7 @@ public class TextToSpeechTestApplication {
     public static void main(String... args) throws Exception {
         Map<String, String> google = new HashMap<>();
         google.put("GOOGLE_APPLICATION_CREDENTIALS",
-                new ClassPathResource("sclp-tts-7c3b9f3659e7.json").getURI().getPath());
+                new ClassPathResource("singular-citron-331602-3b396d6f7bf9.json").getURI().getPath());
         SetEnv.setEnv(google);
         // Instantiates a client
         try (TextToSpeechClient textToSpeechClient = TextToSpeechClient.create()) {
