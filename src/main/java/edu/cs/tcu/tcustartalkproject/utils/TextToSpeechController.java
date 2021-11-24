@@ -2,12 +2,16 @@ package edu.cs.tcu.tcustartalkproject.utils;
 
 import com.google.cloud.texttospeech.v1beta1.*;
 import com.google.protobuf.ByteString;
+import edu.cs.tcu.tcustartalkproject.SetEnv;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class TextToSpeechController {
@@ -15,6 +19,11 @@ public class TextToSpeechController {
     @PostMapping("/tts")
     @ResponseBody
     public Result textToSpeech(@RequestBody String string) throws Exception {
+        Map<String, String> google = new HashMap<>();
+        google.put("GOOGLE_APPLICATION_CREDENTIALS",
+                new ClassPathResource("sclp-tts-7c3b9f3659e7.json").getURI().getPath());
+        SetEnv.setEnv(google);
+
         // Instantiates a client
         try (TextToSpeechClient textToSpeechClient = TextToSpeechClient.create()) {
             // Set the text input to be synthesized
