@@ -1,5 +1,5 @@
 <template>
-    <b-row>
+    <div class="row">
         <div class="col"></div>
         <div class="col-3">
             <div>
@@ -7,7 +7,7 @@
             </div>
         </div>
         <div class="col"></div>
-    </b-row>
+    </div>
 </template>
 
 <style scoped>
