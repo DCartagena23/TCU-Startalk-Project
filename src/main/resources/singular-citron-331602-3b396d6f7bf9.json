@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "singular-citron-331602",
+  "private_key_id": "3b396d6f7bf935b25dbd6153df5633155c5dc79d",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDMrqz9GTfI0FQB\nbwIpbWtDzoM/BOyh2pwBcx62Eto9D0BmP9HoQPd09KcHlDl2YE7UFoHmtjw0uQhm\np/it/AkVIV9cde1Xh0uzD8eFRxOF+Wt1TYpuLpVFbSd8m8qWq/XwJFhVqhVUsVis\n1qtKAblgDQgRopbsysnJgDxXEeuGQ+0zM87yYU4QeKmLm+K5wLXIXy3A5nm1+91i\nyG4aYaU5ln7w5alXGSml5cMxvWoqEtcTTZoxsrY/hfSAASzsBrqCul2sbBUvhSP1\nzOoPnq4UKLGeZiIbnTW7qnc2DoON+L0+SUO1jgJWFvzaKbfMApZ1BkuTrsHsi9ld\n7buVi6jhAgMBAAECggEAAmY8zGW+h+nbRj4HJDWuZ3fVBYjY/ke6AvFWx5MegE88\ntcYjP4n9bJ9OkvHrn4Xe/rD52lrCB2sw3EU1TtLQx3Dh9YtDWj6RhlqVv+v2oGAt\nYI1lZUfCA7OVHiqUXCJNaoB+kZiCEgFXNQV6Mg6lnejhMpW5l7KD3YsVif7BiEwf\nqTiErXXUxuO6cUg5tphU9j+DoBaJzFrw2jNL8WeGnu7kdEfLp7iX4VWKTRWmb6Iv\nzy0mKEodp1VNouEsWG612v+ikzdVSfkD3+iqf7eJKe0IEBpiZYHNbAVlDGwz5DyZ\nBuTn5P1RBFVXtlEeylIoep1Hn/kb7N42XgsBXbEQMQKBgQD6AkMQBLL56CIiwKe1\n3zCmbZse1DsEzfKa1umjbM2po2fuXnTy/ckQhR4xFBPbEufVI+p5+bWqYBlP7sDi\n01fHUqUSo4fQ5OsHHFUapzpk/evW1wDLz/eTO9NunyRto5Gpu+LDgsJACBT9sej8\nf7+GtbGytnYlfUjP37cT1yHACQKBgQDRllj+6i3f9IURPobhBYigcoQfDUVxxrei\nTSyin8J1j4NTHiUXengie4bL+Ntz1pCTruwNqXGcV7ugl1AK6kNjlOMI8G4jCJr/\nIm5Cvhouxl2DrdaiOUDbn3lfyeW7dxxDPxyDENHr6GvHyew5MXRctv82OoeJMtGp\nhcDj/eqoGQKBgGvPL+YncJqNvLKpy2iFP3B1UXAg6vZubRDSXlwH3kQp3/aNqvbh\n86N5FATr+If/BhQGceV5hhpbaG7ssSbfJjog7Gg2NqohHSyqzhQ5StgkG2BAxOoe\n208VfF52p/nTkEvWZroSl/uOwKaJ4sOHvyqzDVbYkegmt5BUk5ktqzMpAoGBAI+w\ndxVVcdwf5Pb8mjY9t/zgZgpv69NkPNOt+1MHGqfEm3Fpsl5VXXWuoKzI0ZOqX/aQ\nL0/ygmyAjac89eh10Xu9QKYJSEkGhlUywstJT+QPpV842HThscCgpfLxFWqf76V+\n6EpHRtRoxTP1ENnpOPCzmWcRW4jJaYrCo4rrs2xJAoGBAI43NlMUlwMpzYPeFbFy\ndljxH4UWqqv98LIF2kKZMqr0nsIAliZabCUpp5VXFp/Fssv7c/r82Ao+KGHjtb2X\nM22Fa/ZSUgagSTfUNjfW/187huuDyMCniDLyVXUjY7eCt/1bRFLuiKp2ELVg2L/M\nfW1DZuHb4pzx8VCbNpr/HVNA\n-----END PRIVATE KEY-----\n",
+  "client_email": "translator-service@singular-citron-331602.iam.gserviceaccount.com",
+  "client_id": "117242235024103548668",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/translator-service%40singular-citron-331602.iam.gserviceaccount.com"
+}
