@@ -9,14 +9,6 @@ import java.io.IOException;
 import com.google.cloud.translate.*;
 
 public class TranslateController {
-    // Set and pass variables to overloaded translateText() method for translation.
-    public static void translateText() throws IOException {
-        // Replace these variables before running the sample.
-        String projectId = "singular-citron-331602";
-        String targetLanguage = "en";
-        String text = "其实中国人觉得问这些问题并不是想发现什么秘密，而是平常谈话和表示关心的一种方式。";
-        translateText(projectId, targetLanguage, text);
-    }
 
     // Translate text to target language.
     public static void translateText(String projectId, String targetLanguage, String text)
