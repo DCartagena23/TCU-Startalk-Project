@@ -31,7 +31,7 @@ public class TextToSpeechController {
             // Get the audio contents from the response
             ByteString audioContents = response.getAudioContent();
             // Write the response to the output file.
-            try (OutputStream outfile = new FileOutputStream("./startalk_frontend/src/assets/tts.mp3")) {
+            try (OutputStream outfile = new FileOutputStream("./Vue Frontend/src/assets/tts.mp3")) {
                 outfile.write(audioContents.toByteArray());
                 System.out.println("Audio content written to file \"output.mp3\"");
                 return new Result(StatusCode.SUCCESS, "TTS Success", outfile);

@@ -32,7 +32,7 @@ public class TextToSpeechTestApplication {
             // Get the audio contents from the response
             ByteString audioContents = response.getAudioContent();
             // Write the response to the output file.
-            try (OutputStream out = new FileOutputStream("./startalk_frontend/src/assets/tts_test.mp3")) {
+            try (OutputStream out = new FileOutputStream("./Vue Frontend/src/assets/tts_test.mp3")) {
                 out.write(audioContents.toByteArray());
                 System.out.println("Audio content written to file \"output.mp3\"");
             }
