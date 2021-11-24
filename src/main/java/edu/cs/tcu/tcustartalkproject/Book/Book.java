@@ -2,7 +2,6 @@ package edu.cs.tcu.tcustartalkproject.Book;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import edu.cs.tcu.tcustartalkproject.Chapter.Chapter;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +18,6 @@ public class Book {
     @JsonManagedReference
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private List<Chapter> chapter = new ArrayList<Chapter>();
-
-
     /**
      * Constructor for Book objects with arguments
      * @param id index in database
