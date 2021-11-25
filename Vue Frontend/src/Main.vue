@@ -5,7 +5,7 @@
     <div class="container">
       <Header :toggleEdit="toggleEdit" :toggleAssignment="toggleAssignment" :toggleTextbook="toggleTextbook" :toggleExam="toggleExam" :toggleGrades="toggleGrades" :toggleForum="toggleForum" :toggleHome="toggleHome" :toggleAccount="toggleAccount" :accountMode="accountMode" />
       <Home v-show="toggleHomeBool" />
-      <Body :toggleEditButton="toggleEditButton" v-show="toggleTextbookBool" :toggleEditMode="toggleEditMode"/>
+      <Body :toggleEditButton="toggleEditButton" v-show="toggleTextbookBool" :toggleEditMode="toggleEditMode" :textbox="textbox"/>
       <Assignment v-show="toggleAssignmentBool" />
       <Exam v-show="toggleExamBool" />
       <Grades v-show="toggleGradesBool" />
@@ -50,7 +50,8 @@ export default {
       toggleForumBool:false,
       toggleAccountBool:false,
       toggleHomeBool:false,
-      accountMode:"Student"
+      accountMode:"Student",
+      textbox: "It didn't register"
     }
   },
   methods:{

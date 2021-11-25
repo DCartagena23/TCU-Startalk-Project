@@ -2,8 +2,9 @@
     <div class="row"  style="margin: 10px 0 10px 0">
             <div class="col"></div>
             <div class="col-3">
-                <div style="float: left;">Chapter 1: Page 1</div>
-                <div style="float: right;"> 
+                <div style="float: left;">Chapter 1 : Page 1 </div>
+                <div style="float: right;">
+                  Pinyin
                     <label class="switch">
                         <input type="checkbox">
                         <span class="slider round"></span>
@@ -81,6 +82,10 @@ input:checked + .slider:before {
 
 <script>
 export default {
-    name: "TextboxHead"
+    name: "TextboxHead",
+    prop:{
+      chNum:String,
+      pgNum:String
+    }
 }
 </script>
