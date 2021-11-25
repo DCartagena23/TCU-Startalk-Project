@@ -1,6 +1,5 @@
 package edu.cs.tcu.tcustartalkproject.utils;
 
-
 import edu.cs.tcu.tcustartalkproject.Book.Book;
 import edu.cs.tcu.tcustartalkproject.Book.BookService;
 import edu.cs.tcu.tcustartalkproject.Chapter.Chapter;
@@ -11,10 +10,6 @@ import edu.cs.tcu.tcustartalkproject.VocabWord.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -34,7 +29,6 @@ public class DBInitializer implements CommandLineRunner {
 
     public void run(String... args) throws Exception {
         loadData();
-
     }
 
     private void loadData() {
@@ -140,6 +134,5 @@ public class DBInitializer implements CommandLineRunner {
         vocabWordService.save(vocabWord4);
         vocabWordService.save(vocabWord5);
         vocabWordService.save(vocabWord6);
-
     }
 }

@@ -1,12 +1,6 @@
 package edu.cs.tcu.tcustartalkproject.utils;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.StringTokenizer;
 
 public class CCEDictTest {
     public static void main(String[] args) throws IOException {

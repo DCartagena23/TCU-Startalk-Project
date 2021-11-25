@@ -1,20 +1,14 @@
 package edu.cs.tcu.tcustartalkproject.utils;
 
-import com.google.cloud.translate.v3.LocationName;
-import com.google.cloud.translate.v3.TranslateTextRequest;
-import com.google.cloud.translate.v3.TranslateTextResponse;
-import com.google.cloud.translate.v3.Translation;
-import com.google.cloud.translate.v3.TranslationServiceClient;
 import java.io.IOException;
-import com.google.cloud.translate.*;
+import com.google.cloud.translate.v3.*;
 import org.springframework.stereotype.Controller;
 
 @Controller
 public class TranslateController {
 
     // Translate text to target language.
-    public static void translateText(String projectId, String targetLanguage, String text)
-            throws IOException {
+    public static void translateText(String projectId, String targetLanguage, String text) throws IOException {
 
         // Initialize client that will be used to send requests. This client only needs to be created
         // once, and can be reused for multiple requests. After completing all of your requests, call
@@ -39,11 +33,7 @@ public class TranslateController {
             // Display the translation for each input text provided
             for (Translation translation : response.getTranslationsList()) {
                 System.out.printf("Translated text: %s\n", translation.getTranslatedText());
-
             }
         }
     }
 }
-
-
-

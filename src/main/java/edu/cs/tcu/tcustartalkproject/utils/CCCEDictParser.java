@@ -1,12 +1,11 @@
 package edu.cs.tcu.tcustartalkproject.utils;
 
 import org.springframework.stereotype.Component;
-
 import java.io.*;
-import java.nio.charset.Charset;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 @Component("parser")
 public class CCCEDictParser {
     Map<String, Entry> simpleDict = new HashMap<String, Entry>();
@@ -215,6 +214,4 @@ public class CCCEDictParser {
         }
         return sb.toString();
     }
-
 }
-
