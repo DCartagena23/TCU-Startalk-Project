@@ -398,19 +398,6 @@ export default {
       }
     },
 
-     playByteArray( bytes ) {
-    var buffer = new Uint8Array( bytes.length );
-    buffer.set( new Uint8Array(bytes), 0 );
-
-    this.context.decodeAudioData(buffer.buffer, this.play);
-    },
-
-     play( audioBuffer ) {
-      var source = this.context.createBufferSource();
-      source.buffer = audioBuffer;
-      source.connect( this.context.destination );
-      source.start(0);
-    }
 
 
     // async getWord(id) {
