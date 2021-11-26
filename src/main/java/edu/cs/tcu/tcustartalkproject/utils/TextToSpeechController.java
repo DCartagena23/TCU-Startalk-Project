@@ -8,8 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,12 +42,11 @@ public class TextToSpeechController {
             SynthesizeSpeechResponse response = textToSpeechClient.synthesizeSpeech(input, voice, audioConfig);
             // Get the audio contents from the response
             ByteString audioContents = response.getAudioContent();
-            // Write the response to the output file.
-            try (OutputStream outfile = new FileOutputStream("./Vue Frontend/src/assets/tts.mp3")) {
-                outfile.write(audioContents.toByteArray());
-                System.out.println("Audio content written to file \"output.mp3\"");
-                return new Result(StatusCode.SUCCESS, "TTS Success", null);
-            }
+
+
+            byte[] file = audioContents.toByteArray();
+
+            return new Result(StatusCode.SUCCESS, "TTS Success", file);
         }
     }
 }

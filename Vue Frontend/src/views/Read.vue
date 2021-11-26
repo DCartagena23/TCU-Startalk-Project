@@ -334,6 +334,7 @@ export default {
         })
     },
     edit() {
+      this.storeChapter()
       this.$router.push({ name: 'Edit'})
     },
 
