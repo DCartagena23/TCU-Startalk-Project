@@ -7,13 +7,13 @@ import Book from '@/views/Book'
 import Chapter from '@/views/Chapter'
 import Read from '@/views/Read'
 import Edit from '@/views/Edit'
-import Main from '../Main.vue'
+import Student from '@/views/Student'
 
 const routes = [
   {
     path: '/',
-    name: 'Main',
-    component: Main,
+    name: 'Student',
+    component: Student,
     props: true,
   },
   {

@@ -2,6 +2,7 @@ package edu.cs.tcu.tcustartalkproject.utils;
 
 import com.google.cloud.texttospeech.v1beta1.*;
 import com.google.protobuf.ByteString;
+import edu.cs.tcu.tcustartalkproject.Chapter.Chapter;
 import edu.cs.tcu.tcustartalkproject.SetEnv;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -21,11 +23,13 @@ public class TextToSpeechController {
 
     @PostMapping("/tts")
     @ResponseBody
-    public Result textToSpeech(@RequestBody String string) throws Exception {
+    public Result textToSpeech(@RequestBody Chapter chapter) throws Exception {
         Map<String, String> google = new HashMap<>();
         google.put("GOOGLE_APPLICATION_CREDENTIALS",
                 new ClassPathResource("singular-citron-331602-3b396d6f7bf9.json").getURI().getPath());
         SetEnv.setEnv(google);
+
+        String string = chapter.getTitle();
 
         // Instantiates a client
         try (TextToSpeechClient textToSpeechClient = TextToSpeechClient.create()) {

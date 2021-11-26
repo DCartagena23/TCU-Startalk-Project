@@ -2,10 +2,10 @@
   <div id="app">
     <!-- <img alt="Vue logo" src="./assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-    <div class="container">
+    <div class="container" id = "student">
       <Header :toggleEdit="toggleEdit" :toggleAssignment="toggleAssignment" :toggleTextbook="toggleTextbook" :toggleExam="toggleExam" :toggleGrades="toggleGrades" :toggleForum="toggleForum" :toggleHome="toggleHome" :toggleAccount="toggleAccount" :accountMode="accountMode" />
       <Home v-show="toggleHomeBool" />
-      <Body :toggleEditButton="toggleEditButton" v-show="toggleTextbookBool" :toggleEditMode="toggleEditMode"/>
+      <Body :toggleEditButton="toggleEditButton" v-show="toggleTextbookBool" :toggleEditMode="toggleEditMode" :textbox="textbox"/>
       <Assignment v-show="toggleAssignmentBool" />
       <Exam v-show="toggleExamBool" />
       <Grades v-show="toggleGradesBool" />
@@ -50,7 +50,8 @@ export default {
       toggleForumBool:false,
       toggleAccountBool:false,
       toggleHomeBool:false,
-      accountMode:"Student"
+      accountMode:"Student",
+      textbox: "It didn't register"
     }
   },
   methods:{
@@ -135,10 +136,11 @@ export default {
 </script>
 
 <style>
-#app {
+#student {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-align: center;
   color: #2c3e50;
   margin-top: 15px;
 }

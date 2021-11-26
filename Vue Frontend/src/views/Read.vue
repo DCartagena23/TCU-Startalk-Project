@@ -37,6 +37,7 @@
       </div >
       <button @click="toggle" class="btn btn-primary" style="margin-top:10px;">Toggle</button>
       <button @click="edit()" class="btn btn-primary" style="margin-left: 10px; margin-top:10px;">Edit</button>
+      <button @click="tts()" class="btn btn-primary" style="margin-left: 10px; margin-top:10px;">TTS</button>
 <!-- Text Area -->
 
         <hr />
@@ -138,6 +139,7 @@ export default {
   name: 'Read',
   data: function () {
     return {
+      context: null,
       flag:true,
       list:[],
       chapter:{},
@@ -152,6 +154,7 @@ export default {
     }
   },  
     mounted: function () {
+      this.init();
       this.chapter = this.$store.state.chapter
       this.wordList = this.chapter.grammarWords
       this.pinyinList = this.chapter.pinyin
@@ -357,7 +360,58 @@ export default {
 
     storeChapter(){
       this.$store.commit('setChapter',{newChapter : this.chapter})
+    },
+
+    getSelectText(){
+      if (window.getSelection){
+       var stringList = window.getSelection().toString().split("\n")
+       var str =""
+       stringList.forEach(element => {
+         element = element.replace("\r", "")
+         str = str + element
+       })
+       return str
+      }
+    },
+
+    async tts(){
+      var str = this.getSelectText()
+      var chapter = {
+        "title": str
+      }
+      const { data: res } = await this.$http.post(`/tts`, chapter)
+      if (res.status == 200) {
+        console.log(res.data)
+        var audio = new Audio("data:audio/mp3;base64," + res.data);
+        audio.play();
+      }
+    },
+
+    init(){
+      try {
+        // Fix up for prefixing
+        window.AudioContext = window.AudioContext||window.webkitAudioContext;
+        this.context = new AudioContext();
+      }
+      catch(e) {
+        alert('Web Audio API is not supported in this browser');
+      }
+    },
+
+     playByteArray( bytes ) {
+    var buffer = new Uint8Array( bytes.length );
+    buffer.set( new Uint8Array(bytes), 0 );
+
+    this.context.decodeAudioData(buffer.buffer, this.play);
+    },
+
+     play( audioBuffer ) {
+      var source = this.context.createBufferSource();
+      source.buffer = audioBuffer;
+      source.connect( this.context.destination );
+      source.start(0);
     }
+
 
     // async getWord(id) {
     // try{
