@@ -12,8 +12,6 @@ public class TranslateTestApplication {
         google.put("GOOGLE_APPLICATION_CREDENTIALS",
                 new ClassPathResource("singular-citron-331602-3b396d6f7bf9.json").getURI().getPath());
         SetEnv.setEnv(google);
-        String java_home = System.getenv("GOOGLE_APPLICATION_CREDENTIALS");
-
         String projectId = "singular-citron-331602";
         String targetLanguage = "en";
         String text = "其实中国人觉得问这些问题并不是想发现什么秘密，而是平常谈话和表示关心的一种方式。";

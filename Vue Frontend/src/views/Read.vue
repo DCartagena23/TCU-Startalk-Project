@@ -38,6 +38,7 @@
       <button @click="toggle" class="btn btn-primary" style="margin-top:10px;">Toggle</button>
       <button @click="edit()" class="btn btn-primary" style="margin-left: 10px; margin-top:10px;">Edit</button>
       <button @click="tts()" class="btn btn-primary" style="margin-left: 10px; margin-top:10px;">TTS</button>
+      <button @click="translatePhrase()" class="btn btn-primary" style="margin-left: 10px; margin-top:10px;">Translate</button>
 <!-- Text Area -->
 
         <hr />
@@ -59,7 +60,6 @@
           <tr :key="word.id" v-for="word in wordList"  >
             <td>{{ word.word }}</td>
             <td>{{ word.desc }}</td>
-            <td>{{ word.pinyin }}</td>
             <td>
               <a class="btn btn-warning" style="margin-right:10px" @click.prevent="showEditForm(word.id)">Edit</a>
               <a class="btn btn-danger" style="margin-right:10px" @click.prevent="deletew(word.id)">Delete</a>
@@ -94,6 +94,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" v-if="translateFlag" class="btn btn-primary" @click="translateWord">Translate</button>
           <button type="button" class="btn btn-primary" @click="saveOrUpdate">Save</button>
         </div>
       </div>
@@ -130,6 +131,35 @@
     </div>
   </div>
 
+        <div class="modal fade" id="translateForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            Translate
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="word-name" class="col-form-label">Phrase:</label>
+              <input type="ph" class="form-control" id="phrase" v-model="translateForm.phrase"/>
+            </div>
+
+             <div class="mb-3">
+              <label for="chapter-name" class="col-form-label">Translate:</label>
+              <input type="text" class="form-control" id="translate" v-model="translateForm.translate"/>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </template>
 
 <script>
@@ -151,6 +181,9 @@ export default {
       pinyinForm: {},
       pinyinFormName: '',
       pinyinFormModal: null,
+      translateForm: {},
+      translateFormModal: null,
+      translateFlag: true,
     }
   },  
     mounted: function () {
@@ -162,6 +195,7 @@ export default {
       this.showText()
       this.wordFormModal = new this.$bootstrap.Modal(document.getElementById('wordForm'), {})
       this.pinyinFormModal = new this.$bootstrap.Modal(document.getElementById('pinyinForm'), {})
+      this.translateFormModal = new this.$bootstrap.Modal(document.getElementById('translateForm'), {})
   },
   created() {
   },
@@ -175,6 +209,7 @@ export default {
       this.setWordInfo()
     },
         showNewForm() {
+          this.translateFlag = true
       document.getElementById('word').disabled = false;
       document.getElementById('desc').disabled = false;
       this.wordFormName = 'Add a New Word'
@@ -182,6 +217,7 @@ export default {
       this.wordFormModal.show()
     },
     async showEditForm(id) {
+      this.translateFlag = true
       document.getElementById('word').disabled = false;
       document.getElementById('desc').disabled = false;
       this.wordFormName = 'Edit a Word'
@@ -211,6 +247,7 @@ export default {
       this.wordFormName = 'Word Info'
       const { data: res } = await this.$http.get(`/grammarWords/findOne/${id}`)
       this.wordForm = res.data
+      this.translateFlag = false
       document.getElementById('word').disabled = true;
       document.getElementById('desc').disabled = true;
       this.wordFormModal.show()
@@ -381,9 +418,25 @@ export default {
       }
       const { data: res } = await this.$http.post(`/tts`, chapter)
       if (res.status == 200) {
-        console.log(res.data)
         var audio = new Audio("data:audio/mp3;base64," + res.data);
         audio.play();
+      }
+    },
+
+    async translatePhrase() {
+      var str = this.getSelectText()
+      var chapter = {
+        "title": str
+      }
+      this.translateForm.phrase = str
+      document.getElementById('phrase').disabled = true;
+      document.getElementById('translate').disabled = true;
+      this.translateFormModal.show()  
+      
+      const { data: res } = await this.$http.post(`/translate`, chapter)
+      if (res.status == 200) {
+        console.log(res.data)
+        this.translateForm.translate = res.data
       }
     },
 
@@ -395,6 +448,16 @@ export default {
       }
       catch(e) {
         alert('Web Audio API is not supported in this browser');
+      }
+    },
+
+    async translateWord(){
+      var chapter = {
+        "title": this.wordForm.word
+      }
+      const { data: res } = await this.$http.post(`/translate`, chapter)
+      if (res.status == 200) {
+        this.wordForm.desc = res.data
       }
     },
 
