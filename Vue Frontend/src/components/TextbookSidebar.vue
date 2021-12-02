@@ -1,5 +1,5 @@
 <template>
-<div class="col">
+<div id = "side" class="col">
   <div id="accordion">
   <div class="card">
     <div class="card-header" id="headingOne">
@@ -75,3 +75,10 @@ export default {
     }
 }
 </script>
+
+<style>
+#side {
+  text-align: center;
+}
+
+</style>

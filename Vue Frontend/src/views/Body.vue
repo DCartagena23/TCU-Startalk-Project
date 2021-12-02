@@ -1,6 +1,5 @@
 <template>
     <div>
-        <TextboxHead />
         <div class="row">
             <TextbookSidebar />
             <Textbox :toggleEditButton="toggleEditButton"
@@ -16,14 +15,12 @@
 </style>
 
 <script>
-import TextboxHead from "../components/TextboxHead.vue"
 import Textbox from "../components/Textbox.vue"
 import TextbookSidebar from "../components/TextbookSidebar.vue"
 
 export default {
     name: 'Body',
     components:{
-        TextboxHead,
         Textbox,
         TextbookSidebar
     },

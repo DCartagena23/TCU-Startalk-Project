@@ -14,21 +14,21 @@
               </tr>
             </table>
             <table style = "float: left; text-align: center;">
-              <tr style="text-align: center;">
+              <tr style="text-align: center;" class="noselect">
                 <td v-if="flag" style="text-align: center; height:30px;"></td>
-                <td v-else style="text-align: center; height:30px;" @click="showPinyinForm(word)">{{word.pinyin}}</td>
+                <td v-else style="text-align: center; height:30px;" class="noselect" @click="showPinyinForm(word)">{{word.pinyin}}</td>
               </tr>
               <tr style="text-align: center;">
-                <td style="text-align: center; height:30px;" @click="viewInfo(word.id)" v-bind:style="{ backgroundColor: word.color}">
+                <td style="text-align: center; height:30px;" @dblclick="viewInfo(word.id)" v-bind:style="{ backgroundColor: word.color}">
                   {{word.word}}</td>
               </tr>
             </table>
             <table style = "float: left; text-align: center;">
               <tr style="text-align: center;">
-                <td style="text-align: center; height:30px; width:5px;"></td>
+                <td style="text-align: center; height:30px; width:2px;"></td>
               </tr>
               <tr style="text-align: center;">
-                <td style="text-align: center; height:30px; width:5px;" ></td>
+                <td style="text-align: center; height:30px; width:2px;" ></td>
               </tr>
             </table>
           </div>
@@ -36,9 +36,10 @@
         <div style="clear:both;"></div>
       </div >
       <button @click="toggle" class="btn btn-primary" style="margin-top:10px;">Toggle</button>
-      <button @click="edit()" class="btn btn-primary" style="margin-left: 10px; margin-top:10px;">Edit</button>
       <button @click="tts()" class="btn btn-primary" style="margin-left: 10px; margin-top:10px;">TTS</button>
       <button @click="translatePhrase()" class="btn btn-primary" style="margin-left: 10px; margin-top:10px;">Translate</button>
+      <button @click="edit()" class="btn btn-primary" style="margin-left: 10px; margin-top:10px;">Edit</button>
+      <button @click="studentView()" class="btn btn-primary" style="margin-left: 10px; margin-top:10px;">Student View</button>
 <!-- Text Area -->
 
         <hr />
@@ -88,7 +89,7 @@
 
              <div class="mb-3">
               <label for="chapter-name" class="col-form-label">Desc:</label>
-              <input type="text" class="form-control" id="desc" v-model="wordForm.desc"/>
+              <textarea class="form-control" id="desc" rows="4" v-model="wordForm.desc"></textarea>
             </div>
           </form>
         </div>
@@ -149,7 +150,7 @@
 
              <div class="mb-3">
               <label for="chapter-name" class="col-form-label">Translate:</label>
-              <input type="text" class="form-control" id="translate" v-model="translateForm.translate"/>
+              <textarea class="form-control" id="translate" rows="4" v-model="translateForm.translate"></textarea>
             </div>
           </form>
         </div>
@@ -378,6 +379,12 @@ export default {
       this.$router.push({ name: 'Edit'})
     },
 
+    studentView() {
+      this.storeChapter()
+      this.$router.push({ name: 'Student'})
+    },
+
+
     objectId() {
       var timestamp = ((new Date().getTime() / 1000) | 0).toString(16);
       return (
@@ -492,4 +499,14 @@ export default {
   }
 }
 </script>
-
+<style>
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+</style>

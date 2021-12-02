@@ -3,13 +3,6 @@
             <div class="col"></div>
             <div class="col-3">
                 <div style="float: left;">Chapter 1 : Page 1 </div>
-                <div style="float: right;">
-                  Pinyin
-                    <label class="switch">
-                        <input type="checkbox">
-                        <span class="slider round"></span>
-                    </label>
-                </div>
             </div>
             <div class="col"></div>
     </div>

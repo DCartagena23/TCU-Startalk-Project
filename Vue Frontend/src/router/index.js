@@ -11,13 +11,13 @@ import Student from '@/views/Student'
 
 const routes = [
   {
-    path: '/',
+    path: '/student',
     name: 'Student',
     component: Student,
     props: true,
   },
   {
-    path: '/books',
+    path: '/',
     name: 'Books',
     component: Book,
     props: true,

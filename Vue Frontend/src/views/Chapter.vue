@@ -21,7 +21,8 @@
             <td>
               <a class="btn btn-warning" style="margin-right:10px" @click.prevent="showEditchapterForm(chapter.id)">Edit</a>
               <a class="btn btn-danger" style="margin-right:10px" @click.prevent="deleteChapter(chapter.id)">Delete</a>
-              <a class="btn btn-success" @click.prevent="view(chapter)">View</a>
+              <a class="btn btn-success" style="margin-right:10px" @click.prevent="view(chapter)">View</a>
+              <a class="btn btn-success" @click.prevent="studentView(chapter)">Student View</a>
             </td>          
           </tr>
         </tbody>
@@ -183,6 +184,11 @@ export default {
       console.log(chapter)
       this.$store.commit('setChapter',{newChapter : chapter})
       this.$router.push({ name: 'Read'})
+    },
+      studentView(chapter) {
+      console.log(chapter)
+      this.$store.commit('setChapter',{newChapter : chapter})
+      this.$router.push({ name: 'Student'})
     },
   },
 }

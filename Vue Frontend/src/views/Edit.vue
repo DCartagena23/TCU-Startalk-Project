@@ -32,10 +32,10 @@
             </table>
             <table v-if="word.space" @click.prevent="toggleSpace(word)" style = "float: left; text-align: center;">
               <tr style="text-align: center;">
-                <td style="text-align: center; height:30px; width:15px;"></td>
+                <td style="text-align: center; height:30px; width:7px;"></td>
               </tr>
               <tr style="text-align: center;">
-                <td style="text-align: center; height:30px; width:15px;" ></td>
+                <td style="text-align: center; height:30px; width:7px;" ></td>
               </tr>
             </table>
           </div>
