@@ -15,8 +15,8 @@
 </style>
 
 <script>
-import Textbox from "../components/Textbox.vue"
-import TextbookSidebar from "../components/TextbookSidebar.vue"
+import Textbox from "./Textbox.vue"
+import TextbookSidebar from "./TextbookSidebar.vue"
 
 export default {
     name: 'Body',

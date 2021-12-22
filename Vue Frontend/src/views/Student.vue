@@ -17,15 +17,15 @@
 </template>
 
 <script>
-import Header from '@/views/Header.vue'
-import Body from '@/views/Body.vue'
-import Footer from '@/views/Footer.vue'
-import Home from '@/views/Home.vue'
-import Assignment from '@/views/Assignment.vue'
-import Exam from '@/views/Exam.vue'
-import Grades from '@/views/Grades.vue'
-import Forum from '@/views/Forum.vue'
-import Account from '@/views/Account.vue'
+import Header from '@/components/Header.vue'
+import Body from '@/components/Body.vue'
+import Footer from '@/components/Footer.vue'
+import Home from '@/components/Home.vue'
+import Assignment from '@/components/Assignment.vue'
+import Exam from '@/components/Exam.vue'
+import Grades from '@/components/Grades.vue'
+import Forum from '@/components/Forum.vue'
+import Account from '@/components/Account.vue'
 
 export default {
   name: 'App',

@@ -152,10 +152,10 @@ export default {
     },
       view(id) {
       this.$store.commit('setId',{newId : id})
-      this.$router.push({ name: 'Chapter'})
+      this.$router.push({ path: `/chapter/${id}` }) 
     },
   },
-}
+} 
 </script>
 
 <style scoped></style>

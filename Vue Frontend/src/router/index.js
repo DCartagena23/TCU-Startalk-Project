@@ -29,13 +29,13 @@ const routes = [
     props: true,
   },
   {
-    path: '/chapter',
+    path: '/chapter/:id',
     name: 'Chapter',
     component: Chapter,
     props: true,
   },
   {
-    path: '/read',
+    path: '/read/:id',
     name: 'Read',
     component: Read,
     props: true,

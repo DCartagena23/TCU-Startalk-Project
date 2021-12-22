@@ -67,9 +67,9 @@
 </style>
 
 <script>
-import NavButton from '../components/NavButton.vue'
-import AccountDrop from '../components/AccountDrop.vue'
-import Logo from "../components/Logo.vue"
+import NavButton from './NavButton.vue'
+import AccountDrop from './AccountDrop.vue'
+import Logo from "./Logo.vue"
 
 export default {
     name: 'Header',

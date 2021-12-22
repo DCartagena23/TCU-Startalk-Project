@@ -72,6 +72,7 @@ export default {
       chapList: [],
       book: {},
       chapter:{},
+      
       chapterForm: {},
       chapterFormName: '',
       chapterFormModal: null,
@@ -82,8 +83,8 @@ export default {
     })
   },
   created() {
-    this.getChapList(this.$store.state.bookId)
-    this.getBook(this.$store.state.bookId)
+    this.getChapList(this.$route.params.id)
+    this.getBook(this.$route.params.id)
   },
   methods: {
     async getChapList(id) {
@@ -183,7 +184,7 @@ export default {
       view(chapter) {
       console.log(chapter)
       this.$store.commit('setChapter',{newChapter : chapter})
-      this.$router.push({ name: 'Read'})
+      this.$router.push({ path: `/read/${chapter.id}` }) 
     },
       studentView(chapter) {
       console.log(chapter)

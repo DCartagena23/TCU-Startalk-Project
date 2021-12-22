@@ -176,12 +176,15 @@ export default {
       chapter:{},
       wordList:[],
       pinyinList:[],
+
       wordForm: {},
       wordFormName: '',
       wordFormModal: null,
+
       pinyinForm: {},
       pinyinFormName: '',
       pinyinFormModal: null,
+      
       translateForm: {},
       translateFormModal: null,
       translateFlag: true,
@@ -189,19 +192,31 @@ export default {
   },  
     mounted: function () {
       this.init();
-      this.chapter = this.$store.state.chapter
-      this.wordList = this.chapter.grammarWords
-      this.pinyinList = this.chapter.pinyin
-      console.log(this.chapter.timeStamp)
-      this.showText()
+      console.log(this.$route.params.id)
+
       this.wordFormModal = new this.$bootstrap.Modal(document.getElementById('wordForm'), {})
       this.pinyinFormModal = new this.$bootstrap.Modal(document.getElementById('pinyinForm'), {})
       this.translateFormModal = new this.$bootstrap.Modal(document.getElementById('translateForm'), {})
   },
   created() {
+          this.getChapter(this.$route.params.id)
   },
     methods: {
+    
+    //get the chapter using id
+    async getChapter(id) {
+      const { data: res } = await this.$http.get(`/chapters/findOne/${id}`)
+      if (res.status == 200) {
+          this.chapter = res.data
+          
+          this.wordList = this.chapter.grammarWords
+          this.pinyinList = this.chapter.pinyin
 
+          this.showText()
+      }
+    },
+
+    //get the grammar word list
     async getNewWordList(id) {
       const { data: res } = await this.$http.get(`/chapters/getGrammarWords/${id}`)
       this.wordList = res.data
@@ -209,6 +224,8 @@ export default {
       this.storeChapter()
       this.setWordInfo()
     },
+
+    //show add new grammar word form
         showNewForm() {
           this.translateFlag = true
       document.getElementById('word').disabled = false;
@@ -217,6 +234,8 @@ export default {
       this.wordForm = {}
       this.wordFormModal.show()
     },
+
+    //show edit grammar word form
     async showEditForm(id) {
       this.translateFlag = true
       document.getElementById('word').disabled = false;
@@ -226,6 +245,8 @@ export default {
       this.wordForm = res.data
       this.wordFormModal.show()
     },
+
+    //save or update grammar word
     async saveOrUpdate() {
       if (this.wordForm.id) {
         // update an existing word
@@ -243,6 +264,8 @@ export default {
       }
       this.wordFormModal.hide()
     },
+
+    //view grammar word info
     async viewInfo(id) {
       if (id == -1) return
       this.wordFormName = 'Word Info'
@@ -253,6 +276,8 @@ export default {
       document.getElementById('desc').disabled = true;
       this.wordFormModal.show()
     },
+
+    //delete grammar word
     async deletew(id) {
       if (confirm('Do you want to delete this word?')) {
         const { data: res } = await this.$http.delete(`/grammarWords/deleteGrammarWord/${id}`)
@@ -271,6 +296,7 @@ export default {
       }
     },
 
+    //get the custom pinyin list
     async getPinyinList(id) {
       const { data: res } = await this.$http.get(`/chapters/getPinyin/${id}`)
       this.pinyinList = res.data
@@ -278,6 +304,8 @@ export default {
       this.storeChapter()
       this.setPinyinInfo()
     },
+
+    //show edit pinyin form
     showPinyinForm(word) {
       this.pinyinFormName = 'Edit Pinyin'
       this.pinyinForm = {}
@@ -285,11 +313,15 @@ export default {
       this.pinyinForm.pinyin = word.pinyin
       this.pinyinFormModal.show()
     },
+
+    //save custom pinyin
     async savePinyin() {
         await this.$http.put(`/pinyins/updatePinyin/${this.chapter.id}`, this.pinyinForm)
         this.getPinyinList(this.chapter.id)
       this.pinyinFormModal.hide()
     },
+
+    //get pinyin using dictionary
       async getPinyinDict(json) {
         if (json.pinyin == ""){
           const { data: res } = await this.$http.get(`/dictionary/pinyin/${json.word}`)
@@ -298,6 +330,8 @@ export default {
           }
         } 
       },
+
+    //set pinyin to word
     setPinyinInfo(){
       this.list.forEach(paragraph => {
         paragraph.forEach (word => {
@@ -310,6 +344,8 @@ export default {
         })
       })
     },
+
+    //set grammar word to word
      setWordInfo(){
       this.list.forEach(paragraph => {
         paragraph.forEach (word => {
@@ -326,6 +362,7 @@ export default {
       })
     },
 
+    //read the chapter.text and display into reading area, embedded with pinyin and meaning if available
     showText(){
         this.list = []
         var paragraph = []
@@ -374,6 +411,7 @@ export default {
           }
         })
     },
+
     edit() {
       this.storeChapter()
       this.$router.push({ name: 'Edit'})
@@ -384,7 +422,7 @@ export default {
       this.$router.push({ name: 'Student'})
     },
 
-
+    //create new id
     objectId() {
       var timestamp = ((new Date().getTime() / 1000) | 0).toString(16);
       return (
@@ -406,6 +444,8 @@ export default {
       this.$store.commit('setChapter',{newChapter : this.chapter})
     },
 
+
+    //get highlight text
     getSelectText(){
       if (window.getSelection){
        var stringList = window.getSelection().toString().split("\n")
@@ -418,6 +458,7 @@ export default {
       }
     },
 
+    //read highlight text and output to tts
     async tts(){
       var str = this.getSelectText()
       var chapter = {
@@ -430,6 +471,7 @@ export default {
       }
     },
 
+    //read highlight text and translate
     async translatePhrase() {
       var str = this.getSelectText()
       var chapter = {
@@ -447,6 +489,8 @@ export default {
       }
     },
 
+
+    //init audio
     init(){
       try {
         // Fix up for prefixing
@@ -458,6 +502,7 @@ export default {
       }
     },
 
+    //translate
     async translateWord(){
       var chapter = {
         "title": this.wordForm.word
