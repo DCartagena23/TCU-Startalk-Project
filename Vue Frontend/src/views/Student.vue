@@ -5,7 +5,7 @@
     <div class="container" id = "student">
       <Header :toggleEdit="toggleEdit" :toggleAssignment="toggleAssignment" :toggleTextbook="toggleTextbook" :toggleExam="toggleExam" :toggleGrades="toggleGrades" :toggleForum="toggleForum" :toggleHome="toggleHome" :toggleAccount="toggleAccount" :accountMode="accountMode" />
       <Home v-show="toggleHomeBool" />
-      <Body :toggleEditButton="toggleEditButton" v-show="toggleTextbookBool" :toggleEditMode="toggleEditMode" :textbox="textbox"/>
+      <Textbook :toggleEditButton="toggleEditButton" v-show="toggleTextbookBool" :toggleEditMode="toggleEditMode" :textbox="textbox"/>
       <Assignment v-show="toggleAssignmentBool" />
       <Exam v-show="toggleExamBool" />
       <Grades v-show="toggleGradesBool" />
@@ -18,7 +18,7 @@
 
 <script>
 import Header from '@/components/Header.vue'
-import Body from '@/components/Body.vue'
+import Textbook from '@/components/Textbook.vue'
 import Footer from '@/components/Footer.vue'
 import Home from '@/components/Home.vue'
 import Assignment from '@/components/Assignment.vue'
@@ -31,7 +31,7 @@ export default {
   name: 'App',
   components: {
     Header,
-    Body,
+    Textbook,
     Footer,
     Home,
     Assignment,
@@ -80,7 +80,7 @@ export default {
       this.toggleHomeBool = false;
       this.toggleAccountBool = false;
       this.toggleGradesBool = false;
-  
+
     },
     toggleExam: function(){
       this.toggleExamBool=true;

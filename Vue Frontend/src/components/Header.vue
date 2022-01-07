@@ -1,7 +1,8 @@
 <template>
     <div class="row">
         <div class="col">
-                <Logo :toggleHome="toggleHome" />
+                <!-- <Logo :toggleHome="toggleHome" /> -->
+                <img src="../assets/startalk.png" alt="website logo" class="logo" v-on:click="toggleHome">
         </div>
         <div class="col-6">
             <div>
@@ -17,10 +18,27 @@
             </div>
         </div>
         <div class="col">
-            <div>
                 <!-- <div class="nav2" v-show="toggle"> Account </div> -->
-                <AccountDrop :toggleEdit="toggleEdit" :toggleAccount="toggleAccount" :accountMode="accountMode" />
-            </div>
+                <!-- <AccountDrop :toggleEdit="toggleEdit" :toggleAccount="toggleAccount" :accountMode="accountMode" /> -->
+                <div id="accordion1" style="margin: 8px 35px 0 0; float: right;">
+    <div class="card">
+      <div class="card-header" id="headingFour">
+        <h5 class="mb-0">
+          <button id="account" class="btn btn section" v-on:click="toggleAccDrop" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+            Account
+          </button>
+        </h5>
+      </div>
+      <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion1">
+        <div class="card-body section" v-on:click="toggleAccount">
+          Edit Account Information
+        </div>
+        <div class="card-body section" v-on:click="toggleEdit">
+          Switch to {{accountMode}}
+        </div>
+      </div>
+    </div>
+                </div>
         </div>
     </div>
 </template>
@@ -48,15 +66,6 @@
     margin: 18px;
 }
 
-.logo{
-    height:50%;
-    width:50%;
-    float: left;
-    /* margin-left: auto;
-    margin-right: auto;
-    display: block; */
-}
-
 #acclogo{
     height:15%;
     width:15%;
@@ -64,19 +73,32 @@
     margin-right: auto;
     display: block;
 }
+
+.logo{
+    height:50%;
+    width:50%;
+    float: left;
+    cursor: pointer;
+    /* margin-left: auto;
+    margin-right: auto;
+    display: block; */
+}
+
+.section:hover{
+    color: blue;
+    cursor: pointer;
+}
 </style>
 
 <script>
 import NavButton from './NavButton.vue'
-import AccountDrop from './AccountDrop.vue'
-import Logo from "./Logo.vue"
+// import AccountDrop from './AccountDrop.vue'
+// import Logo from "./Logo.vue"
 
 export default {
     name: 'Header',
     components:{
-        NavButton,
-        AccountDrop,
-        Logo
+        NavButton
     },
     props:{
         toggleEdit:Function,
@@ -88,6 +110,12 @@ export default {
         toggleAccount:Function,
         toggleGrades:Function,
         accountMode:String
+    },
+    methods:{
+        toggleAccDrop:function(){
+            var accountDrop = document.getElementById('collapseFour');
+            accountDrop.classList.toggle('show');
+        }
     }
 }
 </script>
