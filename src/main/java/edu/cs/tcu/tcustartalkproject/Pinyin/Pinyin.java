@@ -3,11 +3,10 @@ package edu.cs.tcu.tcustartalkproject.Pinyin;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import edu.cs.tcu.tcustartalkproject.Chapter.Chapter;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
 /**
@@ -15,15 +14,15 @@ import java.io.Serializable;
  * Normally, pinyin is pre-defined in CCCEdict. Customized Pinyin is only created
  * if the user desires.
  */
-@Entity
+@Document
 public class Pinyin implements Serializable {
     @Id
     private String id;
 
     private String pinyin;
 
+    @DBRef
     @JsonBackReference
-    @ManyToOne
     private Chapter chapter;
 
     /**

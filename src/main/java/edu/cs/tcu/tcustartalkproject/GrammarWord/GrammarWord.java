@@ -2,13 +2,14 @@ package edu.cs.tcu.tcustartalkproject.GrammarWord;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import edu.cs.tcu.tcustartalkproject.Chapter.Chapter;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
-@Entity
+@Document
 public class GrammarWord implements Serializable {
     @Id
     private String id;
@@ -16,8 +17,8 @@ public class GrammarWord implements Serializable {
     @Column(length=10000)
     private String desc;
 
+    @DBRef
     @JsonBackReference
-    @ManyToOne
     private Chapter chapter;
 
     public GrammarWord() {

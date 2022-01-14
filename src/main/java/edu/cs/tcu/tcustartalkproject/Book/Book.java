@@ -1,22 +1,25 @@
 package edu.cs.tcu.tcustartalkproject.Book;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.MongoId;
+
 import edu.cs.tcu.tcustartalkproject.Chapter.Chapter;
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@Document(collection = "Book")
 public class Book {
-    @Id
+    @MongoId
     private String id;
     private String title;
     private String desc;
     private String author;
     private double price;
 
+    @DBRef
     @JsonManagedReference
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private List<Chapter> chapter = new ArrayList<Chapter>();
     /**
      * Constructor for Book objects with arguments

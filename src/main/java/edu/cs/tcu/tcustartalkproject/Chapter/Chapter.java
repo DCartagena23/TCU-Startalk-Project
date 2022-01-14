@@ -5,39 +5,38 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import edu.cs.tcu.tcustartalkproject.Book.Book;
 import edu.cs.tcu.tcustartalkproject.GrammarWord.GrammarWord;
 import edu.cs.tcu.tcustartalkproject.Pinyin.Pinyin;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
-import javax.persistence.*;
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-@Entity
+@Document
 public class Chapter {
-    @Id
+    @MongoId
     private String id;
 
     private Integer number = null;
     private String title = null;
 
-    @ElementCollection
     List<String> text = null;
 
+    @DBRef
     @JsonBackReference
-    @ManyToOne
     private Book book;
 
+    @DBRef
     @JsonManagedReference
-    @OneToMany(mappedBy = "chapter", cascade = CascadeType.ALL)
     private List<GrammarWord> grammarWords = new ArrayList<GrammarWord>();
 
+    @DBRef
     @JsonManagedReference
-    @OneToMany(mappedBy = "chapter", cascade = CascadeType.ALL)
     private List<Pinyin> pinyin = new ArrayList<Pinyin>();
 
+    @DBRef
     @JsonManagedReference
-    @OneToMany(mappedBy = "chapter", cascade = CascadeType.ALL)
     private List<TimeStamp> timeStamp = new ArrayList<TimeStamp>();
 
 

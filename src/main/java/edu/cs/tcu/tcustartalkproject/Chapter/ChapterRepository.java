@@ -1,7 +1,7 @@
 package edu.cs.tcu.tcustartalkproject.Chapter;
 
 import edu.cs.tcu.tcustartalkproject.Chapter.Chapter;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface ChapterRepository extends JpaRepository<Chapter, String> {
+public interface ChapterRepository extends MongoRepository<Chapter, String> {
 }

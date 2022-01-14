@@ -1,7 +1,6 @@
 package edu.cs.tcu.tcustartalkproject.Pinyin;
 
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
-public interface PinyinRepository extends JpaRepository<Pinyin, String> {
+public interface PinyinRepository extends MongoRepository<Pinyin, String> {
 }

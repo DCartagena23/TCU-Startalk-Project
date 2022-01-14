@@ -1,6 +1,6 @@
 package edu.cs.tcu.tcustartalkproject.Book;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface BookRepository extends JpaRepository<Book, String> {
+public interface BookRepository extends MongoRepository<Book, String> {
 }
