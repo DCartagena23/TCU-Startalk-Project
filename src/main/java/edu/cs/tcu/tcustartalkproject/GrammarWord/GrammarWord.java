@@ -9,12 +9,11 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import java.io.Serializable;
 
-@Document
+@Document(collection= "GrammarWord")
 public class GrammarWord implements Serializable {
     @Id
     private String id;
     private String word;
-    @Column(length=10000)
     private String desc;
 
     @DBRef

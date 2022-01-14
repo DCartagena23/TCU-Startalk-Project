@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-@Document
+@Document(collection= "Chapter")
 public class Chapter {
     @MongoId
     private String id;

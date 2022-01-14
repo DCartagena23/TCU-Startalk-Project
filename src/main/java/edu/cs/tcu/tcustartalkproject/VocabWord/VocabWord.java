@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.io.Serializable;
 
-@Document
+@Document(collection= "VocabWord")
 public class VocabWord implements Serializable {
     @MongoId
     private String id;

@@ -56,14 +56,6 @@ public class DBInitializer implements CommandLineRunner {
         b2.addChapter(c3);
         b2.addChapter(c4);
 
-        bookService.save(b1);
-        bookService.save(b2);
-        bookService.save(b3);
-        bookService.save(b4);
-        bookService.save(b5);
-        bookService.save(b6);
-        bookService.save(b7);
-
         GrammarWord grammarWord1 = new GrammarWord();
         grammarWord1.setId(UUID.randomUUID().toString());
         grammarWord1.setWord("据说");
@@ -88,9 +80,6 @@ public class DBInitializer implements CommandLineRunner {
         c1.addGrammarWords(grammarWord2);
         c1.addGrammarWords(grammarWord3);
 
-        grammarWordService.save(grammarWord1);
-        grammarWordService.save(grammarWord2);
-        grammarWordService.save(grammarWord3);
 
         VocabWord vocabWord1 = new VocabWord();
         vocabWord1.setId(UUID.randomUUID().toString());
@@ -127,6 +116,23 @@ public class DBInitializer implements CommandLineRunner {
         vocabWord6.setWord("保持");
         vocabWord6.setPinyin("Bǎochí");
         vocabWord6.setDesc("Definition: Keep");
+
+        bookService.save(b1);
+        bookService.save(b2);
+        bookService.save(b3);
+        bookService.save(b4);
+        bookService.save(b5);
+        bookService.save(b6);
+        bookService.save(b7);
+
+        chapterService.save(c1);
+        chapterService.save(c2);
+        chapterService.save(c3);
+        chapterService.save(c4);
+
+        grammarWordService.save(grammarWord1);
+        grammarWordService.save(grammarWord2);
+        grammarWordService.save(grammarWord3);
 
         vocabWordService.save(vocabWord1);
         vocabWordService.save(vocabWord2);

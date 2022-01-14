@@ -14,7 +14,7 @@ import java.io.Serializable;
  * Normally, pinyin is pre-defined in CCCEdict. Customized Pinyin is only created
  * if the user desires.
  */
-@Document
+@Document(collection= "Pinyin")
 public class Pinyin implements Serializable {
     @Id
     private String id;
