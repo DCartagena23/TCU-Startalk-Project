@@ -29,6 +29,6 @@ export default {
   data: function () {
     return {}
   },
-  emits: ['edit', 'delete','view'],
+  emits: ['edit', 'delete', 'view'],
 }
 </script>

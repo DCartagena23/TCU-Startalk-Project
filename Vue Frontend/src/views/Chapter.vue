@@ -1,36 +1,36 @@
 <template>
   <div class="container">
     <!-- Chapter List -->
-    <h1>{{book.title}}</h1>
+    <h1>{{ book.title }}</h1>
     <div>
       <a class="btn btn-primary" @click.prevent="showNewchapterForm">Add a New Chapter</a>
     </div>
     <hr />
-      <table class="table table-striped table-hover">
-        <thead>
-          <tr>
-            <th>Chapter</th>
-            <th>Name</th>
-            <th>Operations</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr :key="chapter.id" v-for="chapter in chapList"  >
-            <td>Chapter {{ chapter.number }}</td>
-            <td>{{ chapter.title }}</td>
-            <td>
-              <a class="btn btn-warning" style="margin-right:10px" @click.prevent="showEditchapterForm(chapter.id)">Edit</a>
-              <a class="btn btn-danger" style="margin-right:10px" @click.prevent="deleteChapter(chapter.id)">Delete</a>
-              <a class="btn btn-success" style="margin-right:10px" @click.prevent="view(chapter)">View</a>
-              <a class="btn btn-success" @click.prevent="studentView(chapter)">Student View</a>
-            </td>          
-          </tr>
-        </tbody>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Chapter</th>
+          <th>Name</th>
+          <th>Operations</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr :key="chapter.id" v-for="chapter in chapList">
+          <td>Chapter {{ chapter.number }}</td>
+          <td>{{ chapter.title }}</td>
+          <td>
+            <a class="btn btn-warning" style="margin-right: 10px" @click.prevent="showEditchapterForm(chapter.id)">Edit</a>
+            <a class="btn btn-danger" style="margin-right: 10px" @click.prevent="deleteChapter(chapter.id)">Delete</a>
+            <a class="btn btn-success" style="margin-right: 10px" @click.prevent="view(chapter)">View</a>
+            <a class="btn btn-success" @click.prevent="studentView(chapter)">Student View</a>
+          </td>
+        </tr>
+      </tbody>
     </table>
 
-<!-- Add a New Chapter Form -->
+    <!-- Add a New Chapter Form -->
   </div>
-    <div class="modal fade" id="chapterForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="chapterForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -43,11 +43,11 @@
           <form>
             <div class="mb-3">
               <label for="chapter-name" class="col-form-label">Chapter Number:</label>
-              <input type="text" @keypress="validateNumber" class="form-control" id="chapter-title" v-model="chapterForm.number"/>
+              <input type="text" @keypress="validateNumber" class="form-control" id="chapter-title" v-model="chapterForm.number" />
             </div>
             <div class="mb-3">
               <label for="chapter-name" class="col-form-label">Title:</label>
-              <input type="text" class="form-control" id="chapter-title" v-model="chapterForm.title"/>
+              <input type="text" class="form-control" id="chapter-title" v-model="chapterForm.title" />
             </div>
           </form>
         </div>
@@ -58,7 +58,6 @@
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -71,16 +70,15 @@ export default {
     return {
       chapList: [],
       book: {},
-      chapter:{},
-      
+      chapter: {},
+
       chapterForm: {},
       chapterFormName: '',
       chapterFormModal: null,
     }
   },
   mounted: function () {
-    this.chapterFormModal = new this.$bootstrap.Modal(document.getElementById('chapterForm'), {
-    })
+    this.chapterFormModal = new this.$bootstrap.Modal(document.getElementById('chapterForm'), {})
   },
   created() {
     this.getChapList(this.$route.params.id)
@@ -95,14 +93,14 @@ export default {
     async getBook(id) {
       const { data: res } = await this.$http.get(`/books/findOne/${id}`)
       if (res.status == 200) {
-          this.book = res.data
+        this.book = res.data
       }
     },
 
     async getChapter(id) {
       const { data: res } = await this.$http.get(`/chapters/findOne/${id}`)
       if (res.status == 200) {
-          this.chapter = res.data
+        this.chapter = res.data
       }
     },
 
@@ -121,7 +119,7 @@ export default {
       if (this.chapterForm.id) {
         // update an existing chapter
         const { data: res } = await this.$http.put(`/chapters/updateChapter/${this.book.id}`, this.chapterForm)
-        let index = this.chapList.findIndex((chapter) =>chapter.id == res.data.id)
+        let index = this.chapList.findIndex((chapter) => chapter.id == res.data.id)
         this.chapList[index] = res.data
         this.sorted()
       } else {
@@ -151,45 +149,47 @@ export default {
       }
     },
     objectId() {
-      var timestamp = ((new Date().getTime() / 1000) | 0).toString(16);
+      var timestamp = ((new Date().getTime() / 1000) | 0).toString(16)
       return (
         timestamp +
-        "xxxxxxxxxxxxxxxx"
-          .replace(/[x]/g, function() {
-            return ((Math.random() * 16) | 0).toString(16);
+        'xxxxxxxxxxxxxxxx'
+          .replace(/[x]/g, function () {
+            return ((Math.random() * 16) | 0).toString(16)
           })
           .toLowerCase()
-      );
+      )
     },
 
-      sorted() {
-          return this.chapList.sort((a, b) => { return a.number - b.number  ;});
-      },
+    sorted() {
+      return this.chapList.sort((a, b) => {
+        return a.number - b.number
+      })
+    },
 
     validateNumber: (event) => {
-      let keyCode = event.keyCode;
+      let keyCode = event.keyCode
       if (keyCode < 48 || keyCode > 57) {
-        event.preventDefault();
+        event.preventDefault()
       }
     },
 
-      checkBook(id) {
+    checkBook(id) {
       this.check = id
       console.log(this.check)
       this.$router.push({
-        name: 'About', 
-        params: { id: this.check }
-      });
+        name: 'About',
+        params: { id: this.check },
+      })
     },
-      view(chapter) {
+    view(chapter) {
       console.log(chapter)
-      this.$store.commit('setChapter',{newChapter : chapter})
-      this.$router.push({ path: `/read/${chapter.id}` }) 
+      this.$store.commit('setChapter', { newChapter: chapter })
+      this.$router.push({ path: `/read/${chapter.id}` })
     },
-      studentView(chapter) {
+    studentView(chapter) {
       console.log(chapter)
-      this.$store.commit('setChapter',{newChapter : chapter})
-      this.$router.push({ name: 'Student'})
+      this.$store.commit('setChapter', { newChapter: chapter })
+      this.$router.push({ name: 'Student' })
     },
   },
 }

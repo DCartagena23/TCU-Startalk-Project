@@ -10,11 +10,20 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.4",
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "@fortawesome/vue-fontawesome": "^3.0.0-5",
+    "@headlessui/vue": "^1.4.3",
+    "@heroicons/vue": "^1.0.5",
     "@popperjs/core": "^2.9.2",
+    "@tailwindcss/postcss7-compat": "^2.2.17",
     "@vue/cli": "^4.5.15",
+    "autoprefixer": "^9.8.8",
     "axios": "^0.21.1",
     "bootstrap": "^5.0.0-beta3",
     "core-js": "^3.6.5",
+    "postcss": "^7.0.39",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17",
     "vue": "^3.2.22",
     "vue-router": "^4.0.6",
     "vue-template-compiler": "^2.6.14",
@@ -33,6 +42,6 @@
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-vue": "^7.0.0",
     "prettier": "^2.2.1",
-    "tailwindcss": "^3.0.15"
+    "vue-cli-plugin-tailwind": "~2.2.18"
   }
 }
