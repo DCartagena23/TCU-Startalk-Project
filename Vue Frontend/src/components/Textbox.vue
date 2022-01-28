@@ -41,15 +41,15 @@
         </audio>
       </div>
     </div>
-    <button type="button" class="btn btn-info" v-on:click="goPrevPage" style="float: left; margin: 5px 5px 5px 0">Previous Page</button>
-    <button @click="edit()" type="button" class="btn btn-info" v-show="toggleEditButton" style="margin: 5px 0 0 0">Edit Passage</button>
-    <button type="button" class="btn btn-info" v-on:click="goNextPage" style="float: right; margin: 5px 0 5px 5px">Next Page</button>
+    <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" v-on:click="goPrevPage" style="float: left; margin: 5px 5px 5px 0">Previous Page</button>
+    <button type="button" @click="edit()" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" v-show="toggleEditButton" style="margin: 5px 0 0 0">Edit Passage</button>
+    <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" v-on:click="goNextPage" style="float: right; margin: 5px 0 5px 5px">Next Page</button>
 
     <nav class="navbar fixed-bottom navbar-expand-lg navbar-dark bg-dark" style="text-align: center">
       <div class="mx-auto">
-        <button @click="toggle" class="btn btn-primary" style="margin-top: 10px">Toggle</button>
-        <button @click="tts()" class="btn btn-primary" style="margin-left: 10px; margin-top: 10px">TTS</button>
-        <button @click="translatePhrase()" class="btn btn-primary" style="margin-left: 10px; margin-top: 10px">Translate</button>
+        <button type="button" @click="toggle" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" style="margin-top: 10px">Toggle</button>
+        <button type="button" @click="tts()" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" style="margin-left: 10px; margin-top: 10px">TTS</button>
+        <button type="button" @click="translatePhrase()" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" style="margin-left: 10px; margin-top: 10px">Translate</button>
       </div>
     </nav>
 

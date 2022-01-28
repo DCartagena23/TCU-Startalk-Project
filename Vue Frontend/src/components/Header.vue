@@ -146,7 +146,6 @@
 import { Popover, PopoverButton, PopoverGroup, PopoverPanel } from '@headlessui/vue'
 import {
   BookmarkAltIcon,
-  CalendarIcon,
   ChartBarIcon,
   CursorClickIcon,
   MenuIcon,
@@ -193,24 +192,23 @@ const callsToAction = [
 ]
 const resources = [
   {
-    name: 'Help Center',
-    description: 'Get all of your questions answered in our forums or contact support.',
+    name: 'Edit Account Information',
+    description: 'Change your personal information, username, password, or profile picture',
     href: '#',
     icon: SupportIcon,
   },
   {
-    name: 'Guides',
-    description: 'Learn how to maximize our platform to get the most out of it.',
+    name: 'Switch User View',
+    description: 'Switch between student and teacher view',
     href: '#',
     icon: BookmarkAltIcon,
   },
-  {
-    name: 'Events',
-    description: 'See what meet-ups and other events we might be planning near you.',
+    {
+    name: 'Sign Out',
+    description: 'Sign out of your account',
     href: '#',
-    icon: CalendarIcon,
+    icon: BookmarkAltIcon,
   },
-  { name: 'Security', description: 'Understand how we take your privacy seriously.', href: '#', icon: ShieldCheckIcon },
 ]
 const recentPosts = [
   { id: 1, name: 'Boost your conversion rate', href: '#' },

@@ -1,5 +1,5 @@
 <template>
-   <main class="pb-8">
+   <main class="pb-8 pt-8">
       <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
         <h1 class="sr-only">Chinese Textbook</h1>
         <!-- Main 3 column grid -->
