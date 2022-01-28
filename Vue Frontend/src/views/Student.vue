@@ -108,7 +108,6 @@ export default {
       this.toggleHomeBool = false
       this.toggleAccountBool = false
       this.toggleForumBool = false
-      this.toggleGradesBool = false
     },
     toggleForum: function () {
       this.toggleForumBool = true
