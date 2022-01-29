@@ -1,10 +1,16 @@
 package edu.cs.tcu.tcustartalkproject.GrammarWord;
 
+import edu.cs.tcu.tcustartalkproject.Book.Book;
 import edu.cs.tcu.tcustartalkproject.Chapter.Chapter;
 import edu.cs.tcu.tcustartalkproject.Chapter.ChapterService;
 import edu.cs.tcu.tcustartalkproject.utils.Result;
 import edu.cs.tcu.tcustartalkproject.utils.StatusCode;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,14 +24,20 @@ public class GrammarWordController {
     private final GrammarWordService grammarWordService;
 
     /**
+     * MongoDB Template
+     */
+    private final MongoTemplate mongoTemplate;
+
+    /**
      * Constructor for Grammar Word Controller
      * @param chapterService Chapter service supports basic operations.
      * @param grammarWordService Grammar Word Service supports basic operations.
      */
     @Autowired
-    public GrammarWordController(ChapterService chapterService, GrammarWordService grammarWordService){
+    public GrammarWordController(ChapterService chapterService, GrammarWordService grammarWordService, MongoTemplate mongoTemplate){
         this.chapterService = chapterService;
         this.grammarWordService = grammarWordService;
+        this.mongoTemplate = mongoTemplate;
     }
 
     /**
@@ -78,7 +90,18 @@ public class GrammarWordController {
     @DeleteMapping("/deleteGrammarWord/{id}")
     @ResponseBody
     public Result deleteGrammarWord(@PathVariable String id) {
+        this.deleteDBRefGrammarWord(id);
         grammarWordService.delete(id);
         return new Result(StatusCode.SUCCESS, "Grammar Word Deleted!", null);
+    }
+
+    /**
+     * Method to delete DBRef GrammarWord referenced in Chapter.
+     * @param grammarWordId index of the grammarWord.
+     */
+    public void deleteDBRefGrammarWord(String grammarWordId){
+        Query query = Query.query(Criteria.where("$id").is(new ObjectId(grammarWordId)));
+        Update update = new Update().pull("grammarWords", query);
+        mongoTemplate.updateMulti(new Query(), update, Chapter.class);
     }
 }

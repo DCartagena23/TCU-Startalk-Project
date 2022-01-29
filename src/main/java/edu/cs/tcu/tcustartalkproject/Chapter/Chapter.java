@@ -4,10 +4,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import edu.cs.tcu.tcustartalkproject.Book.Book;
 import edu.cs.tcu.tcustartalkproject.GrammarWord.GrammarWord;
-import edu.cs.tcu.tcustartalkproject.Pinyin.Pinyin;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.StringTokenizer;
 
 @Document(collection= "Chapter")
 public class Chapter {
-    @MongoId
+    @Id
     private String id;
 
     private Integer number = null;
@@ -31,12 +30,8 @@ public class Chapter {
     @JsonManagedReference
     private List<GrammarWord> grammarWords = new ArrayList<GrammarWord>();
 
-    @DBRef
-    @JsonManagedReference
     private List<Pinyin> pinyin = new ArrayList<Pinyin>();
 
-    @DBRef
-    @JsonManagedReference
     private List<TimeStamp> timeStamp = new ArrayList<TimeStamp>();
 
 
@@ -206,7 +201,6 @@ public class Chapter {
      */
     public void addPinyin(Pinyin pinyin){
         this.pinyin.add(pinyin);
-        pinyin.setChapter(this);
     }
 
     /**
@@ -231,6 +225,5 @@ public class Chapter {
      */
     public void addTimeStamp(TimeStamp timeStamp){
         this.timeStamp.add(timeStamp);
-        timeStamp.setChapter(this);
     }
 }

@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 @Document(collection= "VocabWord")
 public class VocabWord implements Serializable {
-    @MongoId
+    @Id
     private String id;
     private String word;
     private String pinyin;

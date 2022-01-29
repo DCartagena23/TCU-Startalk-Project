@@ -1,6 +1,7 @@
 package edu.cs.tcu.tcustartalkproject.Book;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @Document(collection = "Book")
 public class Book {
-    @MongoId
+    @Id
     private String id;
     private String title;
     private String desc;
