@@ -28,4 +28,20 @@ public class TimeStamp implements Serializable {
     public void setTime(String time) {
         this.time = time;
     }
+
+    /**
+     * Get location of timestamp
+     * @return location of timestamp
+     */
+    public String getLocation() {
+        return location;
+    }
+
+    /**
+     * Set location of timestamp
+     * @param location location of timestamp
+     */
+    public void setLocation(String location) {
+        this.location = location;
+    }
 }

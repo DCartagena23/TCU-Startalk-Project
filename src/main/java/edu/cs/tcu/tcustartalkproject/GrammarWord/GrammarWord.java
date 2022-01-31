@@ -5,7 +5,6 @@ import edu.cs.tcu.tcustartalkproject.Chapter.Chapter;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.Column;
 import javax.persistence.Id;
 import java.io.Serializable;
 

@@ -67,7 +67,6 @@ public class DBInitializer implements CommandLineRunner {
 
         b1.addChapter(c1);
         b1.addChapter(c2);
-        b2.addChapter(c1);
         b2.addChapter(c3);
         b2.addChapter(c4);
 
