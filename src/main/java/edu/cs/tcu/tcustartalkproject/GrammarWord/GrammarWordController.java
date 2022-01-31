@@ -63,6 +63,7 @@ public class GrammarWordController {
         Chapter chapter = chapterService.findById(chapterId);
         chapter.addGrammarWords(grammarWord);
         chapterService.update(chapter);
+        grammarWordService.save(grammarWord);
         return new Result(StatusCode.SUCCESS, "Grammar Word Saved!", grammarWord);
     }
 
@@ -75,9 +76,10 @@ public class GrammarWordController {
     @PutMapping("/updateGrammarWord/{chapterId}")
     @ResponseBody
     public Result updateGrammarWord(@PathVariable String chapterId, @RequestBody GrammarWord grammarWord) {
-        Chapter chapter = chapterService.findById(chapterId);
-        chapter.addGrammarWords(grammarWord);
-        chapterService.update(chapter);
+//        Chapter chapter = chapterService.findById(chapterId);
+//        chapter.addGrammarWords(grammarWord);
+//        chapterService.update(chapter);
+        grammarWordService.save(grammarWord);
         return new Result(StatusCode.SUCCESS, "Grammar Word Updated!", grammarWord);
     }
 

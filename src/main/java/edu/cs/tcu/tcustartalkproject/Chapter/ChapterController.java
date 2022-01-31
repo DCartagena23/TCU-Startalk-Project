@@ -79,6 +79,7 @@ public class ChapterController {
         Book book = bookService.findById(bookId);
         book.addChapter(chapter);
         bookService.update(book);
+        chapterService.save(chapter);
         return new Result(StatusCode.SUCCESS, "Chapter Saved!", chapter);
     }
 
@@ -91,9 +92,10 @@ public class ChapterController {
     @PutMapping("/updateChapter/{bookId}")
     @ResponseBody
     public Result updateChapter(@PathVariable String bookId, @RequestBody Chapter chapter) {
-        Book book = bookService.findById(bookId);
-        book.addChapter(chapter);
-        bookService.update(book);
+//        Book book = bookService.findById(bookId);
+//        book.addChapter(chapter);
+//        bookService.update(book);
+        chapterService.save(chapter);
         return new Result(StatusCode.SUCCESS, "Chapter Updated!", chapter);
     }
 
