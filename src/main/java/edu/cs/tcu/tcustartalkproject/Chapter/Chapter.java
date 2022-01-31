@@ -40,6 +40,7 @@ public class Chapter {
      */
     public Chapter() {
         super();
+        this.setTextFromString("Please input something!");
     }
 
     /**
@@ -52,6 +53,7 @@ public class Chapter {
         this.id = id;
         this.number = number;
         this.title = title;
+        this.setTextFromString("Please input something!");
     }
 
     /**
