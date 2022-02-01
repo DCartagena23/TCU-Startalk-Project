@@ -19,8 +19,10 @@
       <Assignment v-show="toggleAssignmentBool" />
       <Exam v-show="toggleExamBool" />
       <Grades v-show="toggleGradesBool" />
-      <Forum v-show="toggleForumBool" />
+      <Forum v-show="toggleForumBool" :toggleForumBoard="toggleForumBoard" />
       <Account v-show="toggleAccountBool" />
+      <ForumBoard v-show="toggleForumBoardBool" :toggleForumPost="toggleForumPost" />
+      <ForumPost v-show="toggleForumPostBool" />
       <Footer />
     </div>
   </div>
@@ -36,6 +38,8 @@ import Exam from '@/components/Exam.vue'
 import Grades from '@/components/Grades.vue'
 import Forum from '@/components/Forum.vue'
 import Account from '@/components/Account.vue'
+import ForumBoard from '@/components/ForumBoard.vue'
+import ForumPost from '@/components/ForumPost.vue'
 
 export default {
   name: 'App',
@@ -49,6 +53,8 @@ export default {
     Forum,
     Account,
     Grades,
+    ForumBoard,
+    ForumPost,
   },
   data: function () {
     return {
@@ -60,6 +66,8 @@ export default {
       toggleForumBool: false,
       toggleAccountBool: false,
       toggleHomeBool: false,
+      toggleForumBoardBool: false,
+      toggleForumPostBool: false,
       accountMode: 'Student',
       textbox: "It didn't register",
     }
@@ -81,6 +89,8 @@ export default {
       this.toggleAccountBool = false
       this.toggleHomeBool = false
       this.toggleGradesBool = false
+      this.toggleForumBoardBool = false
+      this.toggleForumPostBool = false
     },
     toggleAssignment: function () {
       this.toggleAssignmentBool = true
@@ -90,6 +100,8 @@ export default {
       this.toggleHomeBool = false
       this.toggleAccountBool = false
       this.toggleGradesBool = false
+      this.toggleForumBoardBool = false
+      this.toggleForumPostBool = false
     },
     toggleExam: function () {
       this.toggleExamBool = true
@@ -99,6 +111,8 @@ export default {
       this.toggleAccountBool = false
       this.toggleForumBool = false
       this.toggleGradesBool = false
+      this.toggleForumBoardBool = false
+      this.toggleForumPostBool = false
     },
     toggleGrades: function () {
       this.toggleGradesBool = true
@@ -108,6 +122,8 @@ export default {
       this.toggleHomeBool = false
       this.toggleAccountBool = false
       this.toggleForumBool = false
+      this.toggleForumBoardBool = false
+      this.toggleForumPostBool = false
     },
     toggleForum: function () {
       this.toggleForumBool = true
@@ -117,6 +133,8 @@ export default {
       this.toggleExamBool = false
       this.toggleAccountBool = false
       this.toggleGradesBool = false
+      this.toggleForumBoardBool = false
+      this.toggleForumPostBool = false
     },
     toggleHome: function () {
       this.toggleHomeBool = true
@@ -126,6 +144,8 @@ export default {
       this.toggleForumBool = false
       this.toggleAccountBool = false
       this.toggleGradesBool = false
+      this.toggleForumBoardBool = false
+      this.toggleForumPostBool = false
     },
     toggleAccount: function () {
       this.toggleAccountBool = true
@@ -135,6 +155,30 @@ export default {
       this.toggleExamBool = false
       this.toggleForumBool = false
       this.toggleGradesBool = false
+      this.toggleForumBoardBool = false
+      this.toggleForumPostBool = false
+    },
+    toggleForumBoard: function(){
+      this.toggleAccountBool = false
+      this.toggleTextbookBool = false
+      this.toggleHomeBool = false
+      this.toggleAssignmentBool = false
+      this.toggleExamBool = false
+      this.toggleForumBool = false
+      this.toggleGradesBool = false
+      this.toggleForumBoardBool = true
+      this.toggleForumPostBool = false
+    },
+    toggleForumPost: function(){
+      this.toggleAccountBool = false
+      this.toggleTextbookBool = false
+      this.toggleHomeBool = false
+      this.toggleAssignmentBool = false
+      this.toggleExamBool = false
+      this.toggleForumBool = false
+      this.toggleGradesBool = false
+      this.toggleForumBoardBool = false
+      this.toggleForumPostBool = true
     },
     toggleEditMode: function () {
       this.$router.push({ path: '/books' })

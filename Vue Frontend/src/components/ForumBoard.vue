@@ -4,7 +4,7 @@
   <header style="padding-bottom: 2.5em;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 class="text-3xl font-bold leading-tight text-gray-900">
-            Forums
+            Posts
           </h1>
 <button type="button" class="px-6
       py-2.5
@@ -22,7 +22,7 @@
       transition
       duration-150
       ease-in-out" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Create forum
+  Create post
 </button>
 
 <!-- Modal -->
@@ -46,29 +46,8 @@
       </div>
       <div class="modal-body relative p-4">
           <div class="border border-gray-300 rounded-md px-3 py-2 shadow-sm focus-within:ring-1 focus-within:ring-indigo-600 focus-within:border-indigo-600">
-            <label for="email" class="block text-xs font-medium text-gray-900">Description</label>
-<textarea
-      class="
-        form-control
-        block
-        w-full
-        px-3
-        py-1.5
-        text-base
-        font-normal
-        text-gray-700
-        bg-white bg-clip-padding
-        border border-solid border-gray-300
-        rounded
-        transition
-        ease-in-out
-        m-0
-        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
-      "
-      id="exampleFormControlTextarea1"
-      rows="3"
-      placeholder="Enter description here"
-    ></textarea>
+            <label for="email" class="block text-xs font-medium text-gray-900">Email</label>
+            <input type="text" name="email" id="email" class="block w-full border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm" placeholder="someone@example.com" />
           </div>
       </div>
       <div
@@ -141,7 +120,7 @@
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
               <tr v-for="post in posts" :key="post.email">
-                <td v-on:click="toggleForumBoard" id="toForumBoard" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-left">
+                <td v-on:click="toggleForumPost" id="toForumPost" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-left">
                   {{ post.title }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-left">
@@ -172,8 +151,8 @@
 </template>
 
 <style scoped>
-#toForumBoard {
-  cursor: pointer;
+#toForumPost {
+    cursor: pointer;
 }
 </style>
 
@@ -213,7 +192,7 @@ export default {
     }
   },
   props: {
-    toggleForumBoard: Function,
+      toggleForumPost: Function,
   }
 }
 </script>
