@@ -3,10 +3,15 @@ package edu.cs.tcu.tcustartalkproject.Chapter;
 import edu.cs.tcu.tcustartalkproject.Book.Book;
 import edu.cs.tcu.tcustartalkproject.GrammarWord.GrammarWord;
 import edu.cs.tcu.tcustartalkproject.Book.BookService;
-import edu.cs.tcu.tcustartalkproject.Pinyin.Pinyin;
+import edu.cs.tcu.tcustartalkproject.GrammarWord.GrammarWordService;
 import edu.cs.tcu.tcustartalkproject.utils.Result;
 import edu.cs.tcu.tcustartalkproject.utils.StatusCode;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,14 +31,27 @@ public class ChapterController {
     private final BookService bookService;
 
     /**
+     * Service for basic operations: findAll(), findById(), delete(), save(), update()
+     */
+    private final GrammarWordService grammarWordService;
+
+    /**
+     * MongoDB template
+     */
+    private final MongoTemplate mongoTemplate;
+
+    /**
      * Constructor for Chapter Controller
      * @param chapterService Chapter Service supports basic operations related to chapter
      * @param bookService Book Service supports basic operations related to book
      */
     @Autowired
-    public ChapterController(ChapterService chapterService, BookService bookService){
+    public ChapterController(ChapterService chapterService, BookService bookService,
+                             GrammarWordService grammarWordService, MongoTemplate mongoTemplate){
         this.chapterService = chapterService;
         this.bookService = bookService;
+        this.grammarWordService = grammarWordService;
+        this.mongoTemplate = mongoTemplate;
     }
 
 
@@ -61,6 +79,7 @@ public class ChapterController {
         Book book = bookService.findById(bookId);
         book.addChapter(chapter);
         bookService.update(book);
+        chapterService.save(chapter);
         return new Result(StatusCode.SUCCESS, "Chapter Saved!", chapter);
     }
 
@@ -73,9 +92,10 @@ public class ChapterController {
     @PutMapping("/updateChapter/{bookId}")
     @ResponseBody
     public Result updateChapter(@PathVariable String bookId, @RequestBody Chapter chapter) {
-        Book book = bookService.findById(bookId);
-        book.addChapter(chapter);
-        bookService.update(book);
+//        Book book = bookService.findById(bookId);
+//        book.addChapter(chapter);
+//        bookService.update(book);
+        chapterService.save(chapter);
         return new Result(StatusCode.SUCCESS, "Chapter Updated!", chapter);
     }
 
@@ -87,8 +107,24 @@ public class ChapterController {
     @DeleteMapping("/deleteChapter/{id}")
     @ResponseBody
     public Result deleteChapter(@PathVariable String id) {
+        Chapter chapter = chapterService.findById(id);
+        List<GrammarWord> grammarWords = chapter.getGrammarWords();
+        this.deleteDBRefChapter(id);
         chapterService.delete(id);
+        for (GrammarWord g : grammarWords){
+            grammarWordService.delete(g.getId());
+        }
         return new Result(StatusCode.SUCCESS, "Chapter Deleted!", null);
+    }
+
+    /**
+     * Method to delete DBRef Chapter referenced in Book.
+     * @param chapterId index of the chapter.
+     */
+    public void deleteDBRefChapter(String chapterId){
+        Query query = Query.query(Criteria.where("$id").is(new ObjectId(chapterId)));
+        Update update = new Update().pull("chapter", query);
+        mongoTemplate.updateMulti(new Query(), update, Book.class);
     }
 
     /**

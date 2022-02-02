@@ -1,6 +1,6 @@
 package edu.cs.tcu.tcustartalkproject.VocabWord;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface VocabWordRepository extends JpaRepository<VocabWord, String> {
+public interface VocabWordRepository extends MongoRepository<VocabWord, String> {
 }

@@ -4,16 +4,15 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import edu.cs.tcu.tcustartalkproject.Book.Book;
 import edu.cs.tcu.tcustartalkproject.GrammarWord.GrammarWord;
-import edu.cs.tcu.tcustartalkproject.Pinyin.Pinyin;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-@Entity
+@Document(collection= "Chapter")
 public class Chapter {
     @Id
     private String id;
@@ -21,23 +20,18 @@ public class Chapter {
     private Integer number = null;
     private String title = null;
 
-    @ElementCollection
     List<String> text = null;
 
+    @DBRef
     @JsonBackReference
-    @ManyToOne
     private Book book;
 
+    @DBRef
     @JsonManagedReference
-    @OneToMany(mappedBy = "chapter", cascade = CascadeType.ALL)
     private List<GrammarWord> grammarWords = new ArrayList<GrammarWord>();
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "chapter", cascade = CascadeType.ALL)
     private List<Pinyin> pinyin = new ArrayList<Pinyin>();
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "chapter", cascade = CascadeType.ALL)
     private List<TimeStamp> timeStamp = new ArrayList<TimeStamp>();
 
 
@@ -46,6 +40,7 @@ public class Chapter {
      */
     public Chapter() {
         super();
+        this.setTextFromString("Please input something!");
     }
 
     /**
@@ -58,6 +53,7 @@ public class Chapter {
         this.id = id;
         this.number = number;
         this.title = title;
+        this.setTextFromString("Please input something!");
     }
 
     /**
@@ -207,7 +203,6 @@ public class Chapter {
      */
     public void addPinyin(Pinyin pinyin){
         this.pinyin.add(pinyin);
-        pinyin.setChapter(this);
     }
 
     /**
@@ -232,6 +227,5 @@ public class Chapter {
      */
     public void addTimeStamp(TimeStamp timeStamp){
         this.timeStamp.add(timeStamp);
-        timeStamp.setChapter(this);
     }
 }
