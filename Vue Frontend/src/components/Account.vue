@@ -1,17 +1,13 @@
 <template>
-    <div>
-        <div class="row">
-            Account
-        </div>
-    </div>
+  <div>
+    <div class="row">Account</div>
+  </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
 
 <script>
 export default {
-    name:"Account"
+  name: 'Account',
 }
 </script>

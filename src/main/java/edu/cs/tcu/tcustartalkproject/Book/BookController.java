@@ -1,6 +1,9 @@
 package edu.cs.tcu.tcustartalkproject.Book;
 
 import edu.cs.tcu.tcustartalkproject.Chapter.Chapter;
+import edu.cs.tcu.tcustartalkproject.Chapter.ChapterService;
+import edu.cs.tcu.tcustartalkproject.GrammarWord.GrammarWord;
+import edu.cs.tcu.tcustartalkproject.GrammarWord.GrammarWordService;
 import edu.cs.tcu.tcustartalkproject.utils.Result;
 import edu.cs.tcu.tcustartalkproject.utils.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +20,24 @@ public class BookController {
     private final BookService bookService;
 
     /**
+     * Service for basic operations: findAll(), findById(), delete(), save(), update()
+     */
+    private final ChapterService chapterService;
+
+    /**
+     * Service for basic operations: findAll(), findById(), delete(), save(), update()
+     */
+    private final GrammarWordService grammarWordService;
+
+    /**
      * Constructor for Book Controller
      * @param bookService Book Service supports basic operations.
      */
     @Autowired
-    public BookController(BookService bookService){
+    public BookController(BookService bookService, ChapterService chapterService, GrammarWordService grammarWordService){
         this.bookService = bookService;
+        this.chapterService = chapterService;
+        this.grammarWordService = grammarWordService;
     }
 
     /**
@@ -80,7 +95,16 @@ public class BookController {
     @DeleteMapping("/deleteBook/{id}")
     @ResponseBody
     public Result deleteBook(@PathVariable String id) {
+        Book book = bookService.findById(id);
+        List<Chapter> chapters = book.getChapter();
         bookService.delete(id);
+        for (Chapter c : chapters){
+            List<GrammarWord> grammarWords = c.getGrammarWords();
+            chapterService.delete(c.getId());
+            for (GrammarWord g : grammarWords){
+                grammarWordService.delete(g.getId());
+            }
+        }
         return new Result(StatusCode.SUCCESS, "Book Deleted!", null);
     }
 

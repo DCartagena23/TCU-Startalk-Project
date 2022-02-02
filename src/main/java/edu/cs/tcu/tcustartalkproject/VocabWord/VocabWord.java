@@ -1,17 +1,15 @@
 package edu.cs.tcu.tcustartalkproject.VocabWord;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import org.springframework.data.mongodb.core.mapping.Document;
 import javax.persistence.Id;
 import java.io.Serializable;
 
-@Entity
+@Document(collection= "VocabWord")
 public class VocabWord implements Serializable {
     @Id
     private String id;
     private String word;
     private String pinyin;
-    @Column(length=10000)
     private String desc;
 
     public VocabWord() {
