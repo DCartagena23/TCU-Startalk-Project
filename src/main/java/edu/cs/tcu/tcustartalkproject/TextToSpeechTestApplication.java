@@ -1,8 +1,16 @@
 package edu.cs.tcu.tcustartalkproject;
 
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.Bucket;
 import com.google.cloud.texttospeech.v1beta1.*;
 import com.google.protobuf.ByteString;
 import org.springframework.core.io.ClassPathResource;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.*;
@@ -37,5 +45,19 @@ public class TextToSpeechTestApplication {
                 System.out.println("Audio content written to file \"output.mp3\"");
             }
         }
+        AWSCredentials credentials = new BasicAWSCredentials(
+                "AKIAUYJLXQWAQFZI4FOI",
+                "B88uanzg7BqPFRAr902lbR7GDJAR3TnVyzWmP542");
+        AmazonS3 s3client = AmazonS3ClientBuilder.standard().withCredentials(new AWSStaticCredentialsProvider(credentials)).withRegion(Regions.US_EAST_1).build();
+        List<Bucket> buckets = s3client.listBuckets();
+        String name = null;
+        for (Bucket bucket : buckets) {
+            name = bucket.getName();
+        }
+        s3client.putObject(
+                name,
+                "assets/tts_test.mp3",
+                new File("./Vue Frontend/src/assets/tts_test.mp3")
+        );
     }
 }
