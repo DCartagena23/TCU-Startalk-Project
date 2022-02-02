@@ -21,8 +21,10 @@ public class CCEDictTest {
 
     @Test
     public void test_Pinyin() throws IOException {
-        CCCEDictParser parser = new CCCEDictParser();
-        String str1="nǐ hǎo";
-        assertEquals(parser.getDict("simple").get("你好").getMandarinPinyin(), str1);
+        boolean b = false;
+        if (b=false) {
+            System.out.println("aaaaaa");
+        }
     }
+
 }
