@@ -12,8 +12,8 @@ import java.util.List;
 public class S3BucketConnectionTest {
     public static void main(String... args) {
         AWSCredentials credentials = new BasicAWSCredentials(
-                "AKIAUYJLXQWAQFZI4FOI",
-                "B88uanzg7BqPFRAr902lbR7GDJAR3TnVyzWmP542");
+                "AKIAUYJLXQWAUKS6IVF6",
+                "F17P4YPBBxs02cEG6MtW3T0aptgQrkMmiTKCs");
         AmazonS3 s3client = AmazonS3ClientBuilder.standard().withCredentials(new AWSStaticCredentialsProvider(credentials)).withRegion(Regions.US_EAST_1).build();
         List<Bucket> buckets = s3client.listBuckets();
         for(Bucket bucket : buckets) {
