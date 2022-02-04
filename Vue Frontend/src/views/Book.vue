@@ -74,6 +74,7 @@ export default {
   },
   mounted: function () {
     this.bookFormModal = new this.$bootstrap.Modal(document.getElementById('bookForm'), {})
+
   },
   methods: {
     async getBookList() {
