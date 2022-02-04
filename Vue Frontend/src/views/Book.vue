@@ -146,7 +146,6 @@ export default {
       )
     },
     view(id) {
-      this.$store.commit('setId', { newId: id })
       this.$router.push({ path: `/chapter/${id}` })
     },
   },

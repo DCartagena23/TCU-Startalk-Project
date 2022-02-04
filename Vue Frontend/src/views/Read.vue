@@ -216,7 +216,7 @@ export default {
       const { data: res } = await this.$http.get(`/chapters/getGrammarWords/${id}`)
       this.wordList = res.data
       this.chapter.grammarWords = res.data
-      this.storeChapter()
+      this.getChapter(this.$route.params.id)
       this.setWordInfo()
     },
 
@@ -296,7 +296,7 @@ export default {
       const { data: res } = await this.$http.get(`/chapters/getPinyin/${id}`)
       this.pinyinList = res.data
       this.chapter.pinyin = res.data
-      this.storeChapter()
+      this.getChapter(this.$route.params.id)
       this.setPinyinInfo()
     },
 
@@ -407,13 +407,11 @@ export default {
     },
 
     edit() {
-      this.storeChapter()
-      this.$router.push({ name: 'Edit' })
+      this.$router.push({ path: `/edit/${this.chapter.id}` })
     },
 
     studentView() {
-      this.storeChapter()
-      this.$router.push({ name: 'Student' })
+      this.$router.push({ path: `/student/${this.chapter.id}` })
     },
 
     //create new id
@@ -431,10 +429,6 @@ export default {
 
     toggle: function () {
       this.flag = !this.flag
-    },
-
-    storeChapter() {
-      this.$store.commit('setChapter', { newChapter: this.chapter })
     },
 
     //get highlight text

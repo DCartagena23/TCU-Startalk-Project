@@ -11,7 +11,7 @@ import Student from '@/views/Student'
 
 const routes = [
   {
-    path: '/student',
+    path: '/student/:id',
     name: 'Student',
     component: Student,
     props: true,
@@ -41,7 +41,7 @@ const routes = [
     props: true,
   },
   {
-    path: '/edit',
+    path: '/edit/:id',
     name: 'Edit',
     component: Edit,
     props: true,

@@ -63,11 +63,23 @@ export default {
     }
   },
   mounted: function () {
-    this.chapter = this.$store.state.chapter
-    this.setText()
+
   },
-  created() {},
+  created() {
+        this.getChapter(this.$route.params.id)
+
+  },
   methods: {
+    //get the chapter using id
+    async getChapter(id) {
+      const { data: res } = await this.$http.get(`/chapters/findOne/${id}`)
+      if (res.status == 200) {
+        this.chapter = res.data
+
+        this.setText()
+      }
+    },
+
     setText() {
       this.newText = ''
       this.chapter.text.forEach((element) => {
@@ -189,9 +201,8 @@ export default {
     },
 
     async saveChapter() {
-      await this.$http.put(`/chapters/updateChapter/${this.$store.state.bookId}`, this.chapter)
-      this.$store.commit('setChapter', { newChapter: this.chapter })
-      this.$router.push({ name: 'Read' })
+      await this.$http.put(`/chapters/updateChapter/${this.$route.params.id}`, this.chapter)
+      this.$router.push({ path: `/read/${this.$route.params.id}` })
     },
   },
 }

@@ -183,13 +183,11 @@ export default {
     },
     view(chapter) {
       console.log(chapter)
-      this.$store.commit('setChapter', { newChapter: chapter })
       this.$router.push({ path: `/read/${chapter.id}` })
     },
     studentView(chapter) {
       console.log(chapter)
-      this.$store.commit('setChapter', { newChapter: chapter })
-      this.$router.push({ name: 'Student' })
+      this.$router.push({ path: `/student/${chapter.id}` })
     },
   },
 }

@@ -184,22 +184,34 @@ export default {
   },
   mounted: function () {
     this.init()
-    this.chapter = this.$store.state.chapter
-    this.wordList = this.chapter.grammarWords
-    this.pinyinList = this.chapter.pinyin
-    console.log(this.chapter.timeStamp)
-    this.showText()
+    console.log(this.$route.params.id)
+
     this.wordFormModal = new this.$bootstrap.Modal(document.getElementById('wordForm'), {})
     this.pinyinFormModal = new this.$bootstrap.Modal(document.getElementById('pinyinForm'), {})
     this.translateFormModal = new this.$bootstrap.Modal(document.getElementById('translateForm'), {})
   },
-  created() {},
+  created() {
+    this.getChapter(this.$route.params.id)
+  },
   methods: {
+        //get the chapter using id
+    async getChapter(id) {
+      const { data: res } = await this.$http.get(`/chapters/findOne/${id}`)
+      if (res.status == 200) {
+        this.chapter = res.data
+
+        this.wordList = this.chapter.grammarWords
+        this.pinyinList = this.chapter.pinyin
+
+        this.showText()
+      }
+    },
+
     async getNewWordList(id) {
       const { data: res } = await this.$http.get(`/chapters/getGrammarWords/${id}`)
       this.wordList = res.data
       this.chapter.grammarWords = res.data
-      this.storeChapter()
+      this.getChapter(this.$route.params.id)
       this.setWordInfo()
     },
     showNewForm() {
@@ -268,7 +280,7 @@ export default {
       const { data: res } = await this.$http.get(`/chapters/getPinyin/${id}`)
       this.pinyinList = res.data
       this.chapter.pinyin = res.data
-      this.storeChapter()
+      this.getChapter(this.$route.params.id)
       this.setPinyinInfo()
     },
     showPinyinForm(word) {
@@ -367,8 +379,7 @@ export default {
       })
     },
     edit() {
-      this.storeChapter()
-      this.$router.push({ name: 'Read' })
+      this.$router.push({ path: `/read/${chapter.id}` })
     },
 
     objectId() {
@@ -385,10 +396,6 @@ export default {
 
     toggle: function () {
       this.flag = !this.flag
-    },
-
-    storeChapter() {
-      this.$store.commit('setChapter', { newChapter: this.chapter })
     },
 
     getSelectText() {
