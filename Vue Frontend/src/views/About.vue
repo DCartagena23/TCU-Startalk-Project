@@ -73,7 +73,7 @@ export default {
                 var chapter = {
                  text: data,
                 }
-                http.post('/transfer', chapter)
+                http.post('/storage/upload', chapter)
               }
               
               const a = document.getElementById("download");
