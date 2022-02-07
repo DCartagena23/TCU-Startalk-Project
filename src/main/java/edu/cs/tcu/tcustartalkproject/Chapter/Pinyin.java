@@ -8,6 +8,7 @@ import java.io.Serializable;
  */
 
 public class Pinyin implements Serializable {
+    private String id;
     private String pinyin;
 
     /**
@@ -15,6 +16,22 @@ public class Pinyin implements Serializable {
      */
     public Pinyin() {
         super();
+    }
+
+    /**
+     * Get id.
+     * @return id
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * Set id
+     * @param id id
+     */
+    public void setId(String id) {
+        this.id = id;
     }
 
     /**

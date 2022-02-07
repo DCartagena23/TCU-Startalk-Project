@@ -20,8 +20,8 @@ import java.util.Base64;
 import java.util.List;
 import java.util.Scanner;
 
-@RestController
-@RequestMapping("/storage/")
+//@RestController
+//@RequestMapping("/storage/")
 public class S3RestController {
 //    private AmazonClient amazonClient;
     private String bucketname;

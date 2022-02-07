@@ -6,30 +6,24 @@ import edu.cs.tcu.tcustartalkproject.Chapter.Chapter;
 import edu.cs.tcu.tcustartalkproject.Chapter.ChapterService;
 import edu.cs.tcu.tcustartalkproject.GrammarWord.GrammarWord;
 import edu.cs.tcu.tcustartalkproject.GrammarWord.GrammarWordService;
-import edu.cs.tcu.tcustartalkproject.Chapter.Pinyin;
-import edu.cs.tcu.tcustartalkproject.VocabWord.*;
+
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Component
 public class DBInitializer implements CommandLineRunner {
+    private final BookService bookService;
+    private final ChapterService chapterService;
+    private final GrammarWordService grammarWordService;
 
     @Autowired
-    private BookService bookService;
-
-    @Autowired
-    private ChapterService chapterService;
-
-    @Autowired
-    private VocabWordService vocabWordService;
-
-    @Autowired
-    private GrammarWordService grammarWordService;
+    public DBInitializer(BookService bookService, ChapterService chapterService, GrammarWordService grammarWordService){
+        this.bookService = bookService;
+        this.chapterService = chapterService;
+        this.grammarWordService = grammarWordService;
+    }
 
     public void run(String... args) throws Exception {
         loadData();
@@ -54,16 +48,6 @@ public class DBInitializer implements CommandLineRunner {
 
         c1.setTextFromString(str1);
         c2.setTextFromString(str2);
-
-        Pinyin pinyin1 = new Pinyin();
-        pinyin1.setPinyin("Shèhuì zhìdù");
-        Pinyin pinyin2 = new Pinyin();
-        pinyin2.setPinyin("Jīngjì");
-
-        List<Pinyin> pinyinList = new ArrayList<>();
-        pinyinList.add(pinyin1);
-        pinyinList.add(pinyin2);
-        c1.setPinyin(pinyinList);
 
         b1.addChapter(c1);
         b1.addChapter(c2);
@@ -95,42 +79,6 @@ public class DBInitializer implements CommandLineRunner {
         c1.addGrammarWords(grammarWord3);
 
 
-        VocabWord vocabWord1 = new VocabWord();
-        vocabWord1.setId(new ObjectId().toHexString());
-        vocabWord1.setWord("单纯");
-        vocabWord1.setPinyin("Dānchún");
-        vocabWord1.setDesc("Definition: Simple");
-
-        VocabWord vocabWord2 = new VocabWord();
-        vocabWord2.setId(new ObjectId().toHexString());
-        vocabWord2.setWord("观念");
-        vocabWord2.setPinyin("Guānniàn");
-        vocabWord2.setDesc("Definition: Idea");
-
-        VocabWord vocabWord3 = new VocabWord();
-        vocabWord3.setId(new ObjectId().toHexString());
-        vocabWord3.setWord("社会 制度");
-        vocabWord3.setPinyin("Shèhuì zhìdù");
-        vocabWord3.setDesc("Definition: Social system");
-
-        VocabWord vocabWord4 = new VocabWord();
-        vocabWord4.setId(new ObjectId().toHexString());
-        vocabWord4.setWord("经济");
-        vocabWord4.setPinyin("Jīngjì");
-        vocabWord4.setDesc("Definition: Economy");
-
-        VocabWord vocabWord5 = new VocabWord();
-        vocabWord5.setId(new ObjectId().toHexString());
-        vocabWord5.setWord("挤");
-        vocabWord5.setPinyin("Jǐ");
-        vocabWord5.setDesc("Definition: Squeeze");
-
-        VocabWord vocabWord6 = new VocabWord();
-        vocabWord6.setId(new ObjectId().toHexString());
-        vocabWord6.setWord("保持");
-        vocabWord6.setPinyin("Bǎochí");
-        vocabWord6.setDesc("Definition: Keep");
-
         bookService.save(b1);
         bookService.save(b2);
         bookService.save(b3);
@@ -147,12 +95,5 @@ public class DBInitializer implements CommandLineRunner {
         grammarWordService.save(grammarWord1);
         grammarWordService.save(grammarWord2);
         grammarWordService.save(grammarWord3);
-
-        vocabWordService.save(vocabWord1);
-        vocabWordService.save(vocabWord2);
-        vocabWordService.save(vocabWord3);
-        vocabWordService.save(vocabWord4);
-        vocabWordService.save(vocabWord5);
-        vocabWordService.save(vocabWord6);
     }
 }

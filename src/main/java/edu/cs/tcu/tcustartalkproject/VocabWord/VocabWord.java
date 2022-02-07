@@ -3,6 +3,7 @@ package edu.cs.tcu.tcustartalkproject.VocabWord;
 import org.springframework.data.mongodb.core.mapping.Document;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.List;
 
 @Document(collection= "VocabWord")
 public class VocabWord implements Serializable {
@@ -10,7 +11,7 @@ public class VocabWord implements Serializable {
     private String id;
     private String word;
     private String pinyin;
-    private String desc;
+    private List<String> desc;
 
     public VocabWord() {
 
@@ -22,7 +23,7 @@ public class VocabWord implements Serializable {
      * @param word the Vocab Word itself
      * @param desc brief description of the vocab word
      */
-    public VocabWord(String id, String type, String word, String pinyin, String desc){
+    public VocabWord(String id, String type, String word, String pinyin, List<String> desc){
         this.id = id;
         this.word = word;
         this.pinyin = pinyin;
@@ -69,7 +70,7 @@ public class VocabWord implements Serializable {
      * Method to get description of the vocab word in the database
      * @return description of the vocab word in the database
      */
-    public String getDesc() {
+    public List<String> getDesc() {
         return desc;
     }
 
@@ -77,7 +78,7 @@ public class VocabWord implements Serializable {
      * Method to set description of the vocab word in the database
      * @param desc description to be set in the database
      */
-    public void setDesc(String desc) {
+    public void setDesc(List<String> desc) {
         this.desc = desc;
     }
 

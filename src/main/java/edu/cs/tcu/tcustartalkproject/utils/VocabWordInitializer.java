@@ -1,61 +1,70 @@
 package edu.cs.tcu.tcustartalkproject.utils;
 
+import edu.cs.tcu.tcustartalkproject.VocabWord.VocabWord;
+import edu.cs.tcu.tcustartalkproject.VocabWord.VocabWordService;
+import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import java.io.*;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Component("parser")
-public class CCCEDictParser {
-    Map<String, Entry> simpleDict = new HashMap<String, Entry>();
-    Map<String, Entry> traditionalDict = new HashMap<String, Entry>();
-    private String[] vowelAOE = {"āáǎàa", "ōóǒòo", "ēéěèe",
-            "ĀÁǍÀA",// 愛爾蘭 爱尔兰 [Ai4 er3 lan2] /Ireland/
-            "ŌÓǑÒO",// 噢運會 噢运会 [O1 yun4 hui4] /see 奧運會|奥运会[Ao4 yun4 hui4]/
-            "ĒÉĚÈE" // 鄂爾多斯|鄂尔多斯[E4 er3 duo1 si1], Inner Mongolia/
-    };
-    private String[] vowelIUV = {"īíǐìi", "ūúǔùu", "ǖǘǚǜü"};
-    private char[] toneArray = {'1', '2', '3', '4', '5'};
-    private String entryRegex = "^(.+) (.+) \\[(.+)\\] /(.*)/$";
-    private String pinyinRegex = "\\[(.+?)\\]";
+// @Component        // Comment this line after running it once.
+public class VocabWordInitializer implements CommandLineRunner {
+    private final VocabWordService vocabWordService;
 
-    public CCCEDictParser() throws IOException {
-        Map<String, Entry> traditionalDict = new HashMap<String, Entry>();
-        Map<String, Entry> simpleDict = new HashMap<String, Entry>();
+    @Autowired
+    public VocabWordInitializer(VocabWordService vocabWordService) {
+        this.vocabWordService = vocabWordService;
+    }
+
+    private void loadData() throws IOException {
+        CCCEDictParser parser = new CCCEDictParser();
         File file = new File("cedict_ts.u8");
         BufferedReader br = new BufferedReader(new FileReader(file));
         String line;
         while ((line = br.readLine()) != null) {
-            if (line.startsWith("#") == false){
+            if (!line.startsWith("#")){
                 StringTokenizer st = new StringTokenizer(line, " ");
-                traditionalDict.put(st.nextToken(), getEntry(line));
-                simpleDict.put(st.nextToken(), getEntry(line));
+                CCCEDictParser.Entry entry = parser.getEntry(line);
+                VocabWord vocabWord = new VocabWord();
+                vocabWord.setId(new ObjectId().toHexString());
+                vocabWord.setWord(entry.getSimplifiedChineseWord());
+                vocabWord.setPinyin(entry.getMandarinPinyin());
+                vocabWord.setDesc(entry.getEnglishDefinitions());
+                vocabWordService.save(vocabWord);
             }
         }
-        this.traditionalDict = traditionalDict;
-        this.simpleDict = simpleDict;
     }
 
-    public Map<String, Entry> getTraditionalDict(){
-        return this.traditionalDict;
+    @Override
+    public void run(String... args) throws Exception {
+        this.loadData();
     }
+}
 
-    public Map<String, Entry> getSimpleDict(){
-        return this.simpleDict;
-    }
 
-    public Map<String, Entry> getDict(String mode){
-        Map<String, Entry> dict = new HashMap<String, Entry>();
-        if (mode == "traditional") dict = this.traditionalDict;
-        else if (mode == "simple") dict = this.simpleDict;
-        return dict;
-    }
+class CCCEDictParser {
+    private final String[] vowelAOE = {"āáǎàa", "ōóǒòo", "ēéěèe",
+            "ĀÁǍÀA",// 愛爾蘭 爱尔兰 [Ai4 er3 lan2] /Ireland/
+            "ŌÓǑÒO",// 噢運會 噢运会 [O1 yun4 hui4] /see 奧運會|奥运会[Ao4 yun4 hui4]/
+            "ĒÉĚÈE" // 鄂爾多斯|鄂尔多斯[E4 er3 duo1 si1], Inner Mongolia/
+    };
+    private final String[] vowelIUV = {"īíǐìi", "ūúǔùu", "ǖǘǚǜü"};
+    private final char[] toneArray = {'1', '2', '3', '4', '5'};
+    private final String entryRegex = "^(.+) (.+) \\[(.+)\\] /(.*)/$";
+    private final String pinyinRegex = "\\[(.+?)\\]";
 
     /**
      * Get the entry object from a line of CC-CEDICT format file.
      */
-    public  Entry getEntry(String line) {
+    public Entry getEntry(String line) {
         Matcher matcher = Pattern.compile(entryRegex).matcher(line);
         Entry entry = new Entry();
         while (matcher.find()) {
@@ -92,48 +101,6 @@ public class CCCEDictParser {
             }
         }
         return entry;
-    }
-
-    /**
-     * CC-CEDICT entry object.
-     */
-    public static class Entry {
-        private String traditionalChineseWord;
-        private String simplifiedChineseWord;
-        private String mandarinPinyin;
-        private List<String> englishDefinitions;
-
-        public String getTraditionalChineseWord() {
-            return traditionalChineseWord;
-        }
-
-        public void setTraditionalChineseWord(String traditionalChineseWord) {
-            this.traditionalChineseWord = traditionalChineseWord;
-        }
-
-        public String getSimplifiedChineseWord() {
-            return simplifiedChineseWord;
-        }
-
-        public void setSimplifiedChineseWord(String simplifiedChineseWord) {
-            this.simplifiedChineseWord = simplifiedChineseWord;
-        }
-
-        public String getMandarinPinyin() {
-            return mandarinPinyin;
-        }
-
-        public void setMandarinPinyin(String mandarinPinyin) {
-            this.mandarinPinyin = mandarinPinyin;
-        }
-
-        public List<String> getEnglishDefinitions() {
-            return englishDefinitions;
-        }
-
-        public void setEnglishDefinitions(List<String> englishDefinitions) {
-            this.englishDefinitions = englishDefinitions;
-        }
     }
 
     /**
@@ -213,5 +180,47 @@ public class CCCEDictParser {
             }
         }
         return sb.toString();
+    }
+
+    /**
+     * CC-CEDICT entry object.
+     */
+    public static class Entry {
+        private String traditionalChineseWord;
+        private String simplifiedChineseWord;
+        private String mandarinPinyin;
+        private List<String> englishDefinitions;
+
+        public String getTraditionalChineseWord() {
+            return traditionalChineseWord;
+        }
+
+        public void setTraditionalChineseWord(String traditionalChineseWord) {
+            this.traditionalChineseWord = traditionalChineseWord;
+        }
+
+        public String getSimplifiedChineseWord() {
+            return simplifiedChineseWord;
+        }
+
+        public void setSimplifiedChineseWord(String simplifiedChineseWord) {
+            this.simplifiedChineseWord = simplifiedChineseWord;
+        }
+
+        public String getMandarinPinyin() {
+            return mandarinPinyin;
+        }
+
+        public void setMandarinPinyin(String mandarinPinyin) {
+            this.mandarinPinyin = mandarinPinyin;
+        }
+
+        public List<String> getEnglishDefinitions() {
+            return englishDefinitions;
+        }
+
+        public void setEnglishDefinitions(List<String> englishDefinitions) {
+            this.englishDefinitions = englishDefinitions;
+        }
     }
 }
