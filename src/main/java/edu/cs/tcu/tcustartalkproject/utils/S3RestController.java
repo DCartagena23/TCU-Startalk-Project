@@ -44,7 +44,6 @@ public class S3RestController {
                 accessKey[3]);
         this.s3client = AmazonS3ClientBuilder.standard().withCredentials(new AWSStaticCredentialsProvider(credentials)).withRegion(Regions.US_EAST_1).build();
         List<Bucket> buckets = s3client.listBuckets();
-        String name = null;
         for (Bucket bucket : buckets) {
             this.bucketname = bucket.getName();
         }
@@ -61,16 +60,17 @@ public class S3RestController {
 
         Base64.Decoder decoder = Base64.getDecoder();
         byte[] decodedByte = decoder.decode(base64Audio.split(",")[1]);
-        String filepath = "./src/main/java/temp/"+user+test+".wav";
-        String filename = user+test+".wav";
-        String url = "s3://" + bucketname + "/" + filename;
+        String filename = user+ "_" +test+ ".wav";
+        String filepath = "./src/main/java/temp/"+filename;
+        String key = test + "/" + filename;
+        String url = "s3://" + bucketname + "/" + key;
         FileOutputStream fos = new FileOutputStream(filepath);
         fos.write(decodedByte);
         fos.close();
 
         s3client.putObject(
                 bucketname,
-                filename,
+                key,
                 new File(filepath)
         );
         System.out.println(user);
