@@ -15,7 +15,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-// @Component        // Comment this line after running it once.
+@Component        // Comment this line after running it once.
 public class VocabWordInitializer implements CommandLineRunner {
     private final VocabWordService vocabWordService;
 
@@ -96,7 +96,7 @@ class CCCEDictParser {
                         }
                         list.add(ed);
                     }
-                    entry.setEnglishDefinitions(list);
+                    entry.setEnglishDefinitions(String.join("\n", list));
                 }
             }
         }
@@ -189,7 +189,7 @@ class CCCEDictParser {
         private String traditionalChineseWord;
         private String simplifiedChineseWord;
         private String mandarinPinyin;
-        private List<String> englishDefinitions;
+        private String englishDefinitions;
 
         public String getTraditionalChineseWord() {
             return traditionalChineseWord;
@@ -215,11 +215,11 @@ class CCCEDictParser {
             this.mandarinPinyin = mandarinPinyin;
         }
 
-        public List<String> getEnglishDefinitions() {
+        public String getEnglishDefinitions() {
             return englishDefinitions;
         }
 
-        public void setEnglishDefinitions(List<String> englishDefinitions) {
+        public void setEnglishDefinitions(String englishDefinitions) {
             this.englishDefinitions = englishDefinitions;
         }
     }

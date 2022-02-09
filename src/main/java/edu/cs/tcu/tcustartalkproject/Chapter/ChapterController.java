@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static org.springframework.data.mongodb.core.query.Criteria.where;
+
 @Controller
 @RequestMapping("/chapters")
 public class ChapterController {
@@ -122,7 +124,7 @@ public class ChapterController {
      * @param chapterId index of the chapter.
      */
     public void deleteDBRefChapter(String chapterId){
-        Query query = Query.query(Criteria.where("$id").is(new ObjectId(chapterId)));
+        Query query = Query.query(where("$id").is(new ObjectId(chapterId)));
         Update update = new Update().pull("chapter", query);
         mongoTemplate.updateMulti(new Query(), update, Book.class);
     }
@@ -151,5 +153,36 @@ public class ChapterController {
         Chapter chapter = chapterService.findById(id);
         final List<Pinyin> pinyin = chapter.getPinyin();
         return new Result(StatusCode.SUCCESS, "Get Grammar Words Success", pinyin);
+    }
+
+    /**
+     * Method to save a pinyin given the index of chapter.
+     * @param id index of Chapter object to have pinyin saved.
+     * @param pinyin Pinyin object to be saved.
+     * @return Result object that contains status code, message, and saved pinyin.
+            */
+    @PostMapping("/addPinyin/{id}")
+    @ResponseBody
+    public Result addPinyin(@PathVariable String id, @RequestBody Pinyin pinyin) {
+        Chapter chapter = chapterService.findById(id);
+        chapter.addPinyin(pinyin);
+        chapterService.update(chapter);
+        return new Result(StatusCode.SUCCESS, "Pinyin Saved!", pinyin);
+    }
+
+    /**
+     * Method to update a pinyin given the index of chapter.
+     * @param id index of Chapter object to have pinyin updated.
+     * @param pinyin Pinyin object to be updated.
+     * @return Result object that contains status code, message, and updated pinyin.
+     */
+    @PutMapping("/updatePinyin/{id}")
+    @ResponseBody
+    public Result updatePinyin(@PathVariable String id, @RequestBody Pinyin pinyin) {
+        Query query = new Query(where("_id").is(new ObjectId(id)));
+        query.addCriteria(Criteria.where("pinyin._id").is(pinyin.getId()));
+        Update update = new Update().set("pinyin.$.pinyin", pinyin.getPinyin());
+        mongoTemplate.updateMulti(query, update, Chapter.class);
+        return new Result(StatusCode.SUCCESS, "Pinyin Updated!", pinyin);
     }
 }

@@ -4,6 +4,7 @@ import edu.cs.tcu.tcustartalkproject.Book.Book;
 import edu.cs.tcu.tcustartalkproject.Book.BookService;
 import edu.cs.tcu.tcustartalkproject.Chapter.Chapter;
 import edu.cs.tcu.tcustartalkproject.Chapter.ChapterService;
+import edu.cs.tcu.tcustartalkproject.Chapter.Pinyin;
 import edu.cs.tcu.tcustartalkproject.GrammarWord.GrammarWord;
 import edu.cs.tcu.tcustartalkproject.GrammarWord.GrammarWordService;
 
@@ -11,6 +12,9 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class DBInitializer implements CommandLineRunner {
@@ -48,6 +52,19 @@ public class DBInitializer implements CommandLineRunner {
 
         c1.setTextFromString(str1);
         c2.setTextFromString(str2);
+
+        Pinyin pinyin1 = new Pinyin();
+        pinyin1.setId("飒");
+        pinyin1.setPinyin("sà");
+
+        Pinyin pinyin2 = new Pinyin();
+        pinyin2.setId("体会");
+        pinyin2.setPinyin("tǐhuì");
+
+        List<Pinyin> pinyinList = new ArrayList<Pinyin>();
+        pinyinList.add(pinyin1);
+        pinyinList.add(pinyin2);
+        c1.setPinyin(pinyinList);
 
         b1.addChapter(c1);
         b1.addChapter(c2);

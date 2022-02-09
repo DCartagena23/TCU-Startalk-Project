@@ -11,7 +11,7 @@ public class VocabWord implements Serializable {
     private String id;
     private String word;
     private String pinyin;
-    private List<String> desc;
+    private String desc;
 
     public VocabWord() {
 
@@ -23,7 +23,7 @@ public class VocabWord implements Serializable {
      * @param word the Vocab Word itself
      * @param desc brief description of the vocab word
      */
-    public VocabWord(String id, String type, String word, String pinyin, List<String> desc){
+    public VocabWord(String id, String type, String word, String pinyin, String desc){
         this.id = id;
         this.word = word;
         this.pinyin = pinyin;
@@ -70,7 +70,7 @@ public class VocabWord implements Serializable {
      * Method to get description of the vocab word in the database
      * @return description of the vocab word in the database
      */
-    public List<String> getDesc() {
+    public String getDesc() {
         return desc;
     }
 
@@ -78,7 +78,7 @@ public class VocabWord implements Serializable {
      * Method to set description of the vocab word in the database
      * @param desc description to be set in the database
      */
-    public void setDesc(List<String> desc) {
+    public void setDesc(String desc) {
         this.desc = desc;
     }
 
