@@ -77,17 +77,38 @@
               <PopoverPanel class="absolute z-10 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-screen max-w-md sm:px-0">
                 <div class="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                   <div class="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                    <a v-for="item in resources" :key="item.name" :href="item.href" class="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50">
+                    <!-- <a v-for="item in resources" :key="item.name" :href="item.href" class="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50">
                       <component :is="item.icon" class="flex-shrink-0 h-6 w-6 text-indigo-600" aria-hidden="true" />
-                      <div class="ml-4">
+                      <div class="ml-4" v-on:click="toggleAccount">
                         <p class="text-base font-medium text-gray-900">
                           {{ item.name }}
                         </p>
-                        <p class="mt-1 text-sm text-gray-500">
-                          {{ item.description }}
+                      </div>
+                    </a> -->
+                    <div class="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50">
+                      <!-- <component :is="SupportIcon" class="flex-shrink-0 h-6 w-6 text-indigo-600" aria-hidden="true" /> -->
+                      <div class="ml-4" v-on:click="toggleAccount">
+                        <p class="text-base font-medium text-gray-900 accountSection">
+                          Edit Account Information
                         </p>
                       </div>
-                    </a>
+                    </div>
+                     <div class="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50">
+                      <!-- <component :is="SupportIcon" class="flex-shrink-0 h-6 w-6 text-indigo-600" aria-hidden="true" /> -->
+                      <div class="ml-4" v-on:click="toggleEdit">
+                        <p class="text-base font-medium text-gray-900 accountSection">
+                          Switch User Mode
+                        </p>
+                      </div>
+                    </div>
+                     <div class="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50">
+                      <!-- <component :is="SupportIcon" class="flex-shrink-0 h-6 w-6 text-indigo-600" aria-hidden="true" /> -->
+                      <div class="ml-4">
+                        <p class="text-base font-medium text-gray-900 accountSection">
+                          Sign Out
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </PopoverPanel>
@@ -139,6 +160,9 @@
 <style scoped>
 .section:hover {
   color: blue;
+  cursor: pointer;
+}
+.accountSection:hover{
   cursor: pointer;
 }
 </style>
