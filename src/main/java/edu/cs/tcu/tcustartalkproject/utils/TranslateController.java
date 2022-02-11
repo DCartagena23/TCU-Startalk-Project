@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class TranslateController {
-    private String projectId = "singular-citron-331602";
+    private String projectId = "tcu-startalk";
     private String targetLanguage = "en";
 
     @Autowired
     public TranslateController(){
-        this.projectId = "singular-citron-331602";
+        this.projectId = "tcu-startalk";
         this.targetLanguage = "en";
     }
 
@@ -32,7 +32,7 @@ public class TranslateController {
 
         Map<String, String> google = new HashMap<>();
         google.put("GOOGLE_APPLICATION_CREDENTIALS",
-                new ClassPathResource("singular-citron-331602-3b396d6f7bf9.json").getURI().getPath());
+                new ClassPathResource("tcu-startalk-0bb06d8d08e1.json").getURI().getPath());
         SetEnv.setEnv(google);
 
         String translate = TranslateController.translateText(projectId, targetLanguage, string);

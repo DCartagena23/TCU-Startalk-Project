@@ -20,12 +20,12 @@ public class TextToSpeechTestApplication {
     public static void main(String... args) throws Exception {
         Map<String, String> google = new HashMap<>();
         google.put("GOOGLE_APPLICATION_CREDENTIALS",
-                new ClassPathResource("singular-citron-331602-3b396d6f7bf9.json").getURI().getPath());
+                new ClassPathResource("tcu-startalk-0bb06d8d08e1.json").getURI().getPath());
         SetEnv.setEnv(google);
         // Instantiates a client
         try (TextToSpeechClient textToSpeechClient = TextToSpeechClient.create()) {
             // Set the text input to be synthesized
-            SynthesisInput input = SynthesisInput.newBuilder().setText("'隐私'这个词虽然有点儿像privacy，但是中国人不常说，而且“隐私”这个词，多少有些不好的意思，所以有人说中 国人没有privacy的观念").build();
+            SynthesisInput input = SynthesisInput.newBuilder().setText("'隐私'这个词虽然有点儿像private，但是中国人不常说，而且“隐私”这个词，多少有些不好的意思，所以有人说中 国人没有privacy的观念").build();
             // Build the voice request, select the language code ("en-US") and the ssml
             // voice gender
             // ("neutral")
@@ -52,15 +52,18 @@ public class TextToSpeechTestApplication {
             accessKey[i] = sc.next();
         }
         sc.close();  //closes the scanner
+        System.out.println(accessKey[1] + " " + accessKey[3]);
         AWSCredentials credentials = new BasicAWSCredentials(
                 accessKey[1],
                 accessKey[3]);
         AmazonS3 s3client = AmazonS3ClientBuilder.standard().withCredentials(new AWSStaticCredentialsProvider(credentials)).withRegion(Regions.US_EAST_1).build();
         List<Bucket> buckets = s3client.listBuckets();
-        String name = null;
+        System.out.println(buckets);
+        String name = "";
         for (Bucket bucket : buckets) {
             name = bucket.getName();
         }
+        System.out.println(name);
         s3client.putObject(
                 name,
                 "assets/tts_test.mp3",
