@@ -40,13 +40,13 @@
       </div>
       <div class="modal-body relative p-4">
           <div class="border border-gray-300 rounded-md px-3 py-2 shadow-sm focus-within:ring-1 focus-within:ring-indigo-600 focus-within:border-indigo-600">
-            <label for="name" class="block text-xs font-medium text-gray-900">Name</label>
-            <input type="text" name="name" id="name" class="block w-full border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm" placeholder="Jane Doe" />
+            <label for="title" class="block text-xs font-medium text-gray-900">Title</label>
+            <input type="text" name="title" id="forumTitle" class="block w-full border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm" placeholder="Example Forum" />
           </div>
       </div>
       <div class="modal-body relative p-4">
           <div class="border border-gray-300 rounded-md px-3 py-2 shadow-sm focus-within:ring-1 focus-within:ring-indigo-600 focus-within:border-indigo-600">
-            <label for="email" class="block text-xs font-medium text-gray-900">Description</label>
+            <label for="description" class="block text-xs font-medium text-gray-900">Description</label>
 <textarea
       class="
         form-control
@@ -65,7 +65,7 @@
         m-0
         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
       "
-      id="exampleFormControlTextarea1"
+      id="forumArea"
       rows="3"
       placeholder="Enter description here"
     ></textarea>
@@ -156,7 +156,7 @@
                   {{ post.role }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                  <a href="#" class="text-indigo-600 hover:text-indigo-900" v-show="toggleEditButton">Edit</a>
                 </td>
               </tr>
             </tbody>
@@ -183,6 +183,7 @@ const posts = [
     author: 'Jane Cooper',
     title: 'Post 1',
     role: 'Admin',
+    description: 'Sample description'
   },
   // More people...
 ]
@@ -202,9 +203,13 @@ export default {
   },
   methods:{
     createPost: function(){
+      var forumTitle = document.getElementById('forumTitle').value;
+      var forumArea = document.getElementById('forumArea').value;
+      alert(forumArea);
       const newPost = {
         author: 'John Doe',
-        title: 'New Title',
+        title: forumTitle,
+        description: forumArea,
         role: 'Admin'
       };
       posts.push(newPost);
@@ -214,6 +219,7 @@ export default {
   },
   props: {
     toggleForumBoard: Function,
+    toggleEditButton: Boolean
   }
 }
 </script>

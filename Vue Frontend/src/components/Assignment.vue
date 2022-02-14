@@ -1,13 +1,97 @@
 <template>
-    <div class="py-10">
+    <div class="py-10" v-show="assignmentBool">
       <header style="padding-bottom: 2.5em;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 class="text-3xl font-bold leading-tight text-gray-900">
             Assignment
           </h1>
-           <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+           <button type="button" v-show="toggleEditButton" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" data-bs-toggle="modal" data-bs-target="#exampleModal">
               Create assignment
            </button>
+           <div class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
+  id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog relative w-auto pointer-events-none">
+    <div
+      class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+      <div
+        class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
+        <h5 class="text-xl font-medium leading-normal text-gray-800" id="exampleModalLabel">Create assignment</h5>
+        <button type="button"
+          class="btn-close box-content w-4 h-4 p-1 text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
+          data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body relative p-4">
+          <div class="border border-gray-300 rounded-md px-3 py-2 shadow-sm focus-within:ring-1 focus-within:ring-indigo-600 focus-within:border-indigo-600">
+            <label for="title" class="block text-xs font-medium text-gray-900">Title</label>
+            <input type="text" name="title" id="assignmentTitle" class="block w-full border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm" placeholder="Example Forum" />
+          </div>
+      </div>
+      <div class="modal-body relative p-4">
+          <div class="border border-gray-300 rounded-md px-3 py-2 shadow-sm focus-within:ring-1 focus-within:ring-indigo-600 focus-within:border-indigo-600">
+            <label for="description" class="block text-xs font-medium text-gray-900">Description</label>
+<textarea
+      class="
+        form-control
+        block
+        w-full
+        px-3
+        py-1.5
+        text-base
+        font-normal
+        text-gray-700
+        bg-white bg-clip-padding
+        border border-solid border-gray-300
+        rounded
+        transition
+        ease-in-out
+        m-0
+        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+      "
+      id="assignmentArea"
+      rows="3"
+      placeholder="Enter description here"
+    ></textarea>
+          </div>
+      </div>
+      <div
+        class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
+        <button type="button" class="px-6
+          py-2.5
+          bg-purple-600
+          text-white
+          font-medium
+          text-xs
+          leading-tight
+          uppercase
+          rounded
+          shadow-md
+          hover:bg-purple-700 hover:shadow-lg
+          focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0
+          active:bg-purple-800 active:shadow-lg
+          transition
+          duration-150
+          ease-in-out" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="px-6
+      py-2.5
+      bg-blue-600
+      text-white
+      font-medium
+      text-xs
+      leading-tight
+      uppercase
+      rounded
+      shadow-md
+      hover:bg-blue-700 hover:shadow-lg
+      focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
+      active:bg-blue-800 active:shadow-lg
+      transition
+      duration-150
+      ease-in-out
+      ml-1" data-bs-dismiss="modal" v-on:click="createAssignment()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
         </div>
       </header>
       <main>
@@ -24,53 +108,20 @@
             <thead class="bg-gray-50">
               <tr>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Name
-                </th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Title
                 </th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Status
                 </th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Role
-                </th>
-                <th scope="col" class="relative px-6 py-3">
-                  <span class="sr-only">Edit</span>
-                </th>
               </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
-              <tr v-for="person in people" :key="person.email">
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <div class="flex items-center">
-                    <div class="flex-shrink-0 h-10 w-10">
-                      <img class="h-10 w-10 rounded-full" :src="person.image" alt="" />
-                    </div>
-                    <div class="ml-4">
-                      <div class="text-sm font-medium text-gray-900">
-                        {{ person.name }}
-                      </div>
-                      <div class="text-sm text-gray-500">
-                        {{ person.email }}
-                      </div>
-                    </div>
-                  </div>
+             <tr v-for="assignment in assignments" :key="assignment.id">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-left">
+                  {{ assignment.title }}
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <div class="text-sm text-gray-900">{{ person.title }}</div>
-                  <div class="text-sm text-gray-500">{{ person.department }}</div>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                    Active
-                  </span>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {{ person.role }}
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-left">
+                  {{ assignment.status }}
                 </td>
               </tr>
             </tbody>
@@ -91,7 +142,45 @@
 <style scoped></style>
 
 <script>
+
+const assignments = [
+  {
+    title:'Assignment 1',
+    id: 0,
+    status: 'Active',
+    description: 'example description'
+  }
+]
+
+const assignmentBool = true;
+
 export default {
   name: 'Assignment',
+  data: function(){
+    return{
+      assignments,
+      assignmentBool
+    }
+  },
+  methods: {
+      createAssignment: function(){
+      var assignmentTitle = document.getElementById('assignmentTitle').value;
+      var assignmentArea = document.getElementById('assignmentArea').value;
+      alert(assignmentArea);
+      const newAssignment = {
+        author: 'John Doe',
+        title: assignmentTitle,
+        description: assignmentArea,
+        status: 'Active',
+        id: 1
+      };
+      assignments.push(newAssignment);
+      this.assignmentBool = false;
+      this.assignmentBool = true;
+    }
+  },
+  props:{
+    toggleEditButton: Boolean,
+  }
 }
 </script>

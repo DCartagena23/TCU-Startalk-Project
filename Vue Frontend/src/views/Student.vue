@@ -16,10 +16,10 @@
       />
       <Home v-show="toggleHomeBool" />
       <Textbook :toggleEditButton="toggleEditButton" v-show="toggleTextbookBool" :toggleEditMode="toggleEditMode" :textbox="textbox" />
-      <Assignment v-show="toggleAssignmentBool" />
-      <Exam v-show="toggleExamBool" />
-      <Grades v-show="toggleGradesBool" />
-      <Forum v-show="toggleForumBool" :toggleForumBoard="toggleForumBoard" />
+      <Assignment v-show="toggleAssignmentBool" :toggleEditButton="toggleEditButton"/>
+      <Exam v-show="toggleExamBool" :toggleEditButton="toggleEditButton"/>
+      <Grades v-show="toggleGradesBool" :toggleEditButton="toggleEditButton"/>
+      <Forum v-show="toggleForumBool" :toggleForumBoard="toggleForumBoard" :toggleEditButton="toggleEditButton" />
       <Account v-show="toggleAccountBool" />
       <ForumBoard v-show="toggleForumBoardBool" :toggleForumPost="toggleForumPost" />
       <ForumPost v-show="toggleForumPostBool" />
