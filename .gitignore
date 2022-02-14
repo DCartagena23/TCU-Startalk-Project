@@ -34,3 +34,4 @@ build/
 ### VS Code ###
 .vscode/
 src/main/resources/rootkey.csv
+src/main/java/temp/Nhan_Speaking1.wav

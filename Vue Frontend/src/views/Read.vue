@@ -68,6 +68,7 @@
       </tbody>
     </table>
   </div>
+
   <!-- Word List -->
 
   <div class="modal fade" id="wordForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -211,12 +212,65 @@ export default {
       }
     },
 
+      //read the chapter.text and display into reading area, embedded with pinyin and meaning if available
+    async showText() {
+      this.list = []
+      var paragraph = []
+      var currentIndex = 0
+      // var timeIndex = 0
+      // var timeList = this.chapter.timeStamp
+      this.chapter.text.forEach((element, index) => {
+        if (element == '\n') {
+          this.list.push(paragraph)
+          paragraph = []
+          currentIndex = currentIndex + 1
+        } else {  
+          var json = {
+            id: -1,
+            word: element,
+            color: 'white',
+            pinyin: '',
+            timeStampHere: false,
+            timeStampValue: '',
+          }
+          this.pinyinList.forEach((pinyin) => {
+            if (pinyin.id == json.word) {
+              json.pinyin = pinyin.pinyin
+            }
+          })
+          this.wordList.forEach((grammarWord) => {
+            if (grammarWord.word == json.word) {
+              json.id = grammarWord.id
+              json.color = 'yellow'
+            }
+          })
+          if (json.pinyin == "") {
+            this.getPinyinDict(json)
+          }
+          // if (timeList[timeIndex] != undefined) {
+          //   if (currentIndex == timeList[timeIndex].location) {
+          //     json.timeStampHere = true
+          //     json.timeStampValue = timeList[timeIndex].time
+          //     timeIndex = timeIndex + 1
+          //   }
+          // }
+          // currentIndex = currentIndex + 1
+
+          // this.getPinyinDict(json)
+          paragraph.push(json)
+        }
+        if (index == this.chapter.text.length - 1) {
+          this.list.push(paragraph)
+        }
+      })
+      console.log(this.list)
+    },  
+
     //get the grammar word list
     async getNewWordList(id) {
       const { data: res } = await this.$http.get(`/chapters/getGrammarWords/${id}`)
       this.wordList = res.data
       this.chapter.grammarWords = res.data
-      this.getChapter(this.$route.params.id)
       this.setWordInfo()
     },
 
@@ -272,6 +326,24 @@ export default {
       this.wordFormModal.show()
     },
 
+    //set grammar word to word
+    setWordInfo() {
+      this.list.forEach((paragraph) => {
+        paragraph.forEach((word) => {
+          word.id = -1
+          word.color = 'white'
+          for (var m = 0; m < this.wordList.length; m++) {
+            var grammarWord = this.wordList[m]
+            if (word.word == grammarWord.word) {
+              word.id = grammarWord.id
+              word.color = 'yellow'
+            }
+          }
+        })
+      })
+    },
+
+
     //delete grammar word
     async deletew(id) {
       if (confirm('Do you want to delete this word?')) {
@@ -291,15 +363,6 @@ export default {
       }
     },
 
-    //get the custom pinyin list
-    async getPinyinList(id) {
-      const { data: res } = await this.$http.get(`/chapters/getPinyin/${id}`)
-      this.pinyinList = res.data
-      this.chapter.pinyin = res.data
-      this.getChapter(this.$route.params.id)
-      this.setPinyinInfo()
-    },
-
     //show edit pinyin form
     showPinyinForm(word) {
       this.pinyinFormName = 'Edit Pinyin'
@@ -311,99 +374,28 @@ export default {
 
     //save custom pinyin
     async savePinyin() {
-      await this.$http.put(`/pinyins/updatePinyin/${this.chapter.id}`, this.pinyinForm)
-      this.getPinyinList(this.chapter.id)
+      await this.$http.post(`/chapters/addPinyin/${this.chapter.id}`, this.pinyinForm)
+      
+      this.list.forEach((paragraph) => {
+        paragraph.forEach((word) => {
+          console.log(word.pinyin)
+
+          if (this.pinyinForm.id == word.word){
+            word.pinyin = this.pinyinForm.pinyin
+          }
+        })
+      })
       this.pinyinFormModal.hide()
     },
 
     //get pinyin using dictionary
     async getPinyinDict(json) {
       if (json.pinyin == '') {
-        const { data: res } = await this.$http.get(`/dictionary/pinyin/${json.word}`)
+        const { data: res } = await this.$http.get(`/vocabWords/findOne/${json.word}`)
         if (res.status == 200) {
-          json.pinyin = res.data
+          json.pinyin = res.data.pinyin
         }
       }
-    },
-
-    //set pinyin to word
-    setPinyinInfo() {
-      this.list.forEach((paragraph) => {
-        paragraph.forEach((word) => {
-          for (var m = 0; m < this.pinyinList.length; m++) {
-            var pinyin = this.pinyinList[m]
-            if (word.word == pinyin.id) {
-              word.pinyin = pinyin.pinyin
-            }
-          }
-        })
-      })
-    },
-
-    //set grammar word to word
-    setWordInfo() {
-      this.list.forEach((paragraph) => {
-        paragraph.forEach((word) => {
-          word.id = -1
-          word.color = 'white'
-          for (var m = 0; m < this.wordList.length; m++) {
-            var grammarWord = this.wordList[m]
-            if (word.word == grammarWord.word) {
-              word.id = grammarWord.id
-              word.color = 'yellow'
-            }
-          }
-        })
-      })
-    },
-
-    //read the chapter.text and display into reading area, embedded with pinyin and meaning if available
-    showText() {
-      this.list = []
-      var paragraph = []
-      var currentIndex = 0
-      var timeIndex = 0
-      var timeList = this.chapter.timeStamp
-      this.chapter.text.forEach((element, index) => {
-        if (element == '\n') {
-          this.list.push(paragraph)
-          paragraph = []
-          currentIndex = currentIndex + 1
-        } else {
-          var json = {
-            id: -1,
-            word: element,
-            color: 'white',
-            pinyin: '',
-            timeStampHere: false,
-            timeStampValue: '',
-          }
-          this.pinyinList.forEach((pinyin) => {
-            if (pinyin.id == json.word) {
-              json.pinyin = pinyin.pinyin
-            }
-          })
-          this.wordList.forEach((grammarWord) => {
-            if (grammarWord.word == json.word) {
-              json.id = grammarWord.id
-              json.color = 'yellow'
-            }
-          })
-          if (timeList[timeIndex] != undefined) {
-            if (currentIndex == timeList[timeIndex].location) {
-              json.timeStampHere = true
-              json.timeStampValue = timeList[timeIndex].time
-              timeIndex = timeIndex + 1
-            }
-          }
-          currentIndex = currentIndex + 1
-          this.getPinyinDict(json)
-          paragraph.push(json)
-        }
-        if (index == this.chapter.text.length - 1) {
-          this.list.push(paragraph)
-        }
-      })
     },
 
     edit() {

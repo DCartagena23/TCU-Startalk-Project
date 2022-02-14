@@ -1,5 +1,7 @@
 <template>
   <div class="container">
+      <input type="text" class="form-control" v-model="user" />
+      <input type="text" class="form-control" v-model="test" />
       <button class="btn btn-primary" v-if="flag" @click="toggle">Begin Test</button>
       <div v-else>
         <div>Speaking Prompt: Talk to your friend about your lunch .</div>
@@ -30,6 +32,8 @@ export default {
         mediaRecorder:``,
         audio:``,
         countDown: 1,
+        user:"Nhan",
+        test:"Speaking1"
     }
   },
   created() {
@@ -53,9 +57,11 @@ export default {
           });
 
           var http = this.$http
-          console.log(http)
+          var user = this.user
+          var test = this.test
 
           this.mediaRecorder.addEventListener("stop", () => {
+
               const audioBlob = new Blob(audioChunks);
               const audioUrl = URL.createObjectURL(audioBlob);
               this.audio = new Audio(audioUrl);
@@ -69,7 +75,7 @@ export default {
                 console.log(base64data);
                 
 
-                var data = ["Nhan","SpeakTest1",base64data]
+                var data = [user,test,base64data]
                 var chapter = {
                  text: data,
                 }
