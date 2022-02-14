@@ -1,5 +1,8 @@
 package edu.cs.tcu.tcustartalkproject.utils;
 
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.HttpMethod;
+import com.amazonaws.SdkClientException;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -7,7 +10,9 @@ import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.Bucket;
+import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import edu.cs.tcu.tcustartalkproject.Chapter.Chapter;
+import edu.cs.tcu.tcustartalkproject.Chapter.Pinyin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,12 +21,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URL;
+import java.time.Instant;
 import java.util.Base64;
 import java.util.List;
 import java.util.Scanner;
 
-//@RestController
-//@RequestMapping("/storage/")
+@RestController
+@RequestMapping("/storage/")
 public class S3RestController {
 //    private AmazonClient amazonClient;
     private String bucketname;
@@ -75,8 +82,42 @@ public class S3RestController {
         );
         System.out.println(user);
         System.out.println(test);
-        System.out.println(url);
+        System.out.println(key);
         return new Result(StatusCode.SUCCESS, "Upload Success", null);
+    }
+
+    @GetMapping("/getAudio")
+    @ResponseBody
+    public Result getAudio(@RequestBody String key) {
+        URL url = null;
+        try {
+
+            // Set the presigned URL to expire after one hour.
+            java.util.Date expiration = new java.util.Date();
+            long expTimeMillis = Instant.now().toEpochMilli();
+            expTimeMillis += 1000 * 60 * 60;
+            expiration.setTime(expTimeMillis);
+
+            // Generate the presigned URL.
+            System.out.println("Generating pre-signed URL.");
+            GeneratePresignedUrlRequest generatePresignedUrlRequest =
+                    new GeneratePresignedUrlRequest(this.bucketname, key)
+                            .withMethod(HttpMethod.GET)
+                            .withExpiration(expiration);
+            url = this.s3client.generatePresignedUrl(generatePresignedUrlRequest);
+
+            System.out.println("Pre-Signed URL: " + url.toString());
+
+        } catch (AmazonServiceException e) {
+            // The call was transmitted successfully, but Amazon S3 couldn't process
+            // it, so it returned an error response.
+            e.printStackTrace();
+        } catch (SdkClientException e) {
+            // Amazon S3 couldn't be contacted for a response, or the client
+            // couldn't parse the response from Amazon S3.
+            e.printStackTrace();
+        }
+        return new Result(StatusCode.SUCCESS, "Get Audio Successful", url.toString());
     }
 
 //    @PostMapping("/uploadFile")

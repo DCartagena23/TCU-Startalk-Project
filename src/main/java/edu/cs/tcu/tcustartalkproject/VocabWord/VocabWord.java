@@ -9,7 +9,6 @@ import java.util.List;
 public class VocabWord implements Serializable {
     @Id
     private String id;
-    private String word;
     private String pinyin;
     private String desc;
 
@@ -25,7 +24,6 @@ public class VocabWord implements Serializable {
      */
     public VocabWord(String id, String type, String word, String pinyin, String desc){
         this.id = id;
-        this.word = word;
         this.pinyin = pinyin;
         this.desc = desc;
     }
@@ -48,22 +46,6 @@ public class VocabWord implements Serializable {
      */
     public void setId(String id) {
         this.id = id;
-    }
-
-    /**
-     * Method to get the vocab word in the database
-     * @return vocab word itself
-     */
-    public String getWord() {
-        return word;
-    }
-
-    /**
-     * Method to set the vocab word in the database
-     * @param word vocab word to be set in the database
-     */
-    public void setWord(String word) {
-        this.word = word;
     }
 
     /**

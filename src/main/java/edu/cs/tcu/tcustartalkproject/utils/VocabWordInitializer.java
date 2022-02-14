@@ -34,8 +34,7 @@ public class VocabWordInitializer implements CommandLineRunner {
                 StringTokenizer st = new StringTokenizer(line, " ");
                 CCCEDictParser.Entry entry = parser.getEntry(line);
                 VocabWord vocabWord = new VocabWord();
-                vocabWord.setId(new ObjectId().toHexString());
-                vocabWord.setWord(entry.getSimplifiedChineseWord());
+                vocabWord.setId(entry.getSimplifiedChineseWord());
                 vocabWord.setPinyin(entry.getMandarinPinyin());
                 vocabWord.setDesc(entry.getEnglishDefinitions());
                 vocabWordService.save(vocabWord);
