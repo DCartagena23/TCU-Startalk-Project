@@ -1,0 +1,169 @@
+<template>
+  <div class="container">
+    <!-- Audio Test List -->
+    <h1>Audio Test List</h1>
+    <div>
+      <a class="btn btn-primary" @click.prevent="showNewTestForm">Create a new Audio Test</a>
+    </div>
+    <hr />
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Prepare Time (seconds)</th>
+          <th>Operations</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr :key="test.id" v-for="test in testList">
+          <td>{{ test.title }}</td>
+          <td>{{ test.prepTime }}</td>
+          <td>
+            <a class="btn btn-success" style="margin-right: 10px" @click.prevent="startTest(test.id)">Start Test</a>
+            <a class="btn btn-warning" style="margin-right: 10px" @click.prevent="showEditTestForm(test.id)">Edit</a>
+            <a class="btn btn-danger" style="margin-right: 10px" @click.prevent="deleteTest(test.id)">Delete</a>
+            <a class="btn btn-success" style="margin-right: 10px" @click.prevent="viewAnswer(test.id)">View Submitted Answer</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="modal fade" id="testForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            {{ testFormName }}
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="chapter-name" class="col-form-label">Test Name:</label>
+              <input type="text" class="form-control" v-model="testForm.title" />
+            </div>
+            <div class="mb-3">
+              <label for="chapter-name" class="col-form-label">Prepare Time:</label>
+              <input type="text" class="form-control" v-model="testForm.prepTime" />
+            </div>
+            <div class="mb-3">
+              <label for="chapter-name" class="col-form-label">Speaking Prompt:</label>
+              <textarea class="form-control" rows="4" v-model="testForm.prompt"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" @click="saveOrUpdateTest">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+// @ is an alias to /src
+
+export default {
+  name: 'AudioTest',
+
+  data: function () {
+    return {
+      testList: [],
+      book: {},
+      chapter: {},
+
+      testForm: {},
+      testFormName: '',
+      testFormModal: null,
+    }
+  },
+  mounted: function () {
+    this.testFormModal = new this.$bootstrap.Modal(document.getElementById('testForm'), {})
+  },
+  created() {
+    this.getTestList()
+  },
+  methods: {
+    async getTestList() {
+      const { data: res } = await this.$http.get(`/audioTests/findAll`)
+      this.testList = res.data
+    },
+
+    showNewTestForm() {
+      this.testFormName = 'Create a Audio Test'
+      this.testForm = {}
+      this.testFormModal.show()
+    },
+    async showEditTestForm(id) {
+      this.testFormName = 'Edit a Audio Test'
+      const { data: res } = await this.$http.get(`/audioTests/findOne/${id}`)
+      this.testForm = res.data
+      this.testFormModal.show()
+    },
+    async saveOrUpdateTest() {
+      if (this.testForm.id) {
+        // update an existing chapter
+        const { data: res } = await this.$http.put(`/audioTests/update`, this.testForm)
+        let index = this.testList.findIndex((test) => test.id == res.data.id)
+        this.testList[index] = res.data
+      } else {
+        // save a new chapter
+        this.testForm.id = this.objectId()
+        this.testForm.active = false
+        const { data: res } = await this.$http.post(`/audioTests/save`, this.testForm)
+        this.testList = [...this.testList, res.data]
+      }
+      this.testFormModal.hide()
+    },
+
+    async deleteTest(id) {
+      if (confirm('Do you want to delete this Test?')) {
+        const { data: res } = await this.$http.delete(`/audioTests/delete/${id}`)
+        if (res.status == 200) {
+          //delete Chapter with id from list
+          //Step1, find index of the Chapter to be deleted
+          let index = this.testList.findIndex((test) => {
+            return test.id == id
+          })
+          //Step2, delete this Chapter
+          this.testList.splice(index, 1)
+        } else {
+          alert('Cannot delete Test!')
+        }
+      }
+    },
+    objectId() {
+      var timestamp = ((new Date().getTime() / 1000) | 0).toString(16)
+      return (
+        timestamp +
+        'xxxxxxxxxxxxxxxx'
+          .replace(/[x]/g, function () {
+            return ((Math.random() * 16) | 0).toString(16)
+          })
+          .toLowerCase()
+      )
+    },
+
+    validateNumber: (event) => {
+      let keyCode = event.keyCode
+      if (keyCode < 48 || keyCode > 57) {
+        event.preventDefault()
+      }
+    },
+
+    startTest(id) {
+      this.$router.push({ path: `/audioTestTaking/${id}` })
+    },
+
+    viewAnswer(id) {
+      this.$router.push({ path: `/audioAnswerList/${id}` })
+    },
+
+  },
+}
+</script>
+
+<style scoped></style>
