@@ -5,7 +5,7 @@
           <h1 class="text-3xl font-bold leading-tight text-gray-900">
             Exam
           </h1>
-            <button type="button" v-show="toggleEditButton" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            <button v-on:click="toggleCreateExam" type="button" v-show="toggleEditButton" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
               Create exam
            </button>
         </div>
@@ -33,7 +33,7 @@
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
               <tr v-for="exam in exams" :key="exam.email">
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-left">
+                <td v-on:click="toggleTakeExam" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-left examName">
                   {{ exam.title }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-left">
@@ -55,7 +55,11 @@
     </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.examName{
+  cursor: pointer;
+}
+</style>
 
 <script>
 
@@ -75,6 +79,8 @@ export default {
   },
   props:{
     toggleEditButton: Boolean,
+    toggleTakeExam: Function,
+    toggleCreateExam: Function,
   }
 }
 </script>

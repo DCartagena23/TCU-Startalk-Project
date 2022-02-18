@@ -8,14 +8,12 @@ import Chapter from '@/views/Chapter'
 import Read from '@/views/Read'
 import Edit from '@/views/Edit'
 import Student from '@/views/Student'
-import AudioTest from '@/views/AudioTest'
-import AudioTestTaking from '@/views/AudioTestTaking'
-import AudioAnswerList from '@/views/AudioAnswerList'
-import AudioAnswerComment from '@/views/AudioAnswerComment'
+import LogIn from '@/views/LogIn'
+import SignUp from '@/views/SignUp'
 
 const routes = [
   {
-    path: '/student/:id',
+    path: '/student',
     name: 'Student',
     component: Student,
     props: true,
@@ -45,33 +43,21 @@ const routes = [
     props: true,
   },
   {
-    path: '/edit/:id',
+    path: '/edit',
     name: 'Edit',
     component: Edit,
     props: true,
   },
   {
-    path: '/audioTest',
-    name: 'AudioTest',
-    component: AudioTest,
+    path:'/login',
+    name: 'Log In',
+    component: LogIn,
     props: true,
   },
   {
-    path: '/audioTestTaking/:id',
-    name: 'AudioTestTaking',
-    component: AudioTestTaking,
-    props: true,
-  },
-  {
-    path: '/audioAnswerList/:id',
-    name: 'AudioAnswerList',
-    component: AudioAnswerList,
-    props: true,
-  },
-  {
-    path: '/audioAnswerComment/:testId/:answerId',
-    name: 'AudioAnswerComment',
-    component: AudioAnswerComment,
+    path: '/signup',
+    name: 'Sign Up',
+    component: SignUp,
     props: true,
   },
 ]

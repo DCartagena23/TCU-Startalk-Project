@@ -117,7 +117,7 @@
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
              <tr v-for="assignment in assignments" :key="assignment.id">
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-left">
+                <td v-on:click="toggleSubmitAssignment" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-left assignName">
                   {{ assignment.title }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-left">
@@ -139,7 +139,11 @@
     </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.assignName{
+  cursor: pointer
+}
+</style>
 
 <script>
 
@@ -181,6 +185,7 @@ export default {
   },
   props:{
     toggleEditButton: Boolean,
+    toggleSubmitAssignment: Function,
   }
 }
 </script>
