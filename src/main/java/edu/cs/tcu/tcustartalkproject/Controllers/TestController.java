@@ -15,19 +15,14 @@ public class TestController {
         return "Public Content.";
     }
 
-    @GetMapping("/user")
-    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
-    public String userAccess() {
-        return "User Content.";
+    @GetMapping("/student")
+    @PreAuthorize("hasRole('STUDENT') or hasRole('TEACHER')")
+    public String studentAccess() {
+        return "Student Content.";
     }
-    @GetMapping("/mod")
-    @PreAuthorize("hasRole('MODERATOR')")
-    public String moderatorAccess() {
-        return "Moderator Board.";
-    }
-    @GetMapping("/admin")
-    @PreAuthorize("hasRole('ADMIN')")
-    public String adminAccess() {
-        return "Admin Board.";
+    @GetMapping("/teacher")
+    @PreAuthorize("hasRole('TEACHER')")
+    public String teacherAccess() {
+        return "Teacher Board.";
     }
 }
