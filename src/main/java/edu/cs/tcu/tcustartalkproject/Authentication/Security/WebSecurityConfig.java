@@ -1,8 +1,8 @@
-package edu.cs.tcu.tcustartalkproject.Security;
+package edu.cs.tcu.tcustartalkproject.Authentication.Security;
 
-import edu.cs.tcu.tcustartalkproject.Security.jwt.AuthEntryPointJwt;
-import edu.cs.tcu.tcustartalkproject.Security.jwt.AuthTokenFilter;
-import edu.cs.tcu.tcustartalkproject.Security.services.UserDetailsServiceImpl;
+import edu.cs.tcu.tcustartalkproject.Authentication.Security.jwt.AuthTokenFilter;
+import edu.cs.tcu.tcustartalkproject.Authentication.Security.services.UserDetailsServiceImpl;
+import edu.cs.tcu.tcustartalkproject.Authentication.Security.jwt.AuthEntryPointJwt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package edu.cs.tcu.tcustartalkproject.Models;
+package edu.cs.tcu.tcustartalkproject.Authentication.Models;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

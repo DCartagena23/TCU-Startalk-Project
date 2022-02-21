@@ -1,4 +1,4 @@
-package edu.cs.tcu.tcustartalkproject.Controllers;
+package edu.cs.tcu.tcustartalkproject.Authentication.Controllers;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;

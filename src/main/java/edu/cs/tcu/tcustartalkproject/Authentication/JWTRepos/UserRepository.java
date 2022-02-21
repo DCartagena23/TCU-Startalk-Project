@@ -1,8 +1,8 @@
-package edu.cs.tcu.tcustartalkproject.JWTRepos;
+package edu.cs.tcu.tcustartalkproject.Authentication.JWTRepos;
 
 import java.util.Optional;
 
-import edu.cs.tcu.tcustartalkproject.Models.User;
+import edu.cs.tcu.tcustartalkproject.Authentication.Models.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 public interface UserRepository extends MongoRepository<User, String> {
     Optional<User> findByUsername(String username);

@@ -1,22 +1,22 @@
-package edu.cs.tcu.tcustartalkproject.Controllers;
+package edu.cs.tcu.tcustartalkproject.Authentication.Controllers;
 
-import edu.cs.tcu.tcustartalkproject.JWTRepos.RoleRepository;
-import edu.cs.tcu.tcustartalkproject.JWTRepos.UserRepository;
-import edu.cs.tcu.tcustartalkproject.Models.ERole;
-import edu.cs.tcu.tcustartalkproject.Models.Role;
-import edu.cs.tcu.tcustartalkproject.Models.User;
-import edu.cs.tcu.tcustartalkproject.Security.jwt.JwtUtils;
-import edu.cs.tcu.tcustartalkproject.Security.services.UserDetailsImpl;
-import edu.cs.tcu.tcustartalkproject.payload.request.LoginRequest;
-import edu.cs.tcu.tcustartalkproject.payload.request.SignupRequest;
-import edu.cs.tcu.tcustartalkproject.payload.response.JwtResponse;
+import edu.cs.tcu.tcustartalkproject.Authentication.JWTRepos.RoleRepository;
+import edu.cs.tcu.tcustartalkproject.Authentication.JWTRepos.UserRepository;
+import edu.cs.tcu.tcustartalkproject.Authentication.Models.ERole;
+import edu.cs.tcu.tcustartalkproject.Authentication.Models.Role;
+import edu.cs.tcu.tcustartalkproject.Authentication.Models.User;
+import edu.cs.tcu.tcustartalkproject.Authentication.payload.request.LoginRequest;
+import edu.cs.tcu.tcustartalkproject.Authentication.payload.request.SignupRequest;
+import edu.cs.tcu.tcustartalkproject.Authentication.Security.jwt.JwtUtils;
+import edu.cs.tcu.tcustartalkproject.Authentication.Security.services.UserDetailsImpl;
+import edu.cs.tcu.tcustartalkproject.Authentication.payload.response.JwtResponse;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
 
-import edu.cs.tcu.tcustartalkproject.payload.response.MessageResponse;
+import edu.cs.tcu.tcustartalkproject.Authentication.payload.response.MessageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

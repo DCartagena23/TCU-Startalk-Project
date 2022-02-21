@@ -1,4 +1,4 @@
-package edu.cs.tcu.tcustartalkproject.Security.jwt;
+package edu.cs.tcu.tcustartalkproject.Authentication.Security.jwt;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

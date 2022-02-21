@@ -1,7 +1,7 @@
-package edu.cs.tcu.tcustartalkproject.Security.jwt;
+package edu.cs.tcu.tcustartalkproject.Authentication.Security.jwt;
 
 
-import edu.cs.tcu.tcustartalkproject.Security.services.UserDetailsImpl;
+import edu.cs.tcu.tcustartalkproject.Authentication.Security.services.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

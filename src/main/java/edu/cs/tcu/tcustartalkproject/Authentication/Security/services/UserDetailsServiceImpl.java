@@ -1,7 +1,7 @@
-package edu.cs.tcu.tcustartalkproject.Security.services;
+package edu.cs.tcu.tcustartalkproject.Authentication.Security.services;
 
-import edu.cs.tcu.tcustartalkproject.JWTRepos.UserRepository;
-import edu.cs.tcu.tcustartalkproject.Models.User;
+import edu.cs.tcu.tcustartalkproject.Authentication.JWTRepos.UserRepository;
+import edu.cs.tcu.tcustartalkproject.Authentication.Models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

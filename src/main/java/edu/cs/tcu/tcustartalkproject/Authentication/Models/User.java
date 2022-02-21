@@ -1,4 +1,4 @@
-package edu.cs.tcu.tcustartalkproject.Models;
+package edu.cs.tcu.tcustartalkproject.Authentication.Models;
 
 import java.util.HashSet;
 import java.util.Set;

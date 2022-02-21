@@ -1,4 +1,4 @@
-package edu.cs.tcu.tcustartalkproject.payload.response;
+package edu.cs.tcu.tcustartalkproject.Authentication.payload.response;
 
 public class MessageResponse {
     private String message;

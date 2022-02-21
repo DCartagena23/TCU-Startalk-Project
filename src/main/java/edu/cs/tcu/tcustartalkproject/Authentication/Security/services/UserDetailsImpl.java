@@ -1,11 +1,11 @@
-package edu.cs.tcu.tcustartalkproject.Security.services;
+package edu.cs.tcu.tcustartalkproject.Authentication.Security.services;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import edu.cs.tcu.tcustartalkproject.Models.User;
+import edu.cs.tcu.tcustartalkproject.Authentication.Models.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
