@@ -10,16 +10,24 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/test")
 public class TestController {
+    /*
+    * This is for the Home Screen and login page, available to public.
+    * */
     @GetMapping("/all")
     public String allAccess() {
         return "Public Content.";
     }
-
+    /*
+     * This is for the student view, only available to students logged in.
+     * */
     @GetMapping("/student")
     @PreAuthorize("hasRole('STUDENT') or hasRole('TEACHER')")
     public String studentAccess() {
         return "Student Content.";
     }
+    /*
+     * This is for the teacher view, only available to teachers logged in, has access to whole site.
+     * */
     @GetMapping("/teacher")
     @PreAuthorize("hasRole('TEACHER')")
     public String teacherAccess() {
