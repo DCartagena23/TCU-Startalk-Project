@@ -1,13 +1,18 @@
 package edu.cs.tcu.tcustartalkproject.utils;
 
+import edu.cs.tcu.tcustartalkproject.Authentication.Models.User;
 import edu.cs.tcu.tcustartalkproject.Book.Book;
 import edu.cs.tcu.tcustartalkproject.Book.BookService;
 import edu.cs.tcu.tcustartalkproject.Chapter.Chapter;
 import edu.cs.tcu.tcustartalkproject.Chapter.ChapterService;
 import edu.cs.tcu.tcustartalkproject.Chapter.Pinyin;
+import edu.cs.tcu.tcustartalkproject.Forum.Forum;
+import edu.cs.tcu.tcustartalkproject.Forum.ForumService;
 import edu.cs.tcu.tcustartalkproject.GrammarWord.GrammarWord;
 import edu.cs.tcu.tcustartalkproject.GrammarWord.GrammarWordService;
 
+import edu.cs.tcu.tcustartalkproject.Message.Message;
+import edu.cs.tcu.tcustartalkproject.Message.MessageService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -21,12 +26,17 @@ public class DBInitializer implements CommandLineRunner {
     private final BookService bookService;
     private final ChapterService chapterService;
     private final GrammarWordService grammarWordService;
+    private final MessageService messageService;
+    private final ForumService forumService;
 
     @Autowired
-    public DBInitializer(BookService bookService, ChapterService chapterService, GrammarWordService grammarWordService){
+    public DBInitializer(BookService bookService, ChapterService chapterService, GrammarWordService grammarWordService,
+                         MessageService messageService, ForumService forumService){
         this.bookService = bookService;
         this.chapterService = chapterService;
         this.grammarWordService = grammarWordService;
+        this.messageService = messageService;
+        this.forumService = forumService;
     }
 
     public void run(String... args) throws Exception {
@@ -95,6 +105,29 @@ public class DBInitializer implements CommandLineRunner {
         c1.addGrammarWords(grammarWord2);
         c1.addGrammarWords(grammarWord3);
 
+        Forum forum1 = new Forum();
+        forum1.setId(new ObjectId().toHexString());
+
+        User user1 = new User();
+        user1.setId(new ObjectId().toHexString());
+        User user2 = new User();
+        user2.setId(new ObjectId().toHexString());
+
+        Message message1 = new Message();
+        message1.setUser(user1);
+        message1.setContent("ABCXYZ");
+        message1.setId(new ObjectId().toHexString());
+        message1.setForum(forum1);
+
+        Message message2 = new Message();
+        message2.setUser(user2);
+        message2.setContent("Concax");
+        message2.setId(new ObjectId().toHexString());
+        message2.setForum(forum1);
+
+        forum1.addMessage(message1);
+        forum1.addMessage(message2);
+
 
         bookService.save(b1);
         bookService.save(b2);
@@ -112,5 +145,9 @@ public class DBInitializer implements CommandLineRunner {
         grammarWordService.save(grammarWord1);
         grammarWordService.save(grammarWord2);
         grammarWordService.save(grammarWord3);
+
+        forumService.save(forum1);
+        messageService.save(message1);
+        messageService.save(message2);
     }
 }

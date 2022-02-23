@@ -8,12 +8,13 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
 @Document(collection= "Chapter")
-public class Chapter {
+public class Chapter implements Serializable {
     @Id
     private String id;
 
@@ -39,7 +40,6 @@ public class Chapter {
      * Constructor for Chapter without arguments
      */
     public Chapter() {
-        super();
         this.setTextFromString("Please input something!");
     }
 

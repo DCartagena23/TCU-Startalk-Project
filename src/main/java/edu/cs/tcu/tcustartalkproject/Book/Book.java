@@ -6,11 +6,13 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import edu.cs.tcu.tcustartalkproject.Chapter.Chapter;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Document(collection = "Book")
-public class Book {
+public class Book implements Serializable {
     @Id
     private String id;
     private String title;
@@ -41,7 +43,6 @@ public class Book {
      * Construct for Book objects with no arguments
      */
     public Book() {
-
     }
 
     /**
