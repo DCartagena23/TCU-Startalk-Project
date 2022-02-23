@@ -1,5 +1,8 @@
 package edu.cs.tcu.tcustartalkproject.utils;
 
+import edu.cs.tcu.tcustartalkproject.Authentication.JWTRepos.RoleService;
+import edu.cs.tcu.tcustartalkproject.Authentication.Models.ERole;
+import edu.cs.tcu.tcustartalkproject.Authentication.Models.Role;
 import edu.cs.tcu.tcustartalkproject.Authentication.Models.User;
 import edu.cs.tcu.tcustartalkproject.Book.Book;
 import edu.cs.tcu.tcustartalkproject.Book.BookService;
@@ -28,15 +31,17 @@ public class DBInitializer implements CommandLineRunner {
     private final GrammarWordService grammarWordService;
     private final MessageService messageService;
     private final ForumService forumService;
+    private final RoleService roleService;
 
     @Autowired
     public DBInitializer(BookService bookService, ChapterService chapterService, GrammarWordService grammarWordService,
-                         MessageService messageService, ForumService forumService){
+                         MessageService messageService, ForumService forumService, RoleService roleService){
         this.bookService = bookService;
         this.chapterService = chapterService;
         this.grammarWordService = grammarWordService;
         this.messageService = messageService;
         this.forumService = forumService;
+        this.roleService = roleService;
     }
 
     public void run(String... args) throws Exception {
@@ -149,5 +154,10 @@ public class DBInitializer implements CommandLineRunner {
         forumService.save(forum1);
         messageService.save(message1);
         messageService.save(message2);
+
+        Role r1 = new Role(ERole.ROLE_STUDENT);
+        Role r2 = new Role(ERole.ROLE_TEACHER);
+        roleService.save(r1);
+        roleService.save(r2);
     }
 }
