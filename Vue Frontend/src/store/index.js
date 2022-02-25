@@ -1,11 +1,15 @@
 import { createStore } from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
+import { auth } from './auth.module';
 
 export default createStore({
   state: {
     bookId: '',
     chapterId: '',
     chapter: {},
+  },
+  modules: {
+    auth
   },
   mutations: {
     setId(state, { newId }) {

@@ -5,13 +5,13 @@
           </h1>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <!-- Replace with your content -->
-          <div class="grid grid-cols-3">
-            <div class="col-start-3 rounded-lg bg-indigo-600 text-white" style="margin-bottom:2.5rem; max-width:20rem;">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Similique in non expedita saepe veritatis officia ratione. Nihil commodi voluptas quidem, ratione aperiam aliquam. Sapiente doloremque similique repudiandae praesentium eveniet officia.
+          <div class="grid grid-cols-3" id="forumSection">
+            <!-- <div class="col-start-3 rounded-lg bg-indigo-600 text-white" style="margin-bottom:2.5rem; max-width:20rem;">
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Similique in non expedita saepe veritatis officia ratione. Nihil commodi voluptas quidem, ratione aperiam aliquam. Sapiente doloremque similique repudiandae praesentium eveniet officia.   
             </div>
             <div class="col-span-3" v-for="post in posts" :key="post.email" >
               <div class="rounded-lg bg-green-600 text-white" style="margin-bottom:2.5rem; max-width:20rem;"> {{post.text}} </div>
-            </div>
+            </div> -->
           </div>
           <!-- <input v-on:keyup.enter="submit" type="response" name="response" id="response" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Press <enter> to submit " /> -->
           <form id="postForm">
@@ -58,16 +58,14 @@
 const posts = [
   {
     name: 'John Doe',
-    email: 'someone@something.com',
+    id: 0,
     text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Similique in non expedita saepe veritatis officia ratione. Nihil commodi voluptas quidem, ratione aperiam aliquam. Sapiente doloremque similique repudiandae praesentium eveniet officia.',
-    audio: '',
-    video: '',
   },
 ]
 
 export default {
     setup() {
-
+        
     },
     data: function(){
       return{
@@ -91,6 +89,18 @@ export default {
         this.postBool = true;
         document.getElementById('response').value = '';
       }
+    },
+    mounted(){
+      const forumSection = document.getElementById('forumSection');
+      var post = document.createElement('div');
+      post.innerHTML = posts[0].text;
+      post.style.gridColumnStart = '3';
+      post.style.borderRadius = '.5rem';
+      post.style.backgroundColor = 'rgba(79,20,229)';
+      post.style.color = 'white';
+      post.style.marginBottom = '2.5rem';
+      post.style.maxWidth = '20rem';
+      forumSection.appendChild(post);
     }
 }
 </script>

@@ -14,9 +14,20 @@ import router from './router'
 // Vuex
 import store from './store'
 
+//VeeValidate
+import * as VeeValidate from 'vee-validate'
+
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faVolumeUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import {
+    faHome,
+    faUser,
+    faUserPlus,
+    faSignInAlt,
+    faSignOutAlt
+  } from '@fortawesome/free-solid-svg-icons';
+library.add(faHome, faUser, faUserPlus, faSignInAlt, faSignOutAlt);
 import './assets/tailwind.css'
 
 library.add(faVolumeUp)
@@ -36,4 +47,5 @@ axios.defaults.baseURL = 'http://localhost:8081'
 
 app.use(router)
 app.use(store)
+app.use(VeeValidate)
 app.mount('#app')
