@@ -8,10 +8,21 @@ import Chapter from '@/views/Chapter'
 import Read from '@/views/Read'
 import Edit from '@/views/Edit'
 import Student from '@/views/Student'
-import LogIn from '@/views/LogIn'
-import SignUp from '@/views/SignUp'
+import Home from '@/views/Home'
+import Login from '@/views/Login'
+import Register from '@/views/Register'
+import Profile from '@/views/Profile'
+import Admin from '@/views/BoardAdmin'
+import Mod from '@/views/BoardModerator'
+import User from '@/views/BoardUser'
 
 const routes = [
+  {
+    path: '/',
+    name: 'Home',
+    component: Home,
+    props: true,
+  },
   {
     path: '/student',
     name: 'Student',
@@ -19,8 +30,8 @@ const routes = [
     props: true,
   },
   {
-    path: '/',
-    name: 'Books',
+    path: '/books',
+    name: 'Book',
     component: Book,
     props: true,
   },
@@ -49,17 +60,47 @@ const routes = [
     props: true,
   },
   {
-    path:'/signin',
+    path:'/login',
     name: 'Log In',
-    component: LogIn,
+    component: Login,
     props: true,
   },
   {
-    path: '/signup',
-    name: 'Sign Up',
-    component: SignUp,
+    path: '/register',
+    name: 'Register',
+    component: Register,
     props: true,
   },
+  {
+    path: '/home',
+    name: 'Home',
+    component: Home,
+    props: true,
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: Profile,
+    props: true,
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: Admin,
+    props: true,
+  },
+  {
+    path: '/mod',
+    name: 'Moderator',
+    component: Mod,
+    props: true,
+  },
+  {
+    path: '/user',
+    name: 'User',
+    component: User,
+    props: true,
+  }
 ]
 
 const router = createRouter({
