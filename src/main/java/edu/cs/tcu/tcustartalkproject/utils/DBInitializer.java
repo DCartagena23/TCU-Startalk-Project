@@ -31,7 +31,7 @@ public class DBInitializer implements CommandLineRunner {
     private final GrammarWordService grammarWordService;
     private final MessageService messageService;
     private final ForumService forumService;
-    //private final RoleService roleService;
+    private final RoleService roleService;
 
     @Autowired
     public DBInitializer(BookService bookService, ChapterService chapterService, GrammarWordService grammarWordService,
@@ -41,7 +41,7 @@ public class DBInitializer implements CommandLineRunner {
         this.grammarWordService = grammarWordService;
         this.messageService = messageService;
         this.forumService = forumService;
-        //this.roleService = roleService;
+        this.roleService = roleService;
     }
 
     public void run(String... args) throws Exception {
@@ -155,9 +155,9 @@ public class DBInitializer implements CommandLineRunner {
         messageService.save(message1);
         messageService.save(message2);
 
-        //Role r1 = new Role(ERole.ROLE_STUDENT);
-        //Role r2 = new Role(ERole.ROLE_TEACHER);
-        //roleService.save(r1);
-        //roleService.save(r2);
+        Role r1 = new Role(ERole.ROLE_STUDENT);
+        Role r2 = new Role(ERole.ROLE_TEACHER);
+        roleService.save(r1);
+        roleService.save(r2);
     }
 }
