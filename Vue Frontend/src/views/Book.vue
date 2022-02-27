@@ -73,6 +73,7 @@ export default {
     }
   },
   mounted: function () {
+    this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token;
     this.bookFormModal = new this.$bootstrap.Modal(document.getElementById('bookForm'), {})
 
   },

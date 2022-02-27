@@ -21,6 +21,9 @@
     <ul>
       <li v-for="(role,index) in currentUser.roles" :key="index">{{role}}</li>
     </ul>
+          <button @click.prevent="logOut" class="btn btn-primary btn-block">
+            <span>Logout</span>
+          </button>
   </div>
 </template>
 <script>
@@ -33,6 +36,12 @@ export default {
   },
   mounted() {
     if (!this.currentUser) {
+      this.$router.push('/login');
+    }
+  },
+  methods:{
+    logOut(){
+      this.$store.dispatch('auth/logout')
       this.$router.push('/login');
     }
   }

@@ -40,6 +40,8 @@ export const auth = {
     loginSuccess(state, user) {
       state.status.loggedIn = true;
       state.user = user;
+      state.token = "Bearer " + user.accessToken; 
+      
     },
     loginFailure(state) {
       state.status.loggedIn = false;
@@ -54,6 +56,6 @@ export const auth = {
     },
     registerFailure(state) {
       state.status.loggedIn = false;
-    }
+    },
   }
 };
