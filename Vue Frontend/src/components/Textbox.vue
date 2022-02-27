@@ -34,15 +34,10 @@
           </div>
           <div style="clear: both"></div>
         </div>
-
-        <audio controls style="width: 95%; margin: 5px" id="sound1">
-          <source src="../assets/tts_test.mp3" type="audio/mp3" id="sound2" />
-          Your browser does not support the audio element.
-        </audio>
       </div>
     </div>
     <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" v-on:click="goPrevPage" style="float: left; margin: 5px 5px 5px 0">Previous Page</button>
-    <button type="button" @click="edit()" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" v-show="toggleEditButton" style="margin: 5px 0 0 0">Edit Passage</button>
+    <button type="button" v-show=checkRole() @click="edit()" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" style="margin: 5px 0 0 0">Edit Passage</button>
     <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" v-on:click="goNextPage" style="float: right; margin: 5px 0 5px 5px">Next Page</button>
 
     <nav class="navbar fixed-bottom navbar-expand-lg navbar-dark bg-dark" style="text-align: center">
@@ -79,36 +74,6 @@
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="button" v-if="translateFlag" class="btn btn-primary" @click="translateWord">Translate</button>
             <button type="button" class="btn btn-primary" @click="saveOrUpdate">Save</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade left" id="pinyinForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">
-              {{ pinyinFormName }}
-            </h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="mb-3">
-                <label for="word-name" class="col-form-label">Word:</label>
-                <input type="text" class="form-control" id="id" v-model="pinyinForm.id" />
-              </div>
-
-              <div class="mb-3">
-                <label for="chapter-name" class="col-form-label">Pinyin:</label>
-                <input type="text" class="form-control" id="pinyin" v-model="pinyinForm.pinyin" />
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" @click="savePinyin">Save</button>
           </div>
         </div>
       </div>
@@ -171,12 +136,15 @@ export default {
       chapter: {},
       wordList: [],
       pinyinList: [],
+
       wordForm: {},
       wordFormName: '',
       wordFormModal: null,
+
       pinyinForm: {},
       pinyinFormName: '',
       pinyinFormModal: null,
+
       translateForm: {},
       translateFormModal: null,
       translateFlag: true,
@@ -184,153 +152,42 @@ export default {
   },
   mounted: function () {
     this.init()
-    this.chapter = this.$store.state.chapter
-    this.wordList = this.chapter.grammarWords
-    this.pinyinList = this.chapter.pinyin
-    console.log(this.chapter.timeStamp)
-    this.showText()
+
     this.wordFormModal = new this.$bootstrap.Modal(document.getElementById('wordForm'), {})
     this.pinyinFormModal = new this.$bootstrap.Modal(document.getElementById('pinyinForm'), {})
     this.translateFormModal = new this.$bootstrap.Modal(document.getElementById('translateForm'), {})
   },
-  created() {},
+  created() {
+    this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token; 
+    this.getChapter(this.$route.params.id)
+  },
   methods: {
-    async getNewWordList(id) {
-      const { data: res } = await this.$http.get(`/chapters/getGrammarWords/${id}`)
-      this.wordList = res.data
-      this.chapter.grammarWords = res.data
-      this.storeChapter()
-      this.setWordInfo()
-    },
-    showNewForm() {
-      this.translateFlag = true
-      document.getElementById('word').disabled = false
-      document.getElementById('desc').disabled = false
-      this.wordFormName = 'Add a New Word'
-      this.wordForm = {}
-      this.wordFormModal.show()
-    },
-    async showEditForm(id) {
-      this.translateFlag = true
-      document.getElementById('word').disabled = false
-      document.getElementById('desc').disabled = false
-      this.wordFormName = 'Edit a Word'
-      const { data: res } = await this.$http.get(`/grammarWords/findOne/${id}`)
-      this.wordForm = res.data
-      this.wordFormModal.show()
-    },
-    async saveOrUpdate() {
-      if (this.wordForm.id) {
-        // update an existing word
-        const { data: res } = await this.$http.put(`/grammarWords/updateGrammarWord/${this.chapter.id}`, this.wordForm)
-        let index = this.wordList.findIndex((word) => word.id == res.data.id)
-        this.wordList[index] = res.data
-        this.getNewWordList(this.chapter.id)
-      } else {
-        // save a new word
-        this.wordForm.id = this.objectId()
-        this.wordForm.active = false
-        const { data: res } = await this.$http.post(`/grammarWords/saveGrammarWord/${this.chapter.id}`, this.wordForm)
-        this.word = [...this.wordList, res.data]
-        this.getNewWordList(this.chapter.id)
-      }
-      this.wordFormModal.hide()
-    },
-    async viewInfo(id) {
-      if (id == -1) return
-      this.wordFormName = 'Word Info'
-      const { data: res } = await this.$http.get(`/grammarWords/findOne/${id}`)
-      this.wordForm = res.data
-      this.translateFlag = false
-      document.getElementById('word').disabled = true
-      document.getElementById('desc').disabled = true
-      this.wordFormModal.show()
-    },
-    async deletew(id) {
-      if (confirm('Do you want to delete this word?')) {
-        const { data: res } = await this.$http.delete(`/grammarWords/deleteGrammarWord/${id}`)
-        if (res.status == 200) {
-          //delete Chapter with id from list
-          //Step1, find index of the Chapter to be deleted
-          let index = this.wordList.findIndex((word) => {
-            return word.id == id
-          })
-          //Step2, delete this Chapter
-          this.wordList.splice(index, 1)
-          this.getNewWordList(this.chapter.id)
-        } else {
-          alert('Cannot delete Word!')
-        }
+    //get the chapter using id
+    async getChapter(id) {
+      const { data: res } = await this.$http.get(`/chapters/findOne/${id}`)
+      if (res.status == 200) {
+        this.chapter = res.data
+
+        this.wordList = this.chapter.grammarWords
+        this.pinyinList = this.chapter.pinyin
+
+        this.showText()
       }
     },
 
-    async getPinyinList(id) {
-      const { data: res } = await this.$http.get(`/chapters/getPinyin/${id}`)
-      this.pinyinList = res.data
-      this.chapter.pinyin = res.data
-      this.storeChapter()
-      this.setPinyinInfo()
-    },
-    showPinyinForm(word) {
-      this.pinyinFormName = 'Edit Pinyin'
-      this.pinyinForm = {}
-      this.pinyinForm.id = word.word
-      this.pinyinForm.pinyin = word.pinyin
-      this.pinyinFormModal.show()
-    },
-    async savePinyin() {
-      await this.$http.put(`/pinyins/updatePinyin/${this.chapter.id}`, this.pinyinForm)
-      this.getPinyinList(this.chapter.id)
-      this.pinyinFormModal.hide()
-    },
-    async getPinyinDict(json) {
-      if (json.pinyin == '') {
-        const { data: res } = await this.$http.get(`/dictionary/pinyin/${json.word}`)
-        if (res.status == 200) {
-          json.pinyin = res.data
-        }
-      }
-    },
-    setPinyinInfo() {
-      this.list.forEach((paragraph) => {
-        paragraph.forEach((word) => {
-          for (var m = 0; m < this.pinyinList.length; m++) {
-            var pinyin = this.pinyinList[m]
-            if (word.word == pinyin.id) {
-              word.pinyin = pinyin.pinyin
-            }
-          }
-        })
-      })
-    },
-    setWordInfo() {
-      this.list.forEach((paragraph) => {
-        paragraph.forEach((word) => {
-          word.id = -1
-          word.color = 'white'
-          for (var m = 0; m < this.wordList.length; m++) {
-            var grammarWord = this.wordList[m]
-            if (word.word == grammarWord.word) {
-              word.id = grammarWord.id
-              word.color = 'yellow'
-            }
-          }
-        })
-      })
-    },
-
-    showText() {
+      //read the chapter.text and display into reading area, embedded with pinyin and meaning if available
+    async showText() {
       this.list = []
       var paragraph = []
       var currentIndex = 0
-      var timeIndex = 0
-      var timeList = this.chapter.timeStamp
+      // var timeIndex = 0
+      // var timeList = this.chapter.timeStamp
       this.chapter.text.forEach((element, index) => {
         if (element == '\n') {
           this.list.push(paragraph)
           paragraph = []
           currentIndex = currentIndex + 1
-        } else {
+        } else {  
           var json = {
             id: -1,
             word: element,
@@ -350,47 +207,84 @@ export default {
               json.color = 'yellow'
             }
           })
-          if (timeList[timeIndex] != undefined) {
-            if (currentIndex == timeList[timeIndex].location) {
-              json.timeStampHere = true
-              json.timeStampValue = timeList[timeIndex].time
-              timeIndex = timeIndex + 1
-            }
+          if (json.pinyin == "") {
+            this.getPinyinDict(json)
           }
-          currentIndex = currentIndex + 1
-          this.getPinyinDict(json)
+          // if (timeList[timeIndex] != undefined) {
+          //   if (currentIndex == timeList[timeIndex].location) {
+          //     json.timeStampHere = true
+          //     json.timeStampValue = timeList[timeIndex].time
+          //     timeIndex = timeIndex + 1
+          //   }
+          // }
+          // currentIndex = currentIndex + 1
+
+          // this.getPinyinDict(json)
           paragraph.push(json)
         }
         if (index == this.chapter.text.length - 1) {
           this.list.push(paragraph)
         }
       })
-    },
-    edit() {
-      this.storeChapter()
-      this.$router.push({ name: 'Read' })
+      console.log(this.list)
+    },  
+
+    //get the grammar word list
+    async getNewWordList(id) {
+      const { data: res } = await this.$http.get(`/chapters/getGrammarWords/${id}`)
+      this.wordList = res.data
+      this.chapter.grammarWords = res.data
+      this.setWordInfo()
     },
 
-    objectId() {
-      var timestamp = ((new Date().getTime() / 1000) | 0).toString(16)
-      return (
-        timestamp +
-        'xxxxxxxxxxxxxxxx'
-          .replace(/[x]/g, function () {
-            return ((Math.random() * 16) | 0).toString(16)
-          })
-          .toLowerCase()
-      )
+    //view grammar word info
+    async viewInfo(id) {
+      if (id == -1) return
+      this.wordFormName = 'Word Info'
+      const { data: res } = await this.$http.get(`/grammarWords/findOne/${id}`)
+      this.wordForm = res.data
+      this.translateFlag = false
+      document.getElementById('word').disabled = true
+      document.getElementById('desc').disabled = true
+      this.wordFormModal.show()
+    },
+
+    //set grammar word to word
+    setWordInfo() {
+      this.list.forEach((paragraph) => {
+        paragraph.forEach((word) => {
+          word.id = -1
+          word.color = 'white'
+          for (var m = 0; m < this.wordList.length; m++) {
+            var grammarWord = this.wordList[m]
+            if (word.word == grammarWord.word) {
+              word.id = grammarWord.id
+              word.color = 'yellow'
+            }
+          }
+        })
+      })
+    },
+
+    //get pinyin using dictionary
+    async getPinyinDict(json) {
+      if (json.pinyin == '') {
+        const { data: res } = await this.$http.get(`/vocabWords/findOne/${json.word}`)
+        if (res.status == 200) {
+          json.pinyin = res.data.pinyin
+        }
+      }
+    },
+
+    edit() {
+      this.$router.push({ path: `/read/${this.chapter.id}` })
     },
 
     toggle: function () {
       this.flag = !this.flag
     },
 
-    storeChapter() {
-      this.$store.commit('setChapter', { newChapter: this.chapter })
-    },
-
+    //get highlight text
     getSelectText() {
       if (window.getSelection) {
         var stringList = window.getSelection().toString().split('\n')
@@ -403,6 +297,7 @@ export default {
       }
     },
 
+    //read highlight text and output to tts
     async tts() {
       var str = this.getSelectText()
       var chapter = {
@@ -415,6 +310,7 @@ export default {
       }
     },
 
+    //read highlight text and translate
     async translatePhrase() {
       var str = this.getSelectText()
       var chapter = {
@@ -432,6 +328,7 @@ export default {
       }
     },
 
+    //init audio
     init() {
       try {
         // Fix up for prefixing
@@ -442,6 +339,7 @@ export default {
       }
     },
 
+    //translate
     async translateWord() {
       var chapter = {
         title: this.wordForm.word,
@@ -451,10 +349,14 @@ export default {
         this.wordForm.desc = res.data
       }
     },
+
+    checkRole(){
+      if (this.$store.state.auth.user.roles[0] == "ROLE_TEACHER") return true
+      else return false
+    },
   },
 }
 </script>
-
 <style>
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
@@ -464,9 +366,5 @@ export default {
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
-}
-
-.left {
-  text-align: left;
 }
 </style>

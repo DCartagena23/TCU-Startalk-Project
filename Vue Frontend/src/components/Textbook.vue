@@ -18,13 +18,13 @@
           </div>
 
           <!-- Right column -->
-          <div class="grid grid-cols-1 gap-4">
+          <!-- <div class="grid grid-cols-1 gap-4">
             <section aria-labelledby="section-2-title">
               <h2 class="sr-only" id="section-2-title">Textbook Navigation</h2>
               <div class="rounded-lg bg-white overflow-hidden shadow">
-                <div class="p-6">
+                <div class="p-6"> -->
                   <!-- Your content -->
-                  <div id="side">
+                  <!-- <div id="side">
         <div id="accordion">
           <div class="card">
             <div class="card-header" id="headingOne">
@@ -82,7 +82,7 @@
                 </div>
               </div>
             </section>
-          </div>
+          </div> -->
         </div>
       </div>
     </main>

@@ -4,7 +4,7 @@
     <h1>Book List</h1>
     <div>
       <a class="btn btn-primary" style="margin-right: 10px" @click.prevent="getBookList">Show All Book</a>
-      <a class="btn btn-primary" @click.prevent="showNewBookForm">Add a New Book</a>
+      <a class="btn btn-primary" v-show=checkRole() @click.prevent="showNewBookForm">Add a New Book</a>
       <h6 class="card-title" style="font-size: 2em">Search by Id</h6>
       <input v-model="idSearch" />
       <button type="button" class="btn btn-success" style="margin-left: 10px" @click.prevent="search(idSearch)">Search</button>
@@ -75,7 +75,6 @@ export default {
   mounted: function () {
     this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token;
     this.bookFormModal = new this.$bootstrap.Modal(document.getElementById('bookForm'), {})
-
   },
   methods: {
     async getBookList() {
@@ -149,6 +148,10 @@ export default {
     },
     view(id) {
       this.$router.push({ path: `/chapter/${id}` })
+    },
+    checkRole(){
+      if (this.$store.state.auth.user.roles[0] == "ROLE_TEACHER") return true
+      else return false
     },
   },
 }

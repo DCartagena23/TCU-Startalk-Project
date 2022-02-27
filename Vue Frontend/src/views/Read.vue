@@ -196,6 +196,7 @@ export default {
     this.translateFormModal = new this.$bootstrap.Modal(document.getElementById('translateForm'), {})
   },
   created() {
+    this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token;
     this.getChapter(this.$route.params.id)
   },
   methods: {
