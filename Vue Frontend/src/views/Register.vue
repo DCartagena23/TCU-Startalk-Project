@@ -13,7 +13,7 @@
             name="field"
             type="text"
             class="form-control"
-            v-model="user.username"
+            v-model="username"
             :rules="isRequired"
                 /> 
             <!-- <div
@@ -24,7 +24,7 @@
           <div class="form-group">
             <label for="email">Email</label>
               <input
-              v-model="user.email"
+              v-model="email"
               type="email"
               class="form-control"
               name="email"
@@ -38,8 +38,8 @@
           <div class="form-group">
             <label for="password">Password</label>
               <input
-              v-model="user.password"
-              type="password"
+              v-model="password"
+              type="password" 
               class="form-control"
               name="password"
               :rules="isRequired"
@@ -49,6 +49,19 @@
               class="alert-danger"
             >{{errors.first('password')}}</div> -->
           </div>
+
+          <div class="form-group">
+            <label for="teacher">Teacher</label>
+              <input
+              v-model="teacher"
+              type="checkbox"
+            />
+            <!-- <div
+              v-if="submitted && errors.has('password')"
+              class="alert-danger"
+            >{{errors.first('password')}}</div> -->
+          </div>
+
           </div>
           <div class="form-group">
             <button class="btn btn-primary btn-block">Sign Up</button>
@@ -60,7 +73,6 @@
   </div>
 </template>
 <script>
-import User from '../models/user';
 import { Form, ErrorMessage } from 'vee-validate';
 // const submitted = false;
 // const successful = false;
@@ -70,7 +82,10 @@ export default {
   name: 'Register',
   data() {
     return {
-      user: new User('','',''),
+      username:"",
+      email:"",
+      password:"",
+      teacher:false,
       submitted: false,
       successful: false,
       message: ''
@@ -93,12 +108,21 @@ export default {
     handleRegister() {
       this.message = '';
       this.submitted = true;
-      alert(this.user.password);
-          this.$store.dispatch('auth/register', this.user).then(
+      var roles = []
+      if(this.teacher) roles = ["teacher"]
+      else roles = ["student"]
+      var user ={
+        username: this.username,
+        password: this.password,
+        email: this.email,
+        roles: roles
+      }
+      console.log(user)
+          this.$store.dispatch('auth/register', user).then(
             (data) => {
               this.message = data.message;
               this.successful = true;
-              this.$router.push('/books');
+              this.$router.push('/login');
             },
             (error) => {
               this.message =
