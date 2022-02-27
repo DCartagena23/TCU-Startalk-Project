@@ -37,6 +37,7 @@
             role="alert"
           >Password is required!</div> -->
         </div>
+        <div id="registerLink" v-on:click="registerFunction">Don't have an account? Sign up!</div>
         <div class="form-group">
           <button class="btn btn-primary btn-block" :disabled="loading">
             <span v-show="loading" class="spinner-border spinner-border-sm"></span>
@@ -83,7 +84,7 @@ export default {
         if (this.user.username && this.user.password) {
           this.$store.dispatch('auth/login', this.user).then(
             () => {
-              this.$router.push('/profile');
+              this.$router.push('/books');
             },
             error => {
               this.loading = false;
@@ -96,6 +97,9 @@ export default {
         }
       // });
     },
+    registerFunction(){
+      this.$router.push({ path: '/register' })
+    }
   }
 };
 </script>
@@ -128,5 +132,12 @@ label {
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%;
+}
+#registerLink{
+  color: blue;
+}
+#registerLink:hover{
+  text-decoration: underline;
+  cursor: pointer;
 }
 </style>

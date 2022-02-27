@@ -19,9 +19,9 @@
       <Assignment v-show="toggleAssignmentBool" :toggleEditButton="toggleEditButton" :toggleSubmitAssignment="toggleSubmitAssignment"/>
       <Exam v-show="toggleExamBool" :toggleEditButton="toggleEditButton" :toggleTakeExam="toggleTakeExam" :toggleCreateExam="toggleCreateExam"/>
       <Grades v-show="toggleGradesBool" :toggleEditButton="toggleEditButton" :toggleTeacherGrades="toggleTeacherGrades" />
-      <Forum v-show="toggleForumBool" :toggleForumBoard="toggleForumBoard" :toggleEditButton="toggleEditButton" />
+      <Forum v-show="toggleForumBool" :toggleForumPost="toggleForumPost" :toggleEditButton="toggleEditButton" />
       <Account v-show="toggleAccountBool" />
-      <ForumBoard v-show="toggleForumBoardBool" :toggleForumPost="toggleForumPost" />
+      <!-- <ForumBoard v-show="toggleForumBoardBool" :toggleForumPost="toggleForumPost" /> -->
       <ForumPost v-show="toggleForumPostBool" />
       <SubmitAssignment v-show="toggleSubmitAssignmentBool" />
       <TeacherGrades v-show="toggleTeacherGradesBool" />
@@ -42,7 +42,7 @@ import Exam from '@/components/Exam.vue'
 import Grades from '@/components/Grades.vue'
 import Forum from '@/components/Forum.vue'
 import Account from '@/components/Account.vue'
-import ForumBoard from '@/components/ForumBoard.vue'
+// import ForumBoard from '@/components/ForumBoard.vue'
 import ForumPost from '@/components/ForumPost.vue'
 import SubmitAssignment from '@/components/SubmitAssignment.vue'
 import TeacherGrades from '@/components/TeacherGrades.vue'
@@ -61,7 +61,7 @@ export default {
     Forum,
     Account,
     Grades,
-    ForumBoard,
+    // ForumBoard,
     ForumPost,
     SubmitAssignment,
     TeacherGrades,

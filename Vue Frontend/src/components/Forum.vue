@@ -141,7 +141,7 @@
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
               <tr v-for="post in posts" :key="post.email">
-                <td v-on:click="toggleForumBoard" id="toForumBoard" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-left">
+                <td v-on:click="toggleForumPost" id="toForumBoard" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-left">
                   {{ post.title }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-left">
@@ -218,7 +218,7 @@ export default {
     }
   },
   props: {
-    toggleForumBoard: Function,
+    toggleForumPost: Function,
     toggleEditButton: Boolean
   }
 }

@@ -12,15 +12,14 @@ import Home from '@/views/Home'
 import Login from '@/views/Login'
 import Register from '@/views/Register'
 import Profile from '@/views/Profile'
-import Admin from '@/views/BoardAdmin'
-import Mod from '@/views/BoardModerator'
-import User from '@/views/BoardUser'
+import Teacher from '@/views/BoardTeacher'
+import User from '@/views/BoardStudent'
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home,
+    name: 'Login',
+    component: Login,
     props: true,
   },
   {
@@ -84,15 +83,9 @@ const routes = [
     props: true,
   },
   {
-    path: '/admin',
-    name: 'Admin',
-    component: Admin,
-    props: true,
-  },
-  {
-    path: '/mod',
-    name: 'Moderator',
-    component: Mod,
+    path: '/teacher',
+    name: 'Teacher',
+    component: Teacher,
     props: true,
   },
   {

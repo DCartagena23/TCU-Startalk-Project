@@ -93,11 +93,12 @@ export default {
     handleRegister() {
       this.message = '';
       this.submitted = true;
-      alert(this.user.email);
+      alert(this.user.password);
           this.$store.dispatch('auth/register', this.user).then(
             (data) => {
               this.message = data.message;
               this.successful = true;
+              this.$router.push('/books');
             },
             (error) => {
               this.message =
