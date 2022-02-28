@@ -1,7 +1,6 @@
 <template>
   <div class="container">
       <h1>{{test.title}}</h1>
-      <input type="text" class="form-control" v-model="user" />
       <button class="btn btn-primary" v-if="flag" @click="toggle">Begin Test</button>
       <div v-else>
         <div>Speaking Prompt: {{test.prompt}}</div>
@@ -32,11 +31,11 @@ export default {
         mediaRecorder:``,
         audio:``,
         countDown: null,
-        user:"NhanLy",
         test:{}
     }
   },
   created() {
+    this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token; 
         this.init()
         this.getTest(this.$route.params.id)
   },
@@ -66,7 +65,7 @@ export default {
           });
 
           var http = this.$http
-          var user = this.user
+          var user = this.$store.state.auth.user;
           var testId = this.test.id
 
           this.mediaRecorder.addEventListener("stop", () => {
@@ -84,7 +83,7 @@ export default {
                 console.log(base64data);
                 
 
-                var data = [user,testId,base64data]
+                var data = [user.username,testId,base64data]
                 var chapter = {
                  text: data,
                 }

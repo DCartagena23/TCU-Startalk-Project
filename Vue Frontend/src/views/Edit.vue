@@ -66,7 +66,8 @@ export default {
 
   },
   created() {
-        this.getChapter(this.$route.params.id)
+    this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token; 
+    this.getChapter(this.$route.params.id)
 
   },
   methods: {
@@ -137,7 +138,6 @@ export default {
         this.chapter.text = res.data
       }
       this.showText()
-      console.log('Tokenize Success')
     },
 
     toggleSpace(word) {
@@ -202,7 +202,7 @@ export default {
 
     async saveChapter() {
       await this.$http.put(`/chapters/updateChapter/${this.$route.params.id}`, this.chapter)
-      this.$router.push({ path: `/read/${this.$route.params.id}` })
+      this.$router.push({ path: `/read/${this.$route.params.bookId}/${this.$route.params.id}` })
     },
   },
 }

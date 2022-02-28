@@ -3,7 +3,7 @@
     <!-- Chapter List -->
     <h1>{{ book.title }}</h1>
     <div>
-      <a class="btn btn-primary" v-show=checkRole() @click.prevent="showNewchapterForm">Add a New Chapter</a>
+      <a class="btn btn-primary" v-if=checkRole() @click.prevent="showNewchapterForm">Add a New Chapter</a>
     </div>
     <hr />
     <table class="table table-striped table-hover">
@@ -19,10 +19,10 @@
           <td>Chapter {{ chapter.number }}</td>
           <td>{{ chapter.title }}</td>
           <td>
-            <a class="btn btn-warning" v-show=checkRole() style="margin-right: 10px" @click.prevent="showEditchapterForm(chapter.id)">Edit</a>
-            <a class="btn btn-danger" v-show=checkRole() style="margin-right: 10px" @click.prevent="deleteChapter(chapter.id)">Delete</a>
+            <a class="btn btn-warning" v-if=checkRole() style="margin-right: 10px" @click.prevent="showEditchapterForm(chapter.id)">Edit</a>
+            <a class="btn btn-danger" v-if=checkRole() style="margin-right: 10px" @click.prevent="deleteChapter(chapter.id)">Delete</a>
             <a class="btn btn-success" style="margin-right: 10px" @click.prevent="view(chapter)">View</a>
-            <a class="btn btn-success" v-show=checkRole() @click.prevent="studentView(chapter)">Student View</a>
+            <a class="btn btn-success" v-if=checkRole() @click.prevent="studentView(chapter)">Student View</a>
           </td>
         </tr>
       </tbody>
@@ -174,21 +174,13 @@ export default {
       }
     },
 
-    checkBook(id) {
-      this.check = id
-      console.log(this.check)
-      this.$router.push({
-        name: 'About',
-        params: { id: this.check },
-      })
-    },
     view(chapter) {
-      if (this.checkRole()) this.$router.push({ path: `/read/${chapter.id}` })
-      else this.$router.push({ path: `/student/${chapter.id}` })
+      if (this.checkRole()) this.$router.push({ path: `/read/${this.book.id}/${chapter.id}` })
+      else this.$router.push({ path: `/student/${this.book.id}/${chapter.id}` })
     },
     studentView(chapter) {
       console.log(chapter)
-      this.$router.push({ path: `/student/${chapter.id}` })
+      this.$router.push({ path: `/student/${this.book.id}/${chapter.id}` })
     },
     checkRole(){
       if (this.$store.state.auth.user.roles[0] == "ROLE_TEACHER") return true

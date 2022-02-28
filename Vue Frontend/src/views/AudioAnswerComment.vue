@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <input type="text" class="form-control" v-model="user" />
     <h6 class="card-title" style="font-size: 2em">{{test.title}}</h6>
     <hr />
     <table class="table table-striped table-hover">
@@ -64,6 +63,7 @@ export default {
   mounted: function () {
   },
   created() {
+    this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token; 
     this.getTest(this.$route.params.testId)
     this.getAnswer()
   },
@@ -84,9 +84,9 @@ export default {
         async addComment(){
             var json = {
             id: this.objectId(),
-            user: this.user,
+            user: this.$store.state.auth.user.username,
             content: this.newText,
-            instructor: false
+            instructor: this.checkRole()
             }
             const { data: res } = await this.$http.put(`/audioTests/addComment/${this.$route.params.testId}/${this.$route.params.answerId}`, json)
             this.commentList = [...this.commentList, res.data]
@@ -108,6 +108,11 @@ export default {
           })
           .toLowerCase()
       )
+    },
+
+    checkRole(){
+      if (this.$store.state.auth.user.roles[0] == "ROLE_TEACHER") return true
+      else return false
     },
   },
 }

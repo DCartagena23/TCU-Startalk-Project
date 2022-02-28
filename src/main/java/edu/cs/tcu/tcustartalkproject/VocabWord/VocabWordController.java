@@ -32,8 +32,13 @@ public class VocabWordController {
     @GetMapping("/findOne/{id}")
     @ResponseBody
     public Result getVocabWord(@PathVariable String id) {
-        VocabWord vocabWord = vocabWordService.findById(id);
-        return new Result(StatusCode.SUCCESS, "Find One Vocab Word Success", vocabWord);
+        try{
+            VocabWord vocabWord = vocabWordService.findById(id);
+            return new Result(StatusCode.SUCCESS, "Find One Vocab Word Success", vocabWord);
+        }
+        catch (Exception e){
+            return new Result(StatusCode.FAILURE, "FAILURE", null);
+        }
     }
 
     /**

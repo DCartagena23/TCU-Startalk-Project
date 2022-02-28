@@ -1,6 +1,7 @@
 <template>
   <div >
     <div id="textbook">
+      <div>{{chapter.title}}</div>
       <div id="textbox">
         <div :key="paragraph" v-for="paragraph in list">
           <div :key="word" v-for="word in paragraph">
@@ -36,9 +37,9 @@
         </div>
       </div>
     </div>
-    <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" v-on:click="goPrevPage" style="float: left; margin: 5px 5px 5px 0">Previous Page</button>
-    <button type="button" v-show=checkRole() @click="edit()" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" style="margin: 5px 0 0 0">Edit Passage</button>
-    <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" v-on:click="goNextPage" style="float: right; margin: 5px 0 5px 5px">Next Page</button>
+    <button type="button" :disabled=previousDisable @click="previous()" class=" btn btn-primary inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" v-on:click="goPrevPage" style="float: left; margin: 5px 5px 5px 0">Previous Chapter</button>
+    <button type="button" v-if=checkRole() @click="edit()" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" style="margin: 5px 0 0 0">Edit Passage</button>
+    <button type="button" :disabled=nextDisable @click="next()" class="btn btn-primary inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" v-on:click="goNextPage" style="float: right; margin: 5px 0 5px 5px">Next Chapter</button>
 
     <nav class="navbar fixed-bottom navbar-expand-lg navbar-dark bg-dark" style="text-align: center">
       <div class="mx-auto">
@@ -136,6 +137,7 @@ export default {
       chapter: {},
       wordList: [],
       pinyinList: [],
+      chapList:[],
 
       wordForm: {},
       wordFormName: '',
@@ -148,6 +150,11 @@ export default {
       translateForm: {},
       translateFormModal: null,
       translateFlag: true,
+
+      previousDisable: false,
+      nextDisable: false,
+      previousId: "",
+      nextId:""
     }
   },
   mounted: function () {
@@ -160,6 +167,7 @@ export default {
   created() {
     this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token; 
     this.getChapter(this.$route.params.id)
+    this.getChapList(this.$route.params.bookId)
   },
   methods: {
     //get the chapter using id
@@ -170,7 +178,6 @@ export default {
 
         this.wordList = this.chapter.grammarWords
         this.pinyinList = this.chapter.pinyin
-
         this.showText()
       }
     },
@@ -226,7 +233,6 @@ export default {
           this.list.push(paragraph)
         }
       })
-      console.log(this.list)
     },  
 
     //get the grammar word list
@@ -277,7 +283,7 @@ export default {
     },
 
     edit() {
-      this.$router.push({ path: `/read/${this.chapter.id}` })
+      this.$router.push({ path: `/read/${this.$route.params.bookId}/${this.chapter.id}` })
     },
 
     toggle: function () {
@@ -353,6 +359,48 @@ export default {
     checkRole(){
       if (this.$store.state.auth.user.roles[0] == "ROLE_TEACHER") return true
       else return false
+    },
+
+    async getChapList(id) {
+      const { data: res } = await this.$http.get(`/books/getChapters/${id}`)
+      if (res.status == 200){
+        this.chapList = res.data
+        this.sorted()
+        let index = this.chapList.findIndex((chapter) => chapter.id == this.$route.params.id)
+        if (index == 0) this.previousDisable = true
+        else {
+          this.previousId = this.chapList[index-1].id
+          this.previousDisable = false
+        }
+        if (index == this.chapList.length - 1) this.nextDisable = true
+        else {
+          this.nextId = this.chapList[index+1].id
+          this.nextDisable = false
+        }
+      }
+
+    },
+
+    previous(){
+      this.$router.replace({ path: `/student/${this.$route.params.bookId}/${this.previousId}` })
+      this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token; 
+      this.getChapter(this.previousId)
+      this.getChapList(this.$route.params.bookId)
+
+    },
+
+    next(){
+      this.$router.replace({ path: `/student/${this.$route.params.bookId}/${this.nextId}` })
+      this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token; 
+      this.getChapter(this.nextId)
+      this.getChapList(this.$route.params.bookId)
+
+    },
+
+    sorted() {
+      return this.chapList.sort((a, b) => {
+        return a.number - b.number
+      })
     },
   },
 }

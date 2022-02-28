@@ -14,6 +14,10 @@ import Register from '@/views/Register'
 import Profile from '@/views/Profile'
 import Teacher from '@/views/BoardTeacher'
 import User from '@/views/BoardStudent'
+import AudioTest from '@/views/AudioTest'
+import AudioTestTaking from '@/views/AudioTestTaking'
+import AudioAnswerList from '@/views/AudioAnswerList'
+import AudioAnswerComment from '@/views/AudioAnswerComment'
 
 const routes = [
   {
@@ -23,7 +27,7 @@ const routes = [
     props: true,
   },
   {
-    path: '/student/:id',
+    path: '/student/:bookId/:id',
     name: 'Student',
     component: Student,
     props: true,
@@ -47,13 +51,13 @@ const routes = [
     props: true,
   },
   {
-    path: '/read/:id',
+    path: '/read/:bookId/:id',
     name: 'Read',
     component: Read,
     props: true,
   },
   {
-    path: '/edit/:id',
+    path: '/edit/:bookId/:id',
     name: 'Edit',
     component: Edit,
     props: true,
@@ -93,7 +97,31 @@ const routes = [
     name: 'User',
     component: User,
     props: true,
-  }
+  },
+  {
+    path: '/audioTest',
+    name: 'AudioTest',
+    component: AudioTest,
+    props: true,
+  },
+  {
+    path: '/audioTestTaking/:id',
+    name: 'AudioTestTaking',
+    component: AudioTestTaking,
+    props: true,
+  },
+  {
+    path: '/audioAnswerList/:id',
+    name: 'AudioAnswerList',
+    component: AudioAnswerList,
+    props: true,
+  },
+  {
+    path: '/audioAnswerComment/:testId/:answerId',
+    name: 'AudioAnswerComment',
+    component: AudioAnswerComment,
+    props: true,
+  },
 ]
 
 const router = createRouter({

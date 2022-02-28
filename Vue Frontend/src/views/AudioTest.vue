@@ -20,8 +20,8 @@
           <td>{{ test.prepTime }}</td>
           <td>
             <a class="btn btn-success" style="margin-right: 10px" @click.prevent="startTest(test.id)">Start Test</a>
-            <a class="btn btn-warning" style="margin-right: 10px" @click.prevent="showEditTestForm(test.id)">Edit</a>
-            <a class="btn btn-danger" style="margin-right: 10px" @click.prevent="deleteTest(test.id)">Delete</a>
+            <a class="btn btn-warning" v-if=checkRole() style="margin-right: 10px" @click.prevent="showEditTestForm(test.id)">Edit</a>
+            <a class="btn btn-danger"  v-if=checkRole() style="margin-right: 10px" @click.prevent="deleteTest(test.id)">Delete</a>
             <a class="btn btn-success" style="margin-right: 10px" @click.prevent="viewAnswer(test.id)">View Submitted Answer</a>
           </td>
         </tr>
@@ -84,6 +84,7 @@ export default {
     this.testFormModal = new this.$bootstrap.Modal(document.getElementById('testForm'), {})
   },
   created() {
+    this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token; 
     this.getTestList()
   },
   methods: {
@@ -160,6 +161,11 @@ export default {
 
     viewAnswer(id) {
       this.$router.push({ path: `/audioAnswerList/${id}` })
+    },
+
+    checkRole(){
+      if (this.$store.state.auth.user.roles[0] == "ROLE_TEACHER") return true
+      else return false
     },
 
   },

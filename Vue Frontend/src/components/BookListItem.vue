@@ -4,8 +4,8 @@
   <td>{{ book.author }}</td>
   <td>{{ book.desc }}</td>
   <td>
-    <a class="btn btn-warning" v-show=checkRole() style="margin-right: 10px" @click.prevent="$emit('edit', book.id)">Edit</a>
-    <a class="btn btn-danger" v-show=checkRole() style="margin-right: 10px" @click.prevent="$emit('delete', book.id)">Delete</a>
+    <a class="btn btn-warning" v-if=checkRole() style="margin-right: 10px" @click.prevent="$emit('edit', book.id)">Edit</a>
+    <a class="btn btn-danger" v-if=checkRole() style="margin-right: 10px" @click.prevent="$emit('delete', book.id)">Delete</a>
     <a class="btn btn-success" @click.prevent="$emit('view', book.id)">View</a>
   </td>
 </template>

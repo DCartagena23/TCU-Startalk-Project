@@ -22,7 +22,7 @@
           </td>
           <td>{{ answer.grade }}</td>
           <td>
-            <a class="btn btn-success" style="margin-right: 10px" @click.prevent="showGradeForm(answer.id)">Grade</a>
+            <a class="btn btn-success" v-if=checkRole() style="margin-right: 10px" @click.prevent="showGradeForm(answer.id)">Grade</a>
             <a class="btn btn-success" @click.prevent="viewComment(answer.id)">View Comment</a>
           </td>
         </tr>
@@ -51,6 +51,10 @@
               <label for="chapter-name" class="col-form-label">Grade:</label>
               <input type="text" class="form-control" v-model="gradeForm.grade" />
             </div>
+            <div class="mb-3">
+              <label for="chapter-name" class="col-form-label">Comment:</label>
+              <textarea class="form-control" id="newText" rows="4" v-model="newText"></textarea>
+            </div>
           </form>
         </div>
         <div class="modal-footer">
@@ -72,6 +76,7 @@ export default {
     return {
       test: {},
       answerList: [],
+      newText:"",
       
       gradeForm: {},
       gradeFormName: '',
@@ -82,6 +87,7 @@ export default {
     this.gradeFormModal = new this.$bootstrap.Modal(document.getElementById('gradeForm'), {})
   },
   created() {
+    this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token; 
     this.getTest(this.$route.params.id)
     this.getAnswerList(this.$route.params.id)
   },
@@ -96,6 +102,7 @@ export default {
         async getAnswerList(id) {
             const { data: res } = await this.$http.get(`/storage/getAudioAnswerList/${id}`)
             this.answerList = res.data
+            console.log(this.answerList)
         },
 
     async showGradeForm(id) {
@@ -109,12 +116,42 @@ export default {
           await this.$http.put(`/audioTests/changeGrade/${this.$route.params.id}/${this.gradeForm.id}`, this.gradeForm)
           let index = this.answerList.findIndex((answer) => answer.id == this.gradeForm.id)
           this.answerList[index].grade = this.gradeForm.grade
+          this.addComment(this.gradeForm.id)
+
           this.gradeFormModal.hide()
         },
+
+      async addComment(id){
+        var json = {
+        id: this.objectId(),
+        user: this.$store.state.auth.user.username,
+        content: this.newText,
+        instructor: this.checkRole()
+        }
+        await this.$http.put(`/audioTests/addComment/${this.$route.params.id}/${id}`, json)
+        this.newText = ""
+      },
     
     viewComment(id){
       this.$router.push({ path: `/audioAnswerComment/${this.$route.params.id}/${id}` })
-    }
+    },
+
+    objectId() {
+      var timestamp = ((new Date().getTime() / 1000) | 0).toString(16)
+      return (
+        timestamp +
+        'xxxxxxxxxxxxxxxx'
+          .replace(/[x]/g, function () {
+            return ((Math.random() * 16) | 0).toString(16)
+          })
+          .toLowerCase()
+      )
+    },
+
+    checkRole(){
+      if (this.$store.state.auth.user.roles[0] == "ROLE_TEACHER") return true
+      else return false
+    },
   },
 }
 </script>

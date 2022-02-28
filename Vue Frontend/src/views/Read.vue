@@ -400,11 +400,11 @@ export default {
     },
 
     edit() {
-      this.$router.push({ path: `/edit/${this.chapter.id}` })
+      this.$router.push({ path: `/edit/${this.$route.params.bookId}/${this.chapter.id}` })
     },
 
     studentView() {
-      this.$router.push({ path: `/student/${this.chapter.id}` })
+      this.$router.push({ path: `/student/${this.$route.params.bookId}/${this.chapter.id}` })
     },
 
     //create new id
