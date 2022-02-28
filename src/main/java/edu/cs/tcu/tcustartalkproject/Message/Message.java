@@ -15,6 +15,7 @@ public class Message implements Serializable {
     private String id;
     private User user;
     private String content;
+    private String mediaURL;
 
     @DBRef
     @JsonBackReference
@@ -23,10 +24,11 @@ public class Message implements Serializable {
     public Message(){
     }
 
-    public Message(String id, User user, String content){
+    public Message(String id, User user, String content, String mediaURL){
         this.id = id;
         this.user = user;
         this.content = content;
+        this.mediaURL = mediaURL;
     }
 
     public String getId() {
@@ -51,6 +53,14 @@ public class Message implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getMediaURL() {
+        return mediaURL;
+    }
+
+    public void setMediaURL(String mediaURL) {
+        this.mediaURL = mediaURL;
     }
 
     public Forum getForum(){
