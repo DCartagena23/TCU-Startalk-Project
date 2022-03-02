@@ -34,7 +34,7 @@ public class Forum implements Serializable {
         this.id = id;
     }
 
-    public List<Message> getMessage() {
+    public List<Message> getMessages() {
         return messages;
     }
 
