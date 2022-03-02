@@ -1,6 +1,9 @@
 package edu.cs.tcu.tcustartalkproject.Book;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import edu.cs.tcu.tcustartalkproject.Authentication.Models.User;
+import edu.cs.tcu.tcustartalkproject.Course.Course;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -23,6 +26,10 @@ public class Book implements Serializable {
     @DBRef
     @JsonManagedReference
     private List<Chapter> chapter = new ArrayList<Chapter>();
+
+    @DBRef(lazy = true)
+    @JsonIgnoreProperties({"books"})
+    private Course course;
     /**
      * Constructor for Book objects with arguments
      * @param id index in database
@@ -148,5 +155,13 @@ public class Book implements Serializable {
     public void addChapter(Chapter chapter){
         this.chapter.add(chapter);
         chapter.setBook(this);
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
     }
 }

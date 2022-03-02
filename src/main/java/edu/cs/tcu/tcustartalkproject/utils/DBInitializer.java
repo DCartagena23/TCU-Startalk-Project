@@ -1,6 +1,7 @@
 package edu.cs.tcu.tcustartalkproject.utils;
 
 import edu.cs.tcu.tcustartalkproject.Authentication.JWTRepos.RoleService;
+import edu.cs.tcu.tcustartalkproject.Authentication.JWTRepos.UserRepository;
 import edu.cs.tcu.tcustartalkproject.Authentication.Models.ERole;
 import edu.cs.tcu.tcustartalkproject.Authentication.Models.Role;
 import edu.cs.tcu.tcustartalkproject.Authentication.Models.User;
@@ -9,6 +10,8 @@ import edu.cs.tcu.tcustartalkproject.Book.BookService;
 import edu.cs.tcu.tcustartalkproject.Chapter.Chapter;
 import edu.cs.tcu.tcustartalkproject.Chapter.ChapterService;
 import edu.cs.tcu.tcustartalkproject.Chapter.Pinyin;
+import edu.cs.tcu.tcustartalkproject.Course.Course;
+import edu.cs.tcu.tcustartalkproject.Course.CourseService;
 import edu.cs.tcu.tcustartalkproject.Forum.Forum;
 import edu.cs.tcu.tcustartalkproject.Forum.ForumService;
 import edu.cs.tcu.tcustartalkproject.GrammarWord.GrammarWord;
@@ -19,6 +22,7 @@ import edu.cs.tcu.tcustartalkproject.Message.MessageService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -32,9 +36,11 @@ public class DBInitializer implements CommandLineRunner {
     private final MessageService messageService;
     private final ForumService forumService;
     private final RoleService roleService;
+    private final CourseService courseService;
+    private final UserRepository userRepository;
 
     @Autowired
-    public DBInitializer(BookService bookService, ChapterService chapterService, GrammarWordService grammarWordService,
+    public DBInitializer(UserRepository userRepository ,CourseService courseService, BookService bookService, ChapterService chapterService, GrammarWordService grammarWordService,
                          MessageService messageService, ForumService forumService, RoleService roleService){
         this.bookService = bookService;
         this.chapterService = chapterService;
@@ -42,6 +48,8 @@ public class DBInitializer implements CommandLineRunner {
         this.messageService = messageService;
         this.forumService = forumService;
         this.roleService = roleService;
+        this.userRepository = userRepository;
+        this.courseService = courseService;
     }
 
     public void run(String... args) throws Exception {
@@ -159,5 +167,38 @@ public class DBInitializer implements CommandLineRunner {
         Role r2 = new Role(ERole.ROLE_TEACHER);
         roleService.save(r1);
         roleService.save(r2);
+
+        User student = new User("student",
+                null,
+                "student");
+
+        User student2 = new User("student2",
+                null,
+                "student2");
+
+        User teacher = new User("teacher",
+                null,
+                "teacher");
+
+        Course co1 = new Course(new ObjectId().toHexString(), "DemoCourse");
+        Course co2 = new Course(new ObjectId().toHexString(), "DemoCourse2");
+        teacher.createCourse(co1);
+        teacher.createCourse(co2);
+        student.joinCourse(co1);
+        student2.joinCourse(co1);
+        teacher.joinCourse(co1);
+        teacher.joinCourse(co2);
+
+        co1.addBook(b1);
+        co1.addBook(b2);
+
+        userRepository.save(teacher);
+        userRepository.save(student);
+        userRepository.save(student2);
+        courseService.save(co1);
+        courseService.save(co2);
+
+        bookService.save(b1);
+        bookService.save(b2);
     }
 }

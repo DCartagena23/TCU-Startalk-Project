@@ -1,10 +1,17 @@
 package edu.cs.tcu.tcustartalkproject.Authentication.Models;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import edu.cs.tcu.tcustartalkproject.Chapter.Chapter;
+import edu.cs.tcu.tcustartalkproject.Course.Course;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -24,6 +31,17 @@ public class User {
     private String password;
     @DBRef
     private Set<Role> roles = new HashSet<>();
+
+    @DBRef(lazy = true)
+    @JsonIgnoreProperties({"teacher","students"})
+    private List<Course> courseCreate = new ArrayList<Course>();
+
+
+
+    @DBRef(lazy = true)
+    @JsonIgnoreProperties({"teacher","students"})
+    private List<Course> courseJoin = new ArrayList<Course>();
+
     public User() {
     }
     public User(String username, String email, String password) {
@@ -61,4 +79,31 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+    public List<Course> getCourseCreate() {
+        return courseCreate;
+    }
+
+    public void setCourseCreate(List<Course> courseCreate) {
+        this.courseCreate = courseCreate;
+    }
+
+    public void createCourse(Course course){
+        this.courseCreate.add(course);
+        course.setTeacher(this);
+    }
+
+    public List<Course> getCourseJoin() {
+        return courseJoin;
+    }
+
+    public void setCourseJoin(List<Course> courseJoin) {
+        this.courseJoin = courseJoin;
+    }
+
+    public void joinCourse(Course course){
+        this.courseJoin.add(course);
+        course.addStudent(this);
+    }
+
 }
