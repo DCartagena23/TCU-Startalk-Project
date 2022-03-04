@@ -43,7 +43,20 @@ app.component('font-awesome-icon', FontAwesomeIcon)
 app.config.globalProperties.$http = axios
 app.config.globalProperties.$bootstrap = bootstrap
 
-axios.defaults.baseURL = 'http://localhost:8081'
+//axios.defaults.baseURL = 'http://localhost:8081'
+axios.defaults.baseURL = 'https://tcu-cnn22.herokuapp.com/'
+
+router.beforeEach((to) => {
+  if (
+    // make sure the user is authenticated
+    !store.state.auth.status.loggedIn &&
+    // ❗️ Avoid an infinite redirect
+    to.name !== 'Login' && to.name !== 'Register'
+  ) {
+    // redirect the user to the login page
+    return { name: 'Login' }
+  }
+})
 
 app.use(router)
 app.use(store)
