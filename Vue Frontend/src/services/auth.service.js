@@ -1,5 +1,6 @@
 import axios from 'axios';
-const API_URL = 'http://localhost:8081/api/auth/';
+//const API_URL = 'http://localhost:8081/api/auth/';
+const API_URL = 'https://tcu-cnn22.herokuapp.com/api/auth/';
 class AuthService {
   login(user) {
     return axios
