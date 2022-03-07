@@ -1,6 +1,7 @@
 package edu.cs.tcu.tcustartalkproject.Course;
 
 import edu.cs.tcu.tcustartalkproject.Book.Book;
+import edu.cs.tcu.tcustartalkproject.Chapter.Chapter;
 import edu.cs.tcu.tcustartalkproject.GrammarWord.GrammarWord;
 import edu.cs.tcu.tcustartalkproject.Book.BookService;
 import edu.cs.tcu.tcustartalkproject.GrammarWord.GrammarWordService;
@@ -55,5 +56,33 @@ public class CourseController {
     public Result findAllCourses() {
         final List<Course> courses = courseService.findAll();
         return new Result(StatusCode.SUCCESS, "Find All Course Success", courses);
+    }
+
+    @PostMapping("/saveCourse")
+    @ResponseBody
+    public Result saveCourse(@RequestBody Course course) {
+        Course savedCourse = courseService.save(course);
+        return new Result(StatusCode.SUCCESS, "Course Saved!", savedCourse);
+    }
+
+    @PutMapping("/updateCourse")
+    @ResponseBody
+    public Result updateCourse(@RequestBody Course course) {
+        Course updateCourse = courseService.update(course);
+        return new Result(StatusCode.SUCCESS, "Course Updated!", updateCourse);
+    }
+
+    /**
+     * Method to delete a book.
+     * @param id index of the book to be deleted.
+     * @return Result object that contains status code and message.
+     */
+    @DeleteMapping("/deleteCourse/{id}")
+    @ResponseBody
+    public Result deleteCourse(@PathVariable String id) {
+        Course course = courseService.findById(id);
+        course.setActive(false);
+        courseService.save(course);
+        return new Result(StatusCode.SUCCESS, "Course Deleted!", null);
     }
 }
