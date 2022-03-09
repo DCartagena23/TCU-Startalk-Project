@@ -101,7 +101,7 @@ export default {
   },
   mounted() {
     if (this.loggedIn) {
-      this.$router.push('/books');
+      this.$router.push('/home');
     }
   },
   methods: {

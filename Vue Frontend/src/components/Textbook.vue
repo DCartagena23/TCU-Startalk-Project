@@ -11,70 +11,32 @@
               <div class="rounded-lg bg-white overflow-hidden shadow">
                 <div class="p-6">
                   <!-- Your content -->
-                  <Textbox :toggleEditButton="toggleEditButton" :toggleEditMode="toggleEditMode" :textbox="textbox" :goNextPage="goNextPage" :goPrevPage="goPrevPage" />
+                  <Textbox ref="Textbox"  :toggleEditButton="toggleEditButton" :toggleEditMode="toggleEditMode" :textbox="textbox" :goNextPage="goNextPage" :goPrevPage="goPrevPage" />
                 </div>
               </div>
             </section>
           </div>
 
           <!-- Right column -->
-          <!-- <div class="grid grid-cols-1 gap-4">
+          <div class="grid grid-cols-1 gap-4">
             <section aria-labelledby="section-2-title">
               <h2 class="sr-only" id="section-2-title">Textbook Navigation</h2>
               <div class="rounded-lg bg-white overflow-hidden shadow">
-                <div class="p-6"> -->
+                <div class="p-6">
                   <!-- Your content -->
-                  <!-- <div id="side">
+                  <div id="side">
         <div id="accordion">
           <div class="card">
             <div class="card-header" id="headingOne">
               <h5 class="mb-0">
                 <button id="ch1" class="btn btn section1" v-on:click="toggleCollapse" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                  Chapter 1
+                  {{book.title}}
                 </button>
               </h5>
             </div>
 
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-              <div class="card-body section">Section 1</div>
-              <div class="card-body section">Section 2</div>
-              <div class="card-body section">Section 3</div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-header" id="headingTwo">
-              <h5 class="mb-0">
-                <button id="ch2" class="btn btn collapsed section1" v-on:click="toggleCollapse2" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                  Chapter 2
-                </button>
-              </h5>
-            </div>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-              <div class="card-body section">Section 1</div>
-              <div class="card-body section">Section 2</div>
-              <div class="card-body section">Section 3</div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-header" id="headingThree">
-              <h5 class="mb-0">
-                <button
-                  id="ch3"
-                  class="btn btn collapsed section1"
-                  v-on:click="toggleCollapse3"
-                  data-toggle="collapse"
-                  data-target="#collapseThree"
-                  aria-expanded="false"
-                  aria-controls="collapseThree"
-                >
-                  Chapter 3
-                </button>
-              </h5>
-            </div>
-            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-              <div class="card-body section">Section 1</div>
-              <div class="card-body section">Section 2</div>
-              <div class="card-body section">Section 3</div>
+              <div :key="chapter.id" @click.prevent="view(chapter.id)" v-for="chapter in chapList" class="card-body section">Chapter {{chapter.number}}</div>
             </div>
           </div>
         </div>
@@ -82,7 +44,7 @@
                 </div>
               </div>
             </section>
-          </div> -->
+          </div>
         </div>
       </div>
     </main>
@@ -112,13 +74,46 @@ export default {
   data: function () {
     return {
       textbox: 'This did not register',
+      chapList:[],
+      book:{},
+
+      previousDisable: false,
+      nextDisable: false,
+      previousId: "",
+      nextId:""
     }
   },
   props: {
     toggleEditButton: Boolean,
     toggleEditMode: Function,
   },
+    created() {
+    this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token; 
+    this.getBook(this.$route.params.bookId)
+
+  },
   methods: {
+    async getBook(id) {
+      const { data: res } = await this.$http.get(`/books/findOne/${id}`)
+      if (res.status == 200) {
+        this.book = res.data
+        this.chapList = this.book.chapter
+        this.sorted()
+      }
+    },
+    sorted() {
+      return this.chapList.sort((a, b) => {
+        return a.number - b.number
+      })
+    },
+
+    view(id){
+      this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token;
+      this.$router.replace({ path: `/student/${this.$route.params.courseId}/${this.$route.params.bookId}/${id}` })
+      this.$refs.Textbox.getChapter(id)
+      this.$refs.Textbox.getChapList(this.$route.params.bookId) 
+    },
+
     goNextPage: function () {
       this.textbox = 'Next page'
     },

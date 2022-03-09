@@ -1,5 +1,7 @@
 package edu.cs.tcu.tcustartalkproject.Course;
 
+import edu.cs.tcu.tcustartalkproject.Authentication.JWTRepos.UserService;
+import edu.cs.tcu.tcustartalkproject.Authentication.Models.User;
 import edu.cs.tcu.tcustartalkproject.Book.Book;
 import edu.cs.tcu.tcustartalkproject.Chapter.Chapter;
 import edu.cs.tcu.tcustartalkproject.GrammarWord.GrammarWord;
@@ -27,15 +29,17 @@ public class CourseController {
      * Service for basic operations related to chapter: findAll(), findById(), delete(), save(), update()
      */
     private final CourseService courseService;
+    private final UserService userService;
     /**
      * MongoDB template
      */
     private final MongoTemplate mongoTemplate;
 
     @Autowired
-    public CourseController(CourseService courseService, MongoTemplate mongoTemplate){
+    public CourseController(CourseService courseService, MongoTemplate mongoTemplate, UserService userService){
         this.courseService = courseService;
         this.mongoTemplate = mongoTemplate;
+        this.userService = userService;
     }
 
 
@@ -62,7 +66,22 @@ public class CourseController {
     @ResponseBody
     public Result saveCourse(@RequestBody Course course) {
         Course savedCourse = courseService.save(course);
+        User teacher = userService.findById(savedCourse.getTeacher().getId());
+        teacher.createCourse(savedCourse);
+        userService.save(teacher);
+        courseService.save(savedCourse);
         return new Result(StatusCode.SUCCESS, "Course Saved!", savedCourse);
+    }
+
+    @PostMapping("/joinCourse")
+    @ResponseBody
+    public Result joinCourse(@RequestBody Chapter chapter) {
+        Course course = courseService.findById(chapter.getText().get(0));
+        User student = userService.findById(chapter.getText().get(1));
+        student.joinCourse(course);
+        userService.save(student);
+        courseService.save(course);
+        return new Result(StatusCode.SUCCESS, "Join Course!", null);
     }
 
     @PutMapping("/updateCourse")
@@ -84,5 +103,21 @@ public class CourseController {
         course.setActive(false);
         courseService.save(course);
         return new Result(StatusCode.SUCCESS, "Course Deleted!", null);
+    }
+
+    @GetMapping("/getBookList/{id}")
+    @ResponseBody
+    public Result getBookList(@PathVariable String id) {
+        Course course = courseService.findById(id);
+        List<Book> books = course.getBooks();
+        return new Result(StatusCode.SUCCESS, "Get Book List!", books);
+    }
+
+    @GetMapping("/getName/{id}")
+    @ResponseBody
+    public Result getName(@PathVariable String id) {
+        Course course = courseService.findById(id);
+        String name = course.getTitle();
+        return new Result(StatusCode.SUCCESS, "Get Name!", name);
     }
 }

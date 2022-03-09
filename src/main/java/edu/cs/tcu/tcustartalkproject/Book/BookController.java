@@ -2,6 +2,8 @@ package edu.cs.tcu.tcustartalkproject.Book;
 
 import edu.cs.tcu.tcustartalkproject.Chapter.Chapter;
 import edu.cs.tcu.tcustartalkproject.Chapter.ChapterService;
+import edu.cs.tcu.tcustartalkproject.Course.Course;
+import edu.cs.tcu.tcustartalkproject.Course.CourseService;
 import edu.cs.tcu.tcustartalkproject.GrammarWord.GrammarWord;
 import edu.cs.tcu.tcustartalkproject.GrammarWord.GrammarWordService;
 import edu.cs.tcu.tcustartalkproject.utils.Result;
@@ -18,6 +20,7 @@ public class BookController {
      * Service for basic operations: findAll(), findById(), delete(), save(), update()
      */
     private final BookService bookService;
+    private final CourseService courseService;
 
     /**
      * Service for basic operations: findAll(), findById(), delete(), save(), update()
@@ -34,10 +37,11 @@ public class BookController {
      * @param bookService Book Service supports basic operations.
      */
     @Autowired
-    public BookController(BookService bookService, ChapterService chapterService, GrammarWordService grammarWordService){
+    public BookController(CourseService courseService, BookService bookService, ChapterService chapterService, GrammarWordService grammarWordService){
         this.bookService = bookService;
         this.chapterService = chapterService;
         this.grammarWordService = grammarWordService;
+        this.courseService = courseService;
     }
 
     /**
@@ -68,10 +72,13 @@ public class BookController {
      * @param book Book object to be saved.
      * @return Result object that contains status code, message, and saved book.
      */
-    @PostMapping("/saveBook")
+    @PostMapping("/saveBook/{id}")
     @ResponseBody
-    public Result saveBook(@RequestBody Book book) {
+    public Result saveBook(@PathVariable String id, @RequestBody Book book) {
+        Course course = courseService.findById(id);
         Book savedBook = bookService.save(book);
+        course.addBook(savedBook);
+        courseService.save(course);
         return new Result(StatusCode.SUCCESS, "Book Saved!", savedBook);
     }
 
@@ -96,15 +103,17 @@ public class BookController {
     @ResponseBody
     public Result deleteBook(@PathVariable String id) {
         Book book = bookService.findById(id);
-        List<Chapter> chapters = book.getChapter();
-        bookService.delete(id);
-        for (Chapter c : chapters){
-            List<GrammarWord> grammarWords = c.getGrammarWords();
-            chapterService.delete(c.getId());
-            for (GrammarWord g : grammarWords){
-                grammarWordService.delete(g.getId());
-            }
-        }
+        book.setActive(false);
+        bookService.save(book);
+//        List<Chapter> chapters = book.getChapter();
+//        bookService.delete(id);
+//        for (Chapter c : chapters){
+//            List<GrammarWord> grammarWords = c.getGrammarWords();
+//            chapterService.delete(c.getId());
+//            for (GrammarWord g : grammarWords){
+//                grammarWordService.delete(g.getId());
+//            }
+//        }
         return new Result(StatusCode.SUCCESS, "Book Deleted!", null);
     }
 

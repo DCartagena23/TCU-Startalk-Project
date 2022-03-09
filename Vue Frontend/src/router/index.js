@@ -27,13 +27,13 @@ const routes = [
     props: true,
   },
   {
-    path: '/student/:bookId/:id',
+    path: '/student/:courseId/:bookId/:id',
     name: 'Student',
     component: Student,
     props: true,
   },
   {
-    path: '/books',
+    path: '/book/:courseId',
     name: 'Book',
     component: Book,
     props: true,
@@ -45,19 +45,19 @@ const routes = [
     props: true,
   },
   {
-    path: '/chapter/:id',
+    path: '/chapter/:courseId/:bookId',
     name: 'Chapter',
     component: Chapter,
     props: true,
   },
   {
-    path: '/read/:bookId/:id',
+    path: '/read/:courseId/:bookId/:id',
     name: 'Read',
     component: Read,
     props: true,
   },
   {
-    path: '/edit/:bookId/:id',
+    path: '/edit/:courseId/:bookId/:id',
     name: 'Edit',
     component: Edit,
     props: true,

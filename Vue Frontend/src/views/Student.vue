@@ -1,4 +1,5 @@
 <template>
+<Breadcrumb/>
   <div id="app">
     <!-- <img alt="Vue logo" src="./assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/> -->
@@ -48,9 +49,10 @@ import SubmitAssignment from '@/components/SubmitAssignment.vue'
 import TeacherGrades from '@/components/TeacherGrades.vue'
 import TakeExam from '@/components/TakeExam.vue'
 import CreateExam from '@/components/CreateExam.vue'
-
+import Breadcrumb from '@/components/Breadcrumb.vue'
 export default {
   name: 'App',
+
   components: {
     Header,
     Textbook,
@@ -66,7 +68,8 @@ export default {
     SubmitAssignment,
     TeacherGrades,
     TakeExam,
-    CreateExam
+    CreateExam,
+    Breadcrumb
   },
   data: function () {
     return {

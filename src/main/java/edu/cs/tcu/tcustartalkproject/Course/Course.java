@@ -91,6 +91,5 @@ public class Course implements Serializable {
     }
     public void addBook(Book book) {
         this.books.add(book);
-        book.setCourse(this);
     }
 }

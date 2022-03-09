@@ -22,14 +22,12 @@ public class Book implements Serializable {
     private String desc;
     private String author;
     private double price;
+    private boolean active;
 
     @DBRef
     @JsonManagedReference
     private List<Chapter> chapter = new ArrayList<Chapter>();
 
-    @DBRef(lazy = true)
-    @JsonIgnoreProperties({"books"})
-    private Course course;
     /**
      * Constructor for Book objects with arguments
      * @param id index in database
@@ -44,6 +42,7 @@ public class Book implements Serializable {
         this.desc = desc;
         this.author = author;
         this.price = price;
+        this.active = true;
     }
 
     /**
@@ -157,11 +156,6 @@ public class Book implements Serializable {
         chapter.setBook(this);
     }
 
-    public Course getCourse() {
-        return course;
-    }
-
-    public void setCourse(Course course) {
-        this.course = course;
-    }
+    public void setActive(boolean active) { this.active = active; }
+    public boolean getActive() { return active; }
 }

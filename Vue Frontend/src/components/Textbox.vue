@@ -283,7 +283,7 @@ export default {
     },
 
     edit() {
-      this.$router.push({ path: `/read/${this.$route.params.bookId}/${this.chapter.id}` })
+      this.$router.push({ path: `/read/${this.$route.params.courseId}/${this.$route.params.bookId}/${this.chapter.id}` })
     },
 
     toggle: function () {
@@ -382,7 +382,7 @@ export default {
     },
 
     previous(){
-      this.$router.replace({ path: `/student/${this.$route.params.bookId}/${this.previousId}` })
+      this.$router.replace({ path: `/student/${this.$route.params.courseId}/${this.$route.params.bookId}/${this.previousId}` })
       this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token; 
       this.getChapter(this.previousId)
       this.getChapList(this.$route.params.bookId)
@@ -390,7 +390,7 @@ export default {
     },
 
     next(){
-      this.$router.replace({ path: `/student/${this.$route.params.bookId}/${this.nextId}` })
+      this.$router.replace({ path: `/student/${this.$route.params.courseId}/${this.$route.params.bookId}/${this.nextId}` })
       this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token; 
       this.getChapter(this.nextId)
       this.getChapList(this.$route.params.bookId)

@@ -1,14 +1,12 @@
 <template>
+<Breadcrumb/>
   <div class="container">
     <!-- Book List -->
-    <h1>Book List</h1>
+    <h6 class="display-3">Course: {{title}}</h6>
     <div>
-      <a class="btn btn-primary" style="margin-right: 10px" @click.prevent="getBookList">Show All Book</a>
       <a class="btn btn-primary" v-if=checkRole() @click.prevent="showNewBookForm">Add a New Book</a>
-      <h6 class="card-title" style="font-size: 2em">Search by Id</h6>
-      <input v-model="idSearch" />
-      <button type="button" class="btn btn-success" style="margin-left: 10px" @click.prevent="search(idSearch)">Search</button>
     </div>
+     <h1>Book List</h1>
     <hr />
     <BookList :bookList="database" @delete="deleteBook" @edit="showEditBookForm" @view="view"></BookList>
     <!-- Book List -->
@@ -57,14 +55,17 @@
 <script>
 // @ is an alias to /src
 import BookList from '@/components/BookList'
-
+import Breadcrumb from '@/components/Breadcrumb.vue'
 export default {
   name: 'Book',
   components: {
     BookList,
+    Breadcrumb
   },
   data: function () {
     return {
+      course: {},
+      title:"",
       database: [],
       bookForm: {},
       bookFormName: '',
@@ -75,12 +76,25 @@ export default {
   mounted: function () {
     this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token;
     this.bookFormModal = new this.$bootstrap.Modal(document.getElementById('bookForm'), {})
+    this.getBookList(this.$route.params.courseId)
+    this.getName(this.$route.params.courseId)
   },
   methods: {
-    async getBookList() {
-      const { data: res } = await this.$http.get('/books/findAll')
-      this.database = res.data
+
+    async getBookList(id) {
+      const { data: res } = await this.$http.get(`/courses/getBookList/${id}`)
+      if (res.status == 200) {
+        this.database = res.data
+      }
     },
+
+    async getName(id) {
+      const { data: res } = await this.$http.get(`/courses/getName/${id}`)
+      if (res.status == 200) {
+        this.title = res.data
+      }
+    },
+
     showNewBookForm() {
       this.bookFormName = 'Add a New Book'
       this.bookForm = {}
@@ -106,17 +120,14 @@ export default {
     async saveOrUpdateBook() {
       if (this.bookForm.id) {
         // update an existing Book
-        const { data: res } = await this.$http.put('/books/updateBook', this.bookForm)
-        let index = this.database.findIndex((book) => book.id == res.data.id)
-        this.database[index] = res.data
+        await this.$http.put('/books/updateBook', this.bookForm)
       } else {
         // save a new Book
         this.bookForm.id = this.objectId()
-        this.bookForm.active = false
-        const { data: res } = await this.$http.post('/books/saveBook', this.bookForm)
-        this.book = [...this.database, res.data]
-        this.getBookList()
+        this.bookForm.active = true
+        await this.$http.post(`/books/saveBook/${this.$route.params.courseId}`, this.bookForm)
       }
+      this.getBookList(this.$route.params.courseId)
       this.bookFormModal.hide()
     },
     async deleteBook(id) {
@@ -147,7 +158,7 @@ export default {
       )
     },
     view(id) {
-      this.$router.push({ path: `/chapter/${id}` })
+      this.$router.push({ path: `/chapter/${this.$route.params.courseId}/${id}` })
     },
     checkRole(){
       if (this.$store.state.auth.user.roles[0] == "ROLE_TEACHER") return true

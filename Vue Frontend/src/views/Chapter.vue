@@ -1,4 +1,5 @@
 <template>
+<Breadcrumb/>
   <div class="container">
     <!-- Chapter List -->
     <h1>{{ book.title }}</h1>
@@ -62,10 +63,12 @@
 
 <script>
 // @ is an alias to /src
-
+import Breadcrumb from '@/components/Breadcrumb.vue'
 export default {
   name: 'Chapter',
-
+  components: {
+    Breadcrumb
+  },
   data: function () {
     return {
       chapList: [],
@@ -82,8 +85,7 @@ export default {
   },
   created() {
     this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token; 
-    this.getChapList(this.$route.params.id)
-    this.getBook(this.$route.params.id)
+    this.getBook(this.$route.params.bookId)
   },
   methods: {
     async getChapList(id) {
@@ -95,6 +97,8 @@ export default {
       const { data: res } = await this.$http.get(`/books/findOne/${id}`)
       if (res.status == 200) {
         this.book = res.data
+        this.chapList = this.book.chapter
+        this.sorted()
       }
     },
 
@@ -175,12 +179,12 @@ export default {
     },
 
     view(chapter) {
-      if (this.checkRole()) this.$router.push({ path: `/read/${this.book.id}/${chapter.id}` })
-      else this.$router.push({ path: `/student/${this.book.id}/${chapter.id}` })
+      if (this.checkRole()) this.$router.push({ path: `/read/${this.$route.params.courseId}/${this.$route.params.bookId}/${chapter.id}` })
+      else this.$router.push({ path: `/student/${this.$route.params.courseId}/${this.$route.params.bookId}/${chapter.id}` })
     },
     studentView(chapter) {
       console.log(chapter)
-      this.$router.push({ path: `/student/${this.book.id}/${chapter.id}` })
+      this.$router.push({ path: `/student/${this.$route.params.courseId}/${this.book.id}/${chapter.id}` })
     },
     checkRole(){
       if (this.$store.state.auth.user.roles[0] == "ROLE_TEACHER") return true

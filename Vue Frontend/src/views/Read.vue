@@ -1,4 +1,5 @@
 <template>
+<Breadcrumb/>
   <div class="container">
     <!-- Text Area -->
     <div :key="paragraph" v-for="paragraph in list">
@@ -162,9 +163,12 @@
 
 <script>
 // @ is an alias to /src
-
+import Breadcrumb from '@/components/Breadcrumb.vue'
 export default {
   name: 'Read',
+  components: {
+    Breadcrumb
+  },
   data: function () {
     return {
       context: null,
@@ -400,11 +404,11 @@ export default {
     },
 
     edit() {
-      this.$router.push({ path: `/edit/${this.$route.params.bookId}/${this.chapter.id}` })
+      this.$router.push({ path: `/edit/${this.$route.params.courseId}/${this.$route.params.bookId}/${this.chapter.id}` })
     },
 
     studentView() {
-      this.$router.push({ path: `/student/${this.$route.params.bookId}/${this.chapter.id}` })
+      this.$router.push({ path: `/student/${this.$route.params.courseId}/${this.$route.params.bookId}/${this.chapter.id}` })
     },
 
     //create new id

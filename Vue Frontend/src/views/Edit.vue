@@ -1,4 +1,5 @@
 <template>
+<Breadcrumb/>
   <div class="container">
     <!-- Text Area -->
     <div v-if="flag" class="form-group">
@@ -50,9 +51,12 @@
 
 <script>
 // @ is an alias to /src
-
+import Breadcrumb from '@/components/Breadcrumb.vue'
 export default {
   name: 'Edit',
+  components: {
+    Breadcrumb
+  },
   data: function () {
     return {
       flag: true,
@@ -202,7 +206,7 @@ export default {
 
     async saveChapter() {
       await this.$http.put(`/chapters/updateChapter/${this.$route.params.id}`, this.chapter)
-      this.$router.push({ path: `/read/${this.$route.params.bookId}/${this.$route.params.id}` })
+      this.$router.push({ path: `/read/${this.$route.params.courseId}/${this.$route.params.bookId}/${this.$route.params.id}` })
     },
   },
 }
