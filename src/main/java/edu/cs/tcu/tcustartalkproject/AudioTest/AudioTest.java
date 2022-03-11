@@ -22,6 +22,7 @@ public class AudioTest {
     private Integer prepTime = null;
     private String title = null;
     private String prompt = null;
+    private boolean active;
 
     private List<AudioAnswer> answers = new ArrayList<AudioAnswer>();
 
@@ -38,6 +39,7 @@ public class AudioTest {
         this.prepTime = prepTime;
         this.title = title;
         this.prompt = prompt;
+        this.active = true;
     }
 
     public String getId() {
@@ -83,5 +85,8 @@ public class AudioTest {
     public void addAnswer(AudioAnswer answer){
         this.answers.add(answer);
     }
+
+    public void setActive(boolean active) { this.active = active; }
+    public boolean getActive() { return active; }
 
 }

@@ -1,6 +1,7 @@
 <template>
+      <Breadcrumb/>
   <div class="container">
-      <h1>{{test.title}}</h1>
+      <h1 class="display-6">{{test.title}}</h1>
       <button class="btn btn-primary" v-if="flag" @click="toggle">Begin Test</button>
       <div v-else>
         <div>Speaking Prompt: {{test.prompt}}</div>
@@ -19,9 +20,11 @@
 </template>
 
 <script>
+import Breadcrumb from '../components/Breadcrumb.vue'
 // @ is an alias to /src
 
 export default {
+  components: { Breadcrumb },
   name: 'AudioTestTaking',
   data: function () {
     return {
@@ -35,7 +38,7 @@ export default {
     }
   },
   created() {
-    this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token; 
+    this.setHeader()
         this.init()
         this.getTest(this.$route.params.id)
   },
@@ -129,7 +132,15 @@ export default {
         toggle(){
           this.flag = !this.flag
           this.countDownTimer()
-        }
+        },
+            setHeader(){
+      var current = new Date().getTime() / 1000
+      if (current > this.$store.state.auth.expired){
+        this.$store.dispatch('auth/logout')
+        this.$router.push('/login');
+      }
+      else this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token; 
+    },
   }
 }
 </script>

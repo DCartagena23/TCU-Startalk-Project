@@ -70,7 +70,7 @@ export default {
 
   },
   created() {
-    this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token; 
+    this.setHeader()
     this.getChapter(this.$route.params.id)
 
   },
@@ -208,6 +208,17 @@ export default {
       await this.$http.put(`/chapters/updateChapter/${this.$route.params.id}`, this.chapter)
       this.$router.push({ path: `/read/${this.$route.params.courseId}/${this.$route.params.bookId}/${this.$route.params.id}` })
     },
+          setHeader(){
+      var current = new Date().getTime() / 1000
+      if (current > this.$store.state.auth.expired){
+        this.$store.dispatch('auth/logout')
+        this.$router.push('/login');
+      }
+      else this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token; 
+    },
+
+    
   },
+
 }
 </script>

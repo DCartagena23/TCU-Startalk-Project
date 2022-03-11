@@ -1,5 +1,6 @@
 package edu.cs.tcu.tcustartalkproject.Course;
 
+import edu.cs.tcu.tcustartalkproject.AudioTest.AudioTest;
 import edu.cs.tcu.tcustartalkproject.Authentication.JWTRepos.UserService;
 import edu.cs.tcu.tcustartalkproject.Authentication.Models.User;
 import edu.cs.tcu.tcustartalkproject.Book.Book;
@@ -111,6 +112,14 @@ public class CourseController {
         Course course = courseService.findById(id);
         List<Book> books = course.getBooks();
         return new Result(StatusCode.SUCCESS, "Get Book List!", books);
+    }
+
+    @GetMapping("/getTestList/{id}")
+    @ResponseBody
+    public Result getTestList(@PathVariable String id) {
+        Course course = courseService.findById(id);
+        List<AudioTest> tests = course.getTests();
+        return new Result(StatusCode.SUCCESS, "Get Test List!", tests);
     }
 
     @GetMapping("/getName/{id}")

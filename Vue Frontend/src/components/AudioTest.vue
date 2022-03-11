@@ -1,14 +1,15 @@
 <template>
   <div class="container">
     <!-- Audio Test List -->
-    <h1>Audio Test List</h1>
+    <h1 class="display-6">Audio Test List</h1>
     <div>
-      <a class="btn btn-primary" @click.prevent="showNewTestForm">Create a new Audio Test</a>
+      <a class="btn btn-primary" v-if=checkRole() @click.prevent="showNewTestForm">Create a new Audio Test</a>
     </div>
     <hr />
     <table class="table table-striped table-hover">
       <thead>
         <tr>
+          <th>Id</th>
           <th>Title</th>
           <th>Prepare Time (seconds)</th>
           <th>Operations</th>
@@ -16,9 +17,10 @@
       </thead>
       <tbody>
         <tr :key="test.id" v-for="test in testList">
-          <td>{{ test.title }}</td>
-          <td>{{ test.prepTime }}</td>
-          <td>
+          <td v-if="test.active">{{ test.id }}</td>   
+          <td v-if="test.active">{{ test.title }}</td>
+          <td v-if="test.active">{{ test.prepTime }}</td>
+          <td v-if="test.active">
             <a class="btn btn-success" style="margin-right: 10px" @click.prevent="startTest(test.id)">Start Test</a>
             <a class="btn btn-warning" v-if=checkRole() style="margin-right: 10px" @click.prevent="showEditTestForm(test.id)">Edit</a>
             <a class="btn btn-danger"  v-if=checkRole() style="margin-right: 10px" @click.prevent="deleteTest(test.id)">Delete</a>
@@ -84,12 +86,12 @@ export default {
     this.testFormModal = new this.$bootstrap.Modal(document.getElementById('testForm'), {})
   },
   created() {
-    this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token; 
-    this.getTestList()
+    this.setHeader()
+    this.getTestList(this.$route.params.courseId)
   },
   methods: {
-    async getTestList() {
-      const { data: res } = await this.$http.get(`/audioTests/findAll`)
+    async getTestList(id) {
+      const { data: res } = await this.$http.get(`/courses/getTestList/${id}`)
       this.testList = res.data
     },
 
@@ -107,16 +109,14 @@ export default {
     async saveOrUpdateTest() {
       if (this.testForm.id) {
         // update an existing chapter
-        const { data: res } = await this.$http.put(`/audioTests/update`, this.testForm)
-        let index = this.testList.findIndex((test) => test.id == res.data.id)
-        this.testList[index] = res.data
+        await this.$http.put(`/audioTests/update`, this.testForm)
       } else {
         // save a new chapter
         this.testForm.id = this.objectId()
-        this.testForm.active = false
-        const { data: res } = await this.$http.post(`/audioTests/save`, this.testForm)
-        this.testList = [...this.testList, res.data]
+        this.testForm.active = true
+        await this.$http.post(`/audioTests/save/${this.$route.params.courseId}`, this.testForm)
       }
+      this.getTestList(this.$route.params.courseId)
       this.testFormModal.hide()
     },
 
@@ -156,16 +156,24 @@ export default {
     },
 
     startTest(id) {
-      this.$router.push({ path: `/audioTestTaking/${id}` })
+      this.$router.push({ path: `/audioTestTaking/${this.$route.params.courseId}/${id}` })
     },
 
     viewAnswer(id) {
-      this.$router.push({ path: `/audioAnswerList/${id}` })
+      this.$router.push({ path: `/audioAnswerList/${this.$route.params.courseId}/${id}` })
     },
 
     checkRole(){
       if (this.$store.state.auth.user.roles[0] == "ROLE_TEACHER") return true
       else return false
+    },
+        setHeader(){
+      var current = new Date().getTime() / 1000
+      if (current > this.$store.state.auth.expired){
+        this.$store.dispatch('auth/logout')
+        this.$router.push('/login');
+      }
+      else this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token; 
     },
 
   },

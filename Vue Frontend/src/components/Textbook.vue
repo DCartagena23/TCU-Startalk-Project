@@ -88,7 +88,7 @@ export default {
     toggleEditMode: Function,
   },
     created() {
-    this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token; 
+    this.setHeader()
     this.getBook(this.$route.params.bookId)
 
   },
@@ -108,10 +108,18 @@ export default {
     },
 
     view(id){
-      this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token;
+      this.setHeader()
       this.$router.replace({ path: `/student/${this.$route.params.courseId}/${this.$route.params.bookId}/${id}` })
       this.$refs.Textbox.getChapter(id)
       this.$refs.Textbox.getChapList(this.$route.params.bookId) 
+    },
+        setHeader(){
+      var current = new Date().getTime() / 1000
+      if (current > this.$store.state.auth.expired){
+        this.$store.dispatch('auth/logout')
+        this.$router.push('/login');
+      }
+      else this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token; 
     },
 
     goNextPage: function () {

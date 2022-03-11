@@ -1,4 +1,5 @@
 <template>
+<Breadcrumb/>
   <div class="container">
     <h6 class="card-title" style="font-size: 2em">{{test.title}}</h6>
     <hr />
@@ -46,8 +47,9 @@
 
 <script>
 // @ is an alias to /src    
-
+import Breadcrumb from '../components/Breadcrumb.vue'
 export default {
+  components: { Breadcrumb },
   name: 'AudioAnswerComment',
 
   data: function () {
@@ -63,8 +65,8 @@ export default {
   mounted: function () {
   },
   created() {
-    this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token; 
-    this.getTest(this.$route.params.testId)
+    this.setHeader()
+    this.getTest(this.$route.params.id)
     this.getAnswer()
   },
   methods: {
@@ -76,7 +78,7 @@ export default {
         },  
 
         async getAnswer(){
-            const { data: res } = await this.$http.get(`/storage/getAudioAnswer/${this.$route.params.testId}/${this.$route.params.answerId}`)
+            const { data: res } = await this.$http.get(`/storage/getAudioAnswer/${this.$route.params.id}/${this.$route.params.answerId}`)
             this.answerList.push(res.data)
             this.commentList = res.data.comments
         },
@@ -88,7 +90,7 @@ export default {
             content: this.newText,
             instructor: this.checkRole()
             }
-            const { data: res } = await this.$http.put(`/audioTests/addComment/${this.$route.params.testId}/${this.$route.params.answerId}`, json)
+            const { data: res } = await this.$http.put(`/audioTests/addComment/${this.$route.params.id}/${this.$route.params.answerId}`, json)
             this.commentList = [...this.commentList, res.data]
             this.newText = ""
         },
@@ -113,6 +115,14 @@ export default {
     checkRole(){
       if (this.$store.state.auth.user.roles[0] == "ROLE_TEACHER") return true
       else return false
+    },
+        setHeader(){
+      var current = new Date().getTime() / 1000
+      if (current > this.$store.state.auth.expired){
+        this.$store.dispatch('auth/logout')
+        this.$router.push('/login');
+      }
+      else this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token; 
     },
   },
 }

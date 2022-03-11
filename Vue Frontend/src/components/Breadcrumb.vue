@@ -1,11 +1,14 @@
 <template>
  <ul class="breadcrumb">
-  <li><a href="#" @click.prevent="goHome">Course</a></li>
-  <li v-if="book"><a href="#" @click.prevent="goBook">Book</a></li>
-  <li v-if="chapter"><a href="#" @click.prevent="goChapter">Chapter</a></li>
+  <li><a href="#" @click.prevent="goHome">Home</a></li>
+  <li v-if="course"><a href="#" @click.prevent="goCourse">Course</a></li>
+  <li v-if="chapter"><a href="#" @click.prevent="goChapter">Book</a></li>
   <li v-if="student"><a href="#" @click.prevent="goStudent">Read</a></li>
   <li v-if="read"><a href="#" @click.prevent="goRead">Read (Teacher)</a></li>
   <li v-if="edit"><a href="#" @click.prevent="goEdit">Edit</a></li>  
+  <li v-if="test"><a href="#" @click.prevent="goTest">Test</a></li>
+  <li v-if="answer"><a href="#" @click.prevent="goAnswer">View Answer</a></li>
+  <li v-if="comment"><a href="#" @click.prevent="goComment">Comment</a></li>
 </ul> 
 </template>
 
@@ -48,36 +51,55 @@ export default {
   data: function () {
     return {
       path: this.$route.path.split("/")[1],
+      course: false,
       book: false,
       chapter: false,
       student: false,
       read: false,
       edit: false,
+      test: false,
+      answer: false,
+      comment: false,
     }
   },
   created(){
-    if (this.path == "book"){
-      this.book = true
+    if (this.path == "course"){
+      this.course = true
     }
     if (this.path == "chapter"){
-      this.book = true
+      this.course = true
       this.chapter = true
     }
     if (this.path == "student"){
-      this.book = true
+      this.course = true
       this.chapter = true
       this.student = true
     }
     if (this.path == "read"){
-      this.book = true
+      this.course = true
       this.chapter = true
       this.read = true
     }
     if (this.path == "edit"){
-      this.book = true
+      this.course = true
       this.chapter = true
       this.read = true
       this.edit = true
+    }
+    if (this.path == "audioTestTaking"){
+      this.course = true
+      this.test = true
+    }
+    if (this.path == "audioAnswerList"){
+      this.course = true
+      this.test = true
+      this.answer = true
+    }
+    if (this.path == "audioAnswerComment"){
+      this.course = true
+      this.test = true
+      this.answer = true
+      this.comment = true
     }
   },
   methods: {
@@ -85,8 +107,8 @@ export default {
       //this.$router.push({ path: `/read/${this.$route.params.courseId}/${this.$route.params.bookId}/${this.$route.params.id}` })
       this.$router.push({ path: `/home` })
     },
-    goBook(){
-      this.$router.push({ path: `/book/${this.$route.params.courseId}` })      
+    goCourse(){
+      this.$router.push({ path: `/course/${this.$route.params.courseId}` })      
     },
     goChapter(){
       this.$router.push({ path: `/chapter/${this.$route.params.courseId}/${this.$route.params.bookId}` })
@@ -99,6 +121,15 @@ export default {
     },
     goEdit(){
       this.$router.push({ path: `/edit/${this.$route.params.courseId}/${this.$route.params.bookId}/${this.$route.params.id}` })
+    },
+    goTest(){
+      this.$router.push({ path: `/audioTestTaking/${this.$route.params.courseId}/${this.$route.params.id}` })   
+    },
+    goAnswer(){
+      this.$router.push({ path: `/audioAnswerList/${this.$route.params.courseId}/${this.$route.params.id}` })   
+    },
+    goComment(){
+      this.$router.push({ path: `/audioAnswerComment/${this.$route.params.courseId}/${this.$route.params.id}/${this.$route.params.answerId}` })   
     },
   }
 }

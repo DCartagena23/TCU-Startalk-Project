@@ -41,7 +41,7 @@ export const auth = {
       state.status.loggedIn = true;
       state.user = user;
       state.token = "Bearer " + user.accessToken; 
-      
+      state.expired = new Date().getTime() / 1000 + 86400;
     },
     loginFailure(state) {
       state.status.loggedIn = false;

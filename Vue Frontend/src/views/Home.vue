@@ -102,8 +102,7 @@ export default {
     this.courseFormModal = new this.$bootstrap.Modal(document.getElementById('courseForm'), {})
   },
   created() {
-    this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token; 
-
+    this.setHeader()
     this.getCourseList(this.$route.params.id)
   },
   methods: {
@@ -195,7 +194,7 @@ export default {
       )
     },
     view(course) {
-      this.$router.push({ path: `/book/${course.id}` })
+      this.$router.push({ path: `/course/${course.id}` })
     },
     checkRole(){
       if (this.$store.state.auth.user.roles[0] == "ROLE_TEACHER") return true
@@ -211,6 +210,16 @@ export default {
     },
     toggle(){ 
       this.flag = !this.flag
+    },
+
+    setHeader(){
+      var current = new Date().getTime() / 1000
+      console.log(- current + this.$store.state.auth.expired)
+      if (current > this.$store.state.auth.expired){
+        this.$store.dispatch('auth/logout')
+        this.$router.push('/login');
+      }
+      else this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token; 
     }
   }
 }

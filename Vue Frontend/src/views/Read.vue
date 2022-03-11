@@ -200,7 +200,7 @@ export default {
     this.translateFormModal = new this.$bootstrap.Modal(document.getElementById('translateForm'), {})
   },
   created() {
-    this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token;
+    this.setHeader()
     this.getChapter(this.$route.params.id)
   },
   methods: {
@@ -492,6 +492,14 @@ export default {
       if (res.status == 200) {
         this.wordForm.desc = res.data
       }
+    },
+    setHeader(){
+      var current = new Date().getTime() / 1000
+      if (current > this.$store.state.auth.expired){
+        this.$store.dispatch('auth/logout')
+        this.$router.push('/login');
+      }
+      else this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token; 
     },
 
     // async getWord(id) {

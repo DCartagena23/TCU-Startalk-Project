@@ -2,7 +2,7 @@
 <Breadcrumb/>
   <div class="container">
     <!-- Chapter List -->
-    <h1>{{ book.title }}</h1>
+    <h1 class="display-6">{{ book.title }}</h1>
     <div>
       <a class="btn btn-primary" v-if=checkRole() @click.prevent="showNewchapterForm">Add a New Chapter</a>
     </div>
@@ -84,7 +84,7 @@ export default {
     this.chapterFormModal = new this.$bootstrap.Modal(document.getElementById('chapterForm'), {})
   },
   created() {
-    this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token; 
+    this.setHeader()
     this.getBook(this.$route.params.bookId)
   },
   methods: {
@@ -189,6 +189,14 @@ export default {
     checkRole(){
       if (this.$store.state.auth.user.roles[0] == "ROLE_TEACHER") return true
       else return false
+    },
+        setHeader(){
+      var current = new Date().getTime() / 1000
+      if (current > this.$store.state.auth.expired){
+        this.$store.dispatch('auth/logout')
+        this.$router.push('/login');
+      }
+      else this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token; 
     },
   },
 }

@@ -3,6 +3,7 @@ package edu.cs.tcu.tcustartalkproject.Course;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import edu.cs.tcu.tcustartalkproject.AudioTest.AudioTest;
 import edu.cs.tcu.tcustartalkproject.Authentication.Models.User;
 import edu.cs.tcu.tcustartalkproject.Book.Book;
 import edu.cs.tcu.tcustartalkproject.GrammarWord.GrammarWord;
@@ -35,6 +36,10 @@ public class Course implements Serializable {
     @DBRef(lazy = true)
     @JsonIgnoreProperties({"course"})
     private List<Book> books = new ArrayList<Book>();
+
+    @DBRef(lazy = true)
+    @JsonIgnoreProperties({"course"})
+    private List<AudioTest> tests = new ArrayList<AudioTest>();
 
     public Course() {
     }
@@ -92,4 +97,15 @@ public class Course implements Serializable {
     public void addBook(Book book) {
         this.books.add(book);
     }
+    public List<AudioTest> getTests() {
+        return tests;
+    }
+
+    public void setTests(List<AudioTest> tests) {
+        this.tests = tests;
+    }
+    public void addTest(AudioTest AudioTest) {
+        this.tests.add(AudioTest);
+    }
+
 }

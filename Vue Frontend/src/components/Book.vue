@@ -1,12 +1,11 @@
 <template>
-<Breadcrumb/>
   <div class="container">
     <!-- Book List -->
     <h6 class="display-3">Course: {{title}}</h6>
-    <div>
+    <h1 class="display-6">Book List</h1>
+    <div> 
       <a class="btn btn-primary" v-if=checkRole() @click.prevent="showNewBookForm">Add a New Book</a>
     </div>
-     <h1>Book List</h1>
     <hr />
     <BookList :bookList="database" @delete="deleteBook" @edit="showEditBookForm" @view="view"></BookList>
     <!-- Book List -->
@@ -55,12 +54,10 @@
 <script>
 // @ is an alias to /src
 import BookList from '@/components/BookList'
-import Breadcrumb from '@/components/Breadcrumb.vue'
 export default {
   name: 'Book',
   components: {
-    BookList,
-    Breadcrumb
+    BookList, 
   },
   data: function () {
     return {
@@ -74,7 +71,7 @@ export default {
     }
   },
   mounted: function () {
-    this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token;
+    this.setHeader()
     this.bookFormModal = new this.$bootstrap.Modal(document.getElementById('bookForm'), {})
     this.getBookList(this.$route.params.courseId)
     this.getName(this.$route.params.courseId)
@@ -163,6 +160,14 @@ export default {
     checkRole(){
       if (this.$store.state.auth.user.roles[0] == "ROLE_TEACHER") return true
       else return false
+    },
+    setHeader(){
+      var current = new Date().getTime() / 1000
+      if (current > this.$store.state.auth.expired){
+        this.$store.dispatch('auth/logout')
+        this.$router.push('/login');
+      }
+      else this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token; 
     },
   },
 }

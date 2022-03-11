@@ -3,7 +3,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 // @ is an alias to /src
 
 import About from '@/views/About'
-import Book from '@/views/Book'
 import Chapter from '@/views/Chapter'
 import Read from '@/views/Read'
 import Edit from '@/views/Edit'
@@ -14,10 +13,10 @@ import Register from '@/views/Register'
 import Profile from '@/views/Profile'
 import Teacher from '@/views/BoardTeacher'
 import User from '@/views/BoardStudent'
-import AudioTest from '@/views/AudioTest'
 import AudioTestTaking from '@/views/AudioTestTaking'
 import AudioAnswerList from '@/views/AudioAnswerList'
 import AudioAnswerComment from '@/views/AudioAnswerComment'
+import Course from '@/views/Course'
 
 const routes = [
   {
@@ -33,9 +32,9 @@ const routes = [
     props: true,
   },
   {
-    path: '/book/:courseId',
-    name: 'Book',
-    component: Book,
+    path: '/course/:courseId',
+    name: 'Course',
+    component: Course,
     props: true,
   },
   {
@@ -99,25 +98,19 @@ const routes = [
     props: true,
   },
   {
-    path: '/audioTest',
-    name: 'AudioTest',
-    component: AudioTest,
-    props: true,
-  },
-  {
-    path: '/audioTestTaking/:id',
+    path: '/audioTestTaking/:courseId/:id',
     name: 'AudioTestTaking',
     component: AudioTestTaking,
     props: true,
   },
   {
-    path: '/audioAnswerList/:id',
+    path: '/audioAnswerList/:courseId/:id',
     name: 'AudioAnswerList',
     component: AudioAnswerList,
     props: true,
   },
   {
-    path: '/audioAnswerComment/:testId/:answerId',
+    path: '/audioAnswerComment/:courseId/:id/:answerId',
     name: 'AudioAnswerComment',
     component: AudioAnswerComment,
     props: true,

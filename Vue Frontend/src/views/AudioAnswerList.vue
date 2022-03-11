@@ -1,7 +1,8 @@
 <template>
+<Breadcrumb/>
   <div class="container">
     <!-- Audio Answer List -->
-    <h1>{{test.title}}: Answer List</h1>
+    <h1 class="display-6">{{test.title}}: Answer List</h1>
     <hr />
     <table class="table table-striped table-hover">
       <thead>
@@ -68,9 +69,10 @@
 
 <script>
 // @ is an alias to /src
-
+import Breadcrumb from '../components/Breadcrumb.vue'
 export default {
-  name: 'AudioTest',
+    components: { Breadcrumb },
+  name: 'AudioAnswer',
 
   data: function () {
     return {
@@ -87,7 +89,7 @@ export default {
     this.gradeFormModal = new this.$bootstrap.Modal(document.getElementById('gradeForm'), {})
   },
   created() {
-    this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token; 
+    this.setHeader()
     this.getTest(this.$route.params.id)
     this.getAnswerList(this.$route.params.id)
   },
@@ -133,7 +135,7 @@ export default {
       },
     
     viewComment(id){
-      this.$router.push({ path: `/audioAnswerComment/${this.$route.params.id}/${id}` })
+      this.$router.push({ path: `/audioAnswerComment/${this.$route.params.courseId}/${this.$route.params.id}/${id}` })
     },
 
     objectId() {
@@ -151,6 +153,14 @@ export default {
     checkRole(){
       if (this.$store.state.auth.user.roles[0] == "ROLE_TEACHER") return true
       else return false
+    },
+        setHeader(){
+      var current = new Date().getTime() / 1000
+      if (current > this.$store.state.auth.expired){
+        this.$store.dispatch('auth/logout')
+        this.$router.push('/login');
+      }
+      else this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token; 
     },
   },
 }

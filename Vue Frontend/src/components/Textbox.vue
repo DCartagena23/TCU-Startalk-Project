@@ -165,7 +165,7 @@ export default {
     this.translateFormModal = new this.$bootstrap.Modal(document.getElementById('translateForm'), {})
   },
   created() {
-    this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token; 
+    this.setHeader()
     this.getChapter(this.$route.params.id)
     this.getChapList(this.$route.params.bookId)
   },
@@ -383,7 +383,7 @@ export default {
 
     previous(){
       this.$router.replace({ path: `/student/${this.$route.params.courseId}/${this.$route.params.bookId}/${this.previousId}` })
-      this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token; 
+      this.setHeader()
       this.getChapter(this.previousId)
       this.getChapList(this.$route.params.bookId)
 
@@ -391,10 +391,19 @@ export default {
 
     next(){
       this.$router.replace({ path: `/student/${this.$route.params.courseId}/${this.$route.params.bookId}/${this.nextId}` })
-      this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token; 
+      this.setHeader()
       this.getChapter(this.nextId)
       this.getChapList(this.$route.params.bookId)
 
+    },
+
+        setHeader(){
+      var current = new Date().getTime() / 1000
+      if (current > this.$store.state.auth.expired){
+        this.$store.dispatch('auth/logout')
+        this.$router.push('/login');
+      }
+      else this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token; 
     },
 
     sorted() {

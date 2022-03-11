@@ -1,8 +1,11 @@
 package edu.cs.tcu.tcustartalkproject.AudioTest;
 
 import com.amazonaws.services.s3.model.Bucket;
+import edu.cs.tcu.tcustartalkproject.Book.Book;
 import edu.cs.tcu.tcustartalkproject.Chapter.Chapter;
 import edu.cs.tcu.tcustartalkproject.Chapter.ChapterService;
+import edu.cs.tcu.tcustartalkproject.Course.Course;
+import edu.cs.tcu.tcustartalkproject.Course.CourseService;
 import edu.cs.tcu.tcustartalkproject.GrammarWord.GrammarWord;
 import edu.cs.tcu.tcustartalkproject.GrammarWord.GrammarWordService;
 import edu.cs.tcu.tcustartalkproject.utils.Result;
@@ -20,10 +23,12 @@ public class AudioTestController {
      * Service for basic operations: findAll(), findById(), delete(), save(), update()
      */
     private final AudioTestService testService;
+    private final CourseService courseService;
 
     @Autowired
-    public AudioTestController(AudioTestService testService){
+    public AudioTestController(CourseService courseService, AudioTestService testService){
         this.testService = testService;
+        this.courseService = courseService;
     }
 
     /**
@@ -45,11 +50,14 @@ public class AudioTestController {
     }
 
 
-    @PostMapping("/save")
+    @PostMapping("/save/{id}")
     @ResponseBody
-    public Result saveTest(@RequestBody AudioTest test) {
-        AudioTest saveTest = testService.save(test);
-        return new Result(StatusCode.SUCCESS, "Test Saved!", saveTest);
+    public Result saveTest(@PathVariable String id, @RequestBody AudioTest test) {
+        Course course = courseService.findById(id);
+        AudioTest savedTest = testService.save(test);
+        course.addTest(savedTest);
+        courseService.save(course);
+        return new Result(StatusCode.SUCCESS, "Test Saved!", savedTest);
     }
 
     @PutMapping("/update")
@@ -61,11 +69,19 @@ public class AudioTestController {
 
     @DeleteMapping("/delete/{id}")
     @ResponseBody
-    public Result deleteTest(@PathVariable String id) {
+    public Result delete(@PathVariable String id) {
         AudioTest test = testService.findById(id);
-
-        testService.delete(id);
-
+        test.setActive(false);
+        testService.save(test);
+//        List<Chapter> chapters = book.getChapter();
+//        bookService.delete(id);
+//        for (Chapter c : chapters){
+//            List<GrammarWord> grammarWords = c.getGrammarWords();
+//            chapterService.delete(c.getId());
+//            for (GrammarWord g : grammarWords){
+//                grammarWordService.delete(g.getId());
+//            }
+//        }
         return new Result(StatusCode.SUCCESS, "Test Deleted!", null);
     }
 
