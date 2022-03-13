@@ -25,20 +25,20 @@ public class TranslateController {
         this.targetLanguage = "en";
     }
 
-    @PostMapping("/translate")
-    @ResponseBody
-    public Result translate(@RequestBody Chapter chapter) throws Exception {
-        String string = chapter.getTitle();
-
-        Map<String, String> google = new HashMap<>();
-        google.put("GOOGLE_APPLICATION_CREDENTIALS",
-                new ClassPathResource("tcu-startalk-0bb06d8d08e1.json").getURI().getPath());
-        SetEnv.setEnv(google);
-
-        String translate = TranslateController.translateText(projectId, targetLanguage, string);
-
-        return new Result(StatusCode.SUCCESS, "Translate Success", translate);
-    }
+//    @PostMapping("/translate")
+//    @ResponseBody
+//    public Result translate(@RequestBody Chapter chapter) throws Exception {
+//        String string = chapter.getTitle();
+//
+//        Map<String, String> google = new HashMap<>();
+//        google.put("GOOGLE_APPLICATION_CREDENTIALS",
+//                new ClassPathResource("tcu-startalk-0bb06d8d08e1.json").getURI().getPath());
+//        SetEnv.setEnv(google);
+//
+//        String translate = TranslateController.translateText(projectId, targetLanguage, string);
+//
+//        return new Result(StatusCode.SUCCESS, "Translate Success", translate);
+//    }
 
     // Translate text to target language.
     public static String translateText(String projectId, String targetLanguage, String text) throws IOException {
