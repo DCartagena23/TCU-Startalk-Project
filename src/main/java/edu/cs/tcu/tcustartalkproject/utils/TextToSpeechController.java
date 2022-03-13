@@ -1,26 +1,26 @@
-package edu.cs.tcu.tcustartalkproject.utils;
-
-import com.google.cloud.texttospeech.v1beta1.*;
-import com.google.protobuf.ByteString;
-import edu.cs.tcu.tcustartalkproject.Chapter.Chapter;
-import edu.cs.tcu.tcustartalkproject.SetEnv;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-@Controller
-public class TextToSpeechController {
-
+//package edu.cs.tcu.tcustartalkproject.utils;
+//
+//import com.google.cloud.texttospeech.v1beta1.*;
+//import com.google.protobuf.ByteString;
+//import edu.cs.tcu.tcustartalkproject.Chapter.Chapter;
+//import edu.cs.tcu.tcustartalkproject.SetEnv;
+//import org.springframework.core.io.ClassPathResource;
+//import org.springframework.stereotype.Controller;
+//import org.springframework.web.bind.annotation.PostMapping;
+//import org.springframework.web.bind.annotation.RequestBody;
+//import org.springframework.web.bind.annotation.ResponseBody;
+//
+//import java.io.File;
+//import java.io.FileOutputStream;
+//import java.io.OutputStream;
+//import java.nio.file.Files;
+//import java.util.HashMap;
+//import java.util.List;
+//import java.util.Map;
+//
+//@Controller
+//public class TextToSpeechController {
+//
 //    @PostMapping("/tts")
 //    @ResponseBody
 //    public Result textToSpeech(@RequestBody Chapter chapter) throws Exception {
@@ -53,4 +53,4 @@ public class TextToSpeechController {
 //            return new Result(StatusCode.SUCCESS, "TTS Success", file);
 //        }
 //    }
-}
+//}
