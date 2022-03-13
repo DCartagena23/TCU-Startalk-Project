@@ -11,6 +11,7 @@
     <groupId>edu.cs.tcu</groupId>
     <artifactId>TCU-Startalk-Project</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
     <name>TCU-Startalk-Project</name>
     <description>TCU-Startalk-Project</description>
     <properties>
