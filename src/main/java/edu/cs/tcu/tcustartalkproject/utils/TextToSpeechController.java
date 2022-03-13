@@ -1,4 +1,4 @@
-//package edu.cs.tcu.tcustartalkproject.utils;
+package edu.cs.tcu.tcustartalkproject.utils;
 //
 //import com.google.cloud.texttospeech.v1beta1.*;
 //import com.google.protobuf.ByteString;
@@ -19,7 +19,7 @@
 //import java.util.Map;
 //
 //@Controller
-//public class TextToSpeechController {
+public class TextToSpeechController {
 //
 //    @PostMapping("/tts")
 //    @ResponseBody
@@ -53,4 +53,4 @@
 //            return new Result(StatusCode.SUCCESS, "TTS Success", file);
 //        }
 //    }
-//}
+}

@@ -1,4 +1,4 @@
-//package edu.cs.tcu.tcustartalkproject.utils;
+package edu.cs.tcu.tcustartalkproject.utils;
 //
 //import java.io.IOException;
 //import java.util.HashMap;
@@ -15,7 +15,7 @@
 //import org.springframework.web.bind.annotation.ResponseBody;
 //
 //@Controller
-//public class TranslateController {
+public class TranslateController {
 //    private String projectId = "tcu-startalk";
 //    private String targetLanguage = "en";
 //
@@ -70,4 +70,4 @@
 //        }
 //        return translate;
 //    }
-//}
+}
