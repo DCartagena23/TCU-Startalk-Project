@@ -53,16 +53,16 @@ class TcuStartalkProjectApplicationTests {
     /*
     Tests for TranslateController
     */
-    @Test
-    //Tests translate when string being translated is ""
-    void testEmptyLengthTranslate() throws Exception {
-        Chapter chapter = new Chapter("32f2", 1, "洁面仪配合洁面深层清洁毛孔清洁鼻");
-        TranslateController translateController = new TranslateController();
-        Result result = translateController.translate(chapter);
-        String returnedText = (String) result.getData();
-        String translatedText = "Facial Cleanser with Cleansing Deep Clean Pore Cleansing Nose";
-        assertEquals(returnedText, translatedText);
-    }
+//    @Test
+//    //Tests translate when string being translated is ""
+//    void testEmptyLengthTranslate() throws Exception {
+//        Chapter chapter = new Chapter("32f2", 1, "洁面仪配合洁面深层清洁毛孔清洁鼻");
+//        TranslateController translateController = new TranslateController();
+//        Result result = translateController.translate(chapter);
+//        String returnedText = (String) result.getData();
+//        String translatedText = "Facial Cleanser with Cleansing Deep Clean Pore Cleansing Nose";
+//        assertEquals(returnedText, translatedText);
+//    }
     @Test
         //Tests translate when string being translated is multiple languages
     void testLongLengthTranslate() throws Exception {
