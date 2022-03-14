@@ -4,7 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 /src/main/resources/rootkey.csv
-/src/main/resources/tcu-startalk-0bb06d8d08e1.json
+/src/main/resources/google-credentials.json
 
 ### STS ###
 .apt_generated

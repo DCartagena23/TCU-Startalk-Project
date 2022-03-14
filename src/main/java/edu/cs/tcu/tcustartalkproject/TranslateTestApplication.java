@@ -10,7 +10,7 @@ public class TranslateTestApplication {
     public static void main(String... args) throws Exception {
 //        Map<String, String> google = new HashMap<>();
 //        google.put("GOOGLE_APPLICATION_CREDENTIALS",
-//                new ClassPathResource("tcu-startalk-0bb06d8d08e1.json").getURI().getPath());
+//                new ClassPathResource("google-credentials.json").getURI().getPath());
 //        SetEnv.setEnv(google);
 //        String projectId = "tcu-startalk";
 //        String targetLanguage = "en";
