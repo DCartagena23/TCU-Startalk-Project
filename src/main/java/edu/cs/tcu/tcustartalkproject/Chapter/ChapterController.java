@@ -114,6 +114,6 @@ public class ChapterController {
     public Result getPinyin(@PathVariable String id) {
         Chapter chapter = chapterService.findById(id);
         final List<Pinyin> pinyin = chapter.getPinyin();
-        return new Result(StatusCode.SUCCESS, "Get Grammar Words Success", pinyin);
+        return new Result(StatusCode.SUCCESS, "Get Pinyin Success", pinyin);
     }
 }

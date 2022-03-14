@@ -167,14 +167,14 @@ class TcuStartalkProjectApplicationTests {
         assertEquals("Find One Pinyin Success", result.getMsg());
     }
 
-    @Test
+    /*@Test
     void testDeletePinyin(){
         Chapter chapter = new Chapter("32f2", 1, "Harry Potter");
         chapter.setTextFromString("洁面仪配合洁面深层清洁毛孔清洁鼻孔面膜碎觉使劲挤才能出一点点皱纹");
         PinyinController pinyinController = new PinyinController(chapterService, pinyinService);
         Result result = pinyinController.deletePinyin(chapter.getId());
         assertEquals(null, result.getData());
-    }
+    }*/
 
     @Test
     void testDeleteBook(){
@@ -227,4 +227,6 @@ class TcuStartalkProjectApplicationTests {
         Result result = bookController.updateBook(book);
         assertEquals("Book Updated!", result.getMsg());
     }
+
+
 }
