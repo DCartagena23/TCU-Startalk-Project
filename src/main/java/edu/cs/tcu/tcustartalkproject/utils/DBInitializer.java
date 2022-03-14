@@ -53,7 +53,7 @@ public class DBInitializer implements CommandLineRunner {
     }
 
     public void run(String... args) throws Exception {
-        //loadData();
+        loadData();
     }
 
     private void loadData() {

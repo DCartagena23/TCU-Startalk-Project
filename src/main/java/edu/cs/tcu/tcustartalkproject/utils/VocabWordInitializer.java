@@ -44,7 +44,7 @@ public class VocabWordInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        //this.loadData();
+        this.loadData();
     }
 }
 
