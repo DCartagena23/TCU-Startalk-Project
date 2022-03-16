@@ -1,4 +1,5 @@
 <template>
+<div>
 <Breadcrumb/>
   <div id="app">
     <!-- <img alt="Vue logo" src="./assets/logo.png">
@@ -14,6 +15,8 @@
         :toggleHome="toggleHome"
         :toggleAccount="toggleAccount"
         :accountMode="accountMode"
+        :toggleHelp="toggleHelp"
+        :signOut="signOut"
       />
       <Home v-show="toggleHomeBool" />
       <Textbook :toggleEditButton="toggleEditButton" v-show="toggleTextbookBool" :toggleEditMode="toggleEditMode" :textbox="textbox" />
@@ -28,8 +31,10 @@
       <TeacherGrades v-show="toggleTeacherGradesBool" />
       <TakeExam v-show="toggleTakeExamBool"/>
       <CreateExam v-show="toggleCreateExamBool" />
+      <Help v-show="toggleHelpBool"/>
       <Footer />
     </div>
+  </div>
   </div>
 </template>
 
@@ -49,6 +54,7 @@ import SubmitAssignment from '@/components/SubmitAssignment.vue'
 import TeacherGrades from '@/components/TeacherGrades.vue'
 import TakeExam from '@/components/TakeExam.vue'
 import CreateExam from '@/components/CreateExam.vue'
+import Help from '@/components/Help.vue'
 import Breadcrumb from '@/components/Breadcrumb.vue'
 export default {
   name: 'App',
@@ -69,6 +75,7 @@ export default {
     TeacherGrades,
     TakeExam,
     CreateExam,
+    Help,
     Breadcrumb
   },
   data: function () {
@@ -87,6 +94,7 @@ export default {
       toggleTeacherGradesBool: false,
       toggleTakeExamBool: false,
       toggleCreateExamBool: false,
+      toggleHelpBool:false,
       accountMode: 'Student',
       textbox: "It didn't register",
     }
@@ -114,6 +122,7 @@ export default {
       this.toggleTeacherGradesBool = false
       this.toggleTakeExamBool = false
       this.toggleCreateExamBool = false
+      this.toggleHelpBool = false
     },
     toggleAssignment: function () {
       this.toggleAssignmentBool = true
@@ -129,6 +138,7 @@ export default {
       this.toggleTeacherGradesBool = false
       this.toggleTakeExamBool = false
       this.toggleCreateExamBool = false
+      this.toggleHelpBool = false
     },
     toggleExam: function () {
       this.toggleExamBool = true
@@ -144,6 +154,7 @@ export default {
       this.toggleTeacherGradesBool = false
       this.toggleTakeExamBool = false
       this.toggleCreateExamBool = false
+      this.toggleHelpBool = false
     },
     toggleGrades: function () {
       this.toggleGradesBool = true
@@ -159,6 +170,7 @@ export default {
       this.toggleTeacherGradesBool = false
       this.toggleTakeExamBool = false
       this.toggleCreateExamBool = false
+      this.toggleHelpBool = false
     },
     toggleForum: function () {
       this.toggleForumBool = true
@@ -174,6 +186,7 @@ export default {
       this.toggleTeacherGradesBool = false
       this.toggleTakeExamBool = false
       this.toggleCreateExamBool = false
+      this.toggleHelpBool = false
     },
     toggleHome: function () {
       this.toggleHomeBool = true
@@ -189,6 +202,7 @@ export default {
       this.toggleTeacherGradesBool = false
       this.toggleTakeExamBool = false
       this.toggleCreateExamBool = false
+      this.toggleHelpBool = false
     },
     toggleAccount: function () {
       this.toggleAccountBool = true
@@ -204,6 +218,7 @@ export default {
       this.toggleTeacherGradesBool = false
       this.toggleTakeExamBool = false
       this.toggleCreateExamBool = false
+      this.toggleHelpBool = false
     },
     toggleForumBoard: function(){
       this.toggleAccountBool = false
@@ -219,6 +234,7 @@ export default {
       this.toggleTeacherGradesBool = false
       this.toggleTakeExamBool = false
       this.toggleCreateExamBool = false
+      this.toggleHelpBool = false
     },
     toggleForumPost: function(){
       this.toggleAccountBool = false
@@ -234,6 +250,7 @@ export default {
       this.toggleTeacherGradesBool = false
       this.toggleTakeExamBool = false
       this.toggleCreateExamBool = false
+      this.toggleHelpBool = false
     },
     toggleSubmitAssignment: function(){
       this.toggleAccountBool = false
@@ -249,6 +266,7 @@ export default {
       this.toggleTeacherGradesBool = false
       this.toggleTakeExamBool = false
       this.toggleCreateExamBool = false
+      this.toggleHelpBool = false
     },
     toggleTeacherGrades: function(){
       this.toggleAccountBool = false
@@ -264,6 +282,7 @@ export default {
       this.toggleTeacherGradesBool = true
       this.toggleTakeExamBool = false
       this.toggleCreateExamBool = false
+      this.toggleHelpBool = false
     },
     toggleTakeExam: function(){
       this.toggleAccountBool = false
@@ -279,6 +298,7 @@ export default {
       this.toggleTeacherGradesBool = false
       this.toggleTakeExamBool = true
       this.toggleCreateExamBool = false
+      this.toggleHelpBool = false
     },
     toggleCreateExam: function(){
       this.toggleAccountBool = false
@@ -294,9 +314,30 @@ export default {
       this.toggleTeacherGradesBool = false
       this.toggleTakeExamBool = false
       this.toggleCreateExamBool = true
+      this.toggleHelpBool = false
+    },
+    toggleHelp: function(){
+      this.toggleAccountBool = false
+      this.toggleTextbookBool = false
+      this.toggleHomeBool = false
+      this.toggleAssignmentBool = false
+      this.toggleExamBool = false
+      this.toggleForumBool = false
+      this.toggleGradesBool = false
+      this.toggleForumBoardBool = false
+      this.toggleForumPostBool = false
+      this.toggleSubmitAssignmentBool = false
+      this.toggleTeacherGradesBool = false
+      this.toggleTakeExamBool = false
+      this.toggleCreateExamBool = false
+      this.toggleHelpBool = true
     },
     toggleEditMode: function () {
       this.$router.push({ path: '/books' })
+    },
+    signOut: function(){
+      this.$store.dispatch('auth/logout')
+      this.$router.push('/login');
     },
   },
 }

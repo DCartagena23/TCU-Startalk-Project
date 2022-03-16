@@ -54,20 +54,26 @@
           <div v-on:click="toggleTextbook" class="section text-base font-medium text-gray-500 hover:text-gray-900">
             Textbook
           </div>
-          <div v-on:click="toggleAssignment" class=" section text-base font-medium text-gray-500 hover:text-gray-900">
+          <!-- <div v-on:click="toggleAssignment" class=" section text-base font-medium text-gray-500 hover:text-gray-900">
             Assignment
-          </div>
-          <div v-on:click="toggleExam" class=" section text-base font-medium text-gray-500 hover:text-gray-900">
+          </div> -->
+          <!-- <div v-on:click="toggleExam" class=" section text-base font-medium text-gray-500 hover:text-gray-900">
             Exam
-          </div>
+          </div> -->
           <div v-on:click="toggleForum" class="section text-base font-medium text-gray-500 hover:text-gray-900">
             Forum
           </div>
-          <div v-on:click="toggleGrades" class="section text-base font-medium text-gray-500 hover:text-gray-900">
-            Grades
+          <div v-on:click="toggleHelp" class="section text-base font-medium text-gray-500 hover:text-gray-900">
+            Help
           </div>
+          <div v-on:click="signOut" class="section text-base font-medium text-gray-500 hover:text-gray-900">
+            Sign Out
+          </div>
+          <!-- <div v-on:click="toggleGrades" class="section text-base font-medium text-gray-500 hover:text-gray-900">
+            Grades
+          </div> -->
 
-          <Popover class="relative" v-slot="{ open }">
+          <!-- <Popover class="relative" v-slot="{ open }">
             <PopoverButton :class="[open ? 'text-gray-900' : 'text-gray-500', 'group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500']">
               <span>Account</span>
               <ChevronDownIcon :class="[open ? 'text-gray-600' : 'text-gray-400', 'ml-2 h-5 w-5 group-hover:text-gray-500']" aria-hidden="true" />
@@ -77,16 +83,16 @@
               <PopoverPanel class="absolute z-10 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-screen max-w-md sm:px-0">
                 <div class="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                   <div class="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                    <!-- <a v-for="item in resources" :key="item.name" :href="item.href" class="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50">
+                    <a v-for="item in resources" :key="item.name" :href="item.href" class="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50">
                       <component :is="item.icon" class="flex-shrink-0 h-6 w-6 text-indigo-600" aria-hidden="true" />
                       <div class="ml-4" v-on:click="toggleAccount">
                         <p class="text-base font-medium text-gray-900">
                           {{ item.name }}
                         </p>
                       </div>
-                    </a> -->
+                    </a>
                     <div class="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50">
-                      <!-- <component :is="SupportIcon" class="flex-shrink-0 h-6 w-6 text-indigo-600" aria-hidden="true" /> -->
+                      <component :is="SupportIcon" class="flex-shrink-0 h-6 w-6 text-indigo-600" aria-hidden="true" />
                       <div class="ml-4" v-on:click="toggleAccount">
                         <p class="text-base font-medium text-gray-900 accountSection">
                           Edit Account Information
@@ -94,7 +100,7 @@
                       </div>
                     </div>
                      <div class="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50">
-                      <!-- <component :is="SupportIcon" class="flex-shrink-0 h-6 w-6 text-indigo-600" aria-hidden="true" /> -->
+                      <component :is="SupportIcon" class="flex-shrink-0 h-6 w-6 text-indigo-600" aria-hidden="true" />
                       <div class="ml-4" v-on:click="toggleEdit">
                         <p class="text-base font-medium text-gray-900 accountSection">
                           Switch User Mode
@@ -102,7 +108,7 @@
                       </div>
                     </div>
                      <div class="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50">
-                      <!-- <component :is="SupportIcon" class="flex-shrink-0 h-6 w-6 text-indigo-600" aria-hidden="true" /> -->
+                      <component :is="SupportIcon" class="flex-shrink-0 h-6 w-6 text-indigo-600" aria-hidden="true" />
                       <div class="ml-4">
                         <p class="text-base font-medium text-gray-900 accountSection">
                           Sign Out
@@ -113,7 +119,7 @@
                 </div>
               </PopoverPanel>
             </transition>
-          </Popover>
+          </Popover> -->
         </PopoverGroup>
         <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
           <!-- <a href="#" class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
@@ -268,6 +274,8 @@ export default {
     toggleAccount: Function,
     toggleGrades: Function,
     accountMode: String,
+    toggleHelp: Function,
+    signOut: Function,
   },
 }
 </script>
