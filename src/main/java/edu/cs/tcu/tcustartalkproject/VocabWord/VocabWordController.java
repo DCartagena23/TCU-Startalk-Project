@@ -24,16 +24,11 @@ public class VocabWordController {
         this.vocabWordService = vocabWordService;
     }
 
-    /**
-     * Method to find one vocab word.
-     * @param id index of the vocab word to be sought.
-     * @return Result object that contains status code, message, and found vocab word.
-     */
-    @GetMapping("/findOne/{id}")
+    @PutMapping("/findOne")
     @ResponseBody
-    public Result getVocabWord(@PathVariable String id) {
+    public Result getVocabWord(@RequestBody Chapter chapter) {
         try{
-            VocabWord vocabWord = vocabWordService.findById(id);
+            VocabWord vocabWord = vocabWordService.findById(chapter.getTitle());
             return new Result(StatusCode.SUCCESS, "Find One Vocab Word Success", vocabWord);
         }
         catch (Exception e){

@@ -275,7 +275,11 @@ export default {
     //get pinyin using dictionary
     async getPinyinDict(json) {
       if (json.pinyin == '') {
-        const { data: res } = await this.$http.get(`/vocabWords/findOne/${json.word}`)
+        var chapter = {
+          title: json.word,
+        }
+        console.log(chapter)
+        const { data: res } = await this.$http.put(`/vocabWords/findOne`,chapter)
         if (res.status == 200) {
           json.pinyin = res.data.pinyin
         }
