@@ -8,13 +8,11 @@
       <Header
         :toggleEdit="toggleEdit"
         :toggleAssignment="toggleAssignment"
-        :toggleTextbook="toggleTextbook"
         :toggleExam="toggleExam"
         :toggleGrades="toggleGrades"
         :toggleHome="toggleHome"
         :toggleAccount="toggleAccount"
         :accountMode="accountMode"
-        :toggleHelp="toggleHelp"
       />
       <Home v-show="toggleHomeBool" />
       <Textbook :toggleEditButton="toggleEditButton" v-show="toggleTextbookBool" :toggleEditMode="toggleEditMode" :textbox="textbox" />
@@ -50,7 +48,7 @@ import SubmitAssignment from '@/components/SubmitAssignment.vue'
 import TeacherGrades from '@/components/TeacherGrades.vue'
 import TakeExam from '@/components/TakeExam.vue'
 import CreateExam from '@/components/CreateExam.vue'
-import Help from '@/components/Help.vue'
+// import Help from '@/components/Help.vue'
 import Breadcrumb from '@/components/Breadcrumb.vue'
 export default {
   name: 'App',
@@ -69,7 +67,6 @@ export default {
     TeacherGrades,
     TakeExam,
     CreateExam,
-    Help,
     Breadcrumb
   },
   data: function () {

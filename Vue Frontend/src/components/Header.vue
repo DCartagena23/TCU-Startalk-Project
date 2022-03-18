@@ -272,17 +272,21 @@ export default {
     toggleForum: function(){
       this.$router.push({ path: '/forum' })
     },
+    toggleTextbook: function(){
+      this.$router.push({ path: '/student' })
+    },
+    toggleHelp: function(){
+      this.$router.push({ path: '/help' })
+    }
   },
   props: {
     toggleEdit: Function,
-    toggleTextbook: Function,
     toggleAssignment: Function,
     toggleExam: Function,
     toggleHome: Function,
     toggleAccount: Function,
     toggleGrades: Function,
     accountMode: String,
-    toggleHelp: Function,
   },
 }
 </script>

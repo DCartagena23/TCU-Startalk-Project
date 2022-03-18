@@ -19,6 +19,7 @@ import AudioAnswerComment from '@/views/AudioAnswerComment'
 import Course from '@/views/Course'
 import Forum from '@/views/Forum'
 import ForumPost from '@/views/ForumPost'
+import Help from '@/views/Help'
 
 const routes = [
   {
@@ -127,6 +128,12 @@ const routes = [
     path: '/post/:forumId',
     name: 'ForumPost',
     component: ForumPost,
+    props: true,
+  },
+  {
+    path: '/help',
+    name: 'Help',
+    component: Help,
     props: true,
   }
 ]
