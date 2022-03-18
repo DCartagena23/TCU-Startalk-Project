@@ -11,22 +11,20 @@
         :toggleTextbook="toggleTextbook"
         :toggleExam="toggleExam"
         :toggleGrades="toggleGrades"
-        :toggleForum="toggleForum"
         :toggleHome="toggleHome"
         :toggleAccount="toggleAccount"
         :accountMode="accountMode"
         :toggleHelp="toggleHelp"
-        :signOut="signOut"
       />
       <Home v-show="toggleHomeBool" />
       <Textbook :toggleEditButton="toggleEditButton" v-show="toggleTextbookBool" :toggleEditMode="toggleEditMode" :textbox="textbox" />
       <Assignment v-show="toggleAssignmentBool" :toggleEditButton="toggleEditButton" :toggleSubmitAssignment="toggleSubmitAssignment"/>
       <Exam v-show="toggleExamBool" :toggleEditButton="toggleEditButton" :toggleTakeExam="toggleTakeExam" :toggleCreateExam="toggleCreateExam"/>
       <Grades v-show="toggleGradesBool" :toggleEditButton="toggleEditButton" :toggleTeacherGrades="toggleTeacherGrades" />
-      <Forum v-show="toggleForumBool" :toggleForumPost="toggleForumPost" :toggleEditButton="toggleEditButton" />
+      <!-- <Forum v-show="toggleForumBool" :toggleForumPost="toggleForumPost" :toggleEditButton="toggleEditButton" /> -->
       <Account v-show="toggleAccountBool" />
       <!-- <ForumBoard v-show="toggleForumBoardBool" :toggleForumPost="toggleForumPost" /> -->
-      <ForumPost v-show="toggleForumPostBool" />
+      <!-- <ForumPost v-show="toggleForumPostBool" /> -->
       <SubmitAssignment v-show="toggleSubmitAssignmentBool" />
       <TeacherGrades v-show="toggleTeacherGradesBool" />
       <TakeExam v-show="toggleTakeExamBool"/>
@@ -46,10 +44,8 @@ import Home from '@/components/Home.vue'
 import Assignment from '@/components/Assignment.vue'
 import Exam from '@/components/Exam.vue'
 import Grades from '@/components/Grades.vue'
-import Forum from '@/components/Forum.vue'
 import Account from '@/components/Account.vue'
 // import ForumBoard from '@/components/ForumBoard.vue'
-import ForumPost from '@/components/ForumPost.vue'
 import SubmitAssignment from '@/components/SubmitAssignment.vue'
 import TeacherGrades from '@/components/TeacherGrades.vue'
 import TakeExam from '@/components/TakeExam.vue'
@@ -66,11 +62,9 @@ export default {
     Home,
     Assignment,
     Exam,
-    Forum,
     Account,
     Grades,
     // ForumBoard,
-    ForumPost,
     SubmitAssignment,
     TeacherGrades,
     TakeExam,

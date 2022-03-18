@@ -264,18 +264,25 @@ export default {
       recentPosts,
     }
   },
+  methods:{
+    signOut: function(){
+      this.$store.dispatch('auth/logout')
+      this.$router.push('/login');
+    },
+    toggleForum: function(){
+      this.$router.push({ path: '/forum' })
+    },
+  },
   props: {
     toggleEdit: Function,
     toggleTextbook: Function,
     toggleAssignment: Function,
     toggleExam: Function,
-    toggleForum: Function,
     toggleHome: Function,
     toggleAccount: Function,
     toggleGrades: Function,
     accountMode: String,
     toggleHelp: Function,
-    signOut: Function,
   },
 }
 </script>

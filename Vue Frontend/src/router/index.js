@@ -17,6 +17,8 @@ import AudioTestTaking from '@/views/AudioTestTaking'
 import AudioAnswerList from '@/views/AudioAnswerList'
 import AudioAnswerComment from '@/views/AudioAnswerComment'
 import Course from '@/views/Course'
+import Forum from '@/views/Forum'
+import ForumPost from '@/views/ForumPost'
 
 const routes = [
   {
@@ -115,6 +117,18 @@ const routes = [
     component: AudioAnswerComment,
     props: true,
   },
+  {
+    path: '/forum',
+    name: 'Forum',
+    component: Forum,
+    props: true,
+  },
+  {
+    path: '/post/:forumId',
+    name: 'ForumPost',
+    component: ForumPost,
+    props: true,
+  }
 ]
 
 const router = createRouter({

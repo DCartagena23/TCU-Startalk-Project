@@ -1,12 +1,16 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 <template>
+<div>
+<Breadcrumb />
+<Header />
 <div class="py-10" v-show="forumBool">
   <header style="padding-bottom: 2.5em;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 class="text-3xl font-bold leading-tight text-gray-900">
+          <h1 class="text-3xl font-bold leading-tight text-gray-900" style="text-align:center;">
             Forums
           </h1>
-<button type="button" class="px-6
+          <div style="text-align: center">
+            <button type="button" class="px-6
       py-2.5
       bg-indigo-600
       text-white
@@ -21,9 +25,10 @@
       active:bg-indigo-800 active:shadow-lg
       transition
       duration-150
-      ease-in-out" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      ease-in-out" style="align-self:center;" data-bs-toggle="modal" data-bs-target="#exampleModal">
   Create forum
-</button>
+            </button>
+          </div>
 
 <!-- Modal -->
 <div class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
@@ -141,7 +146,7 @@
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
               <tr v-for="post in posts" :key="post.email">
-                <td v-on:click="toggleForumPost" id="toForumBoard" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-left">
+                <td v-on:click="toggleForumPost(0)" id="toForumBoard" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-left">
                   {{ post.title }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-left">
@@ -169,6 +174,7 @@
         </div>
       </main>
 </div>
+</div>
 </template>
 
 <style scoped>
@@ -178,12 +184,16 @@
 </style>
 
 <script>
+import Breadcrumb from '@/components/Breadcrumb.vue'
+import Header from '@/components/Header.vue'
 const posts = [
   {
     author: 'Jane Cooper',
     title: 'Post 1',
     role: 'Admin',
-    description: 'Sample description'
+    description: 'Sample description',
+    messages: [],
+    id: 0,
   },
   // More people...
 ]
@@ -195,6 +205,10 @@ export default {
     return {
       posts,
     }
+  },
+  components: {
+    Breadcrumb,
+    Header
   },
   data: function(){
     return{
@@ -210,16 +224,29 @@ export default {
         author: 'John Doe',
         title: forumTitle,
         description: forumArea,
-        role: 'Admin'
+        role: 'Admin',
+        messages: [],
+
       };
       posts.push(newPost);
       this.forumBool = false;
       this.forumBool = true;
-    }
+    },
+    toggleForumPost(id){
+      this.$router.push({ path: `/post/${id}` })
+    },
+     async getAllForums(){
+      const { data: res } = await this.$http.get(`/forums/findAll`)
+      if (res.status == 200) {
+        console.log(res.data)
+      }
+  },
   },
   props: {
-    toggleForumPost: Function,
     toggleEditButton: Boolean
+  },
+  mounted(){
+    this.getAllForums()
   }
 }
 </script>
