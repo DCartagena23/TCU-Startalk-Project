@@ -146,7 +146,7 @@
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
               <tr v-for="post in posts" :key="post.email">
-                <td v-on:click="toggleForumPost(0)" id="toForumBoard" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-left">
+                <td v-on:click="toggleForumPost(post.id)" id="toForumBoard" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-left">
                   {{ post.title }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-left">
@@ -189,11 +189,10 @@ import Header from '@/components/Header.vue'
 const posts = [
   {
     author: 'Jane Cooper',
-    title: 'Post 1',
-    role: 'Admin',
     description: 'Sample description',
+    id: '',
     messages: [],
-    id: 0,
+    title: 'Post 1',
   },
   // More people...
 ]
@@ -219,16 +218,16 @@ export default {
     createPost: function(){
       var forumTitle = document.getElementById('forumTitle').value;
       var forumArea = document.getElementById('forumArea').value;
-      alert(forumArea);
-      const newPost = {
+      // alert(forumArea);
+      var newPost = {
         author: 'John Doe',
         title: forumTitle,
         description: forumArea,
-        role: 'Admin',
         messages: [],
-
+        id: this.objectId(),
       };
       posts.push(newPost);
+      this.addForum();
       this.forumBool = false;
       this.forumBool = true;
     },
@@ -240,6 +239,39 @@ export default {
       if (res.status == 200) {
         console.log(res.data)
       }
+      while (posts.length > 0){
+        posts.pop()
+      }
+      res.data.forEach((post) => {
+        var newPost = {
+          author: post.author,
+          title: post.title,
+          description: post.desc,
+          role: 'Admin',
+          id: post.id,
+          messages: post.messages
+        }
+        posts.push(newPost);
+      })
+      // var forumArea = document.getElementById('forumArea').value;
+      this.forumBool = false;
+      this.forumBool = true;
+  },
+  objectId() {
+      var timestamp = ((new Date().getTime() / 1000) | 0).toString(16)
+      return (
+        timestamp +
+        'xxxxxxxxxxxxxxxx'
+          .replace(/[x]/g, function () {
+            return ((Math.random() * 16) | 0).toString(16)
+          })
+          .toLowerCase()
+      )
+    },
+  async addForum(){
+    console.log(posts[posts.length-1])
+    const { data: res } = await this.$http.post(`/forums/saveForum`,posts[posts.length-1])
+    console.log(res.data)
   },
   },
   props: {

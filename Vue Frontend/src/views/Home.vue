@@ -1,17 +1,82 @@
 <template>
-<Breadcrumb/>
+  <div>
+    <Breadcrumb/>
+    <TeacherHeader />
   <div class="container">
-    <div>
-      <a class="btn btn-primary" v-if=checkRole() @click.prevent="showNewCourseForm">Add a New Course</a>
+    <!-- <hr /> -->
+    <div class="py-10">
+    <h6 class="display-3" v-if="flag" style="text-align: center;">Your Course</h6>
+    <h6 class="display-3" v-else style="text-align: center;">All Courses</h6>
+    <div class="py-6" style="text-align: center;">
+      <!-- <a class="btn btn-primary" v-if=checkRole() @click.prevent="showNewCourseForm">Add a New Course</a> -->
+      <button type="button" class="px-6
+      py-2.5
+      bg-indigo-600
+      text-white
+      font-medium
+      text-xs
+      leading-tight
+      uppercase
+      rounded
+      shadow-md
+      hover:bg-indigo-700 hover:shadow-lg
+      focus:bg-indigo-600 focus:shadow-lg focus:outline-none focus:ring-0
+      active:bg-indigo-800 active:shadow-lg
+      transition
+      duration-150
+      ease-in-out" style="align-self:center;margin-right: 10px;"
+      v-if=checkRole() @click.prevent="showNewCourseForm">
+      Add a New Course
+      </button>
+       <button type="button" class="px-6
+      py-2.5
+      bg-indigo-600
+      text-white
+      font-medium
+      text-xs
+      leading-tight
+      uppercase
+      rounded
+      shadow-md
+      hover:bg-indigo-700 hover:shadow-lg
+      focus:bg-indigo-600 focus:shadow-lg focus:outline-none focus:ring-0
+      active:bg-indigo-800 active:shadow-lg
+      transition
+      duration-150
+      ease-in-out" style="align-self:center;"
+      @click.prevent="toggle"
+      v-if="flag"
+      >
+      View All Courses
+      </button>
+      <button type="button" class="px-6
+      py-2.5
+      bg-indigo-600
+      text-white
+      font-medium
+      text-xs
+      leading-tight
+      uppercase
+      rounded
+      shadow-md
+      hover:bg-indigo-700 hover:shadow-lg
+      focus:bg-indigo-600 focus:shadow-lg focus:outline-none focus:ring-0
+      active:bg-indigo-800 active:shadow-lg
+      transition
+      duration-150
+      ease-in-out" style="align-self:center;"
+      @click.prevent="toggle"
+      v-else
+      >
+      View Your Course
+      </button>
     </div>
-    <hr />
-    <div>
+    <!-- <hr /> -->
+    <!-- <div style="text-align:center;">
       <a v-if="flag" class="btn btn-primary" @click.prevent="toggle">View All Course</a>
       <a v-else class="btn btn-primary" @click.prevent="toggle">View Your Course</a>
+    </div> -->
     </div>
-    <hr />
-    <h6 class="display-3" v-if="flag">Your Course</h6>
-    <h6 class="display-3" v-else>All Course</h6>
     <table class="table table-striped table-hover">
       <thead>
         <tr>
@@ -29,9 +94,75 @@
           <td v-if="yourCourse(course) && course.active">{{ course.active }}</td>
           <td v-if="yourCourse(course) && course.active">{{ course.teacher.username }}</td>
           <td v-if="yourCourse(course) && course.active">
-            <a class="btn btn-warning" v-if=checkRole() :class="{ invisible: !yourCourse(course) }" style="margin-right: 10px" @click.prevent="showEditCourseForm(course.id)">Edit</a>
-            <a class="btn btn-danger" v-if=checkRole() :class="{ invisible: !yourCourse(course) }" style="margin-right: 10px" @click.prevent="deleteCourse(course.id)">Delete</a>
-            <a class="btn btn-success" style="margin-right: 10px" @click.prevent="view(course)">View</a>
+            <!-- <a class="btn btn-warning" v-if=checkRole() :class="{ invisible: !yourCourse(course) }" style="margin-right: 10px" @click.prevent="showEditCourseForm(course.id)">Edit</a> -->
+            <button type="button" class="px-6
+       py-2.5
+      bg-indigo-600
+      text-white
+      font-medium
+      text-xs
+      leading-tight
+      uppercase
+      rounded
+      shadow-md
+      hover:bg-indigo-700 hover:shadow-lg
+      focus:bg-indigo-600 focus:shadow-lg focus:outline-none focus:ring-0
+      active:bg-indigo-800 active:shadow-lg
+      transition
+      duration-150
+      ease-in-out" style="align-self:center;margin-right: 10px;"
+      v-if=checkRole()
+      @click.prevent="showEditCourseForm(course.id)"
+      :class="{ invisible: !yourCourse(course) }"
+      >
+      Edit
+            </button>
+            <!-- <a class="btn btn-danger" v-if=checkRole() :class="{ invisible: !yourCourse(course) }" style="margin-right: 10px" @click.prevent="deleteCourse(course.id)">Delete</a> -->
+            <button type="button" class="px-6
+       py-2.5
+      bg-indigo-600
+      text-white
+      font-medium
+      text-xs
+      leading-tight
+      uppercase
+      rounded
+      shadow-md
+      hover:bg-indigo-700 hover:shadow-lg
+      focus:bg-indigo-600 focus:shadow-lg focus:outline-none focus:ring-0
+      active:bg-indigo-800 active:shadow-lg
+      transition
+      duration-150
+      ease-in-out" style="align-self:center;margin-right: 10px;"
+      v-if=checkRole()
+      @click.prevent="deleteCourse(course.id)"
+      :class="{ invisible: !yourCourse(course) }"
+      >
+      Delete
+            </button>
+            <!-- <a class="btn btn-success" style="margin-right: 10px" @click.prevent="view(course)">View</a> -->
+            <button type="button" class="px-6
+       py-2.5
+      bg-indigo-600
+      text-white
+      font-medium
+      text-xs
+      leading-tight
+      uppercase
+      rounded
+      shadow-md
+      hover:bg-indigo-700 hover:shadow-lg
+      focus:bg-indigo-600 focus:shadow-lg focus:outline-none focus:ring-0
+      active:bg-indigo-800 active:shadow-lg
+      transition
+      duration-150
+      ease-in-out" style="align-self:center;margin-right: 10px;"
+      v-if=checkRole()
+      @click.prevent="view(course)"
+      :class="{ invisible: !yourCourse(course) }"
+      >
+      View
+            </button>
           </td>
         </tr>
       </tbody>
@@ -76,12 +207,14 @@
         </div>
       </div>
     </div>
-  </div>
+    </div>
+    </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import Breadcrumb from '@/components/Breadcrumb.vue'
+import TeacherHeader from '@/components/TeacherHeader.vue'
 export default {
   name: 'Home',
 
@@ -97,6 +230,7 @@ export default {
   },
   components: {
     Breadcrumb,
+    TeacherHeader,
   },
   mounted: function () {
     this.courseFormModal = new this.$bootstrap.Modal(document.getElementById('courseForm'), {})
