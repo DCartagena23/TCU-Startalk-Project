@@ -57,18 +57,17 @@ public class DBInitializer implements CommandLineRunner {
     }
 
     private void loadData() {
-        Book b1 = new Book(new ObjectId().toHexString(),"Harry Potter and the Sorcerer’s Stone", "Bla","JKR", 35.99);
-        Book b2 = new Book(new ObjectId().toHexString(),"Harry Potter and the Chamber of Secrets", "Bla","JKR", 35.99);
-        Book b3 = new Book(new ObjectId().toHexString(),"Harry Potter and the Prisoner of Azkaban", "Bla","JKR", 35.99);
-        Book b4 = new Book(new ObjectId().toHexString(),"Harry Potter and the Goblet of Fire", "Bla","JKR", 35.99);
-        Book b5 = new Book(new ObjectId().toHexString(),"Harry Potter and the Order of the Phoenix", "Bla","JKR", 35.99);
-        Book b6 = new Book(new ObjectId().toHexString(),"Harry Potter and the Half-Blood Prince", "Bla","JKR", 35.99);
-        Book b7 = new Book(new ObjectId().toHexString(),"Harry Potter and the Deathly Hallows", "Bla","JKR", 35.99);
+        Book b1 = new Book(new ObjectId().toHexString(),"Romance of the Three Kingdoms", "Bla","Luo Guanzhong", 35.99);
+        Book b2 = new Book(new ObjectId().toHexString(),"Water Margin", "Bla","Shi Nai'an", 35.99);
+        Book b3 = new Book(new ObjectId().toHexString(),"Journey to the West", "Bla","Wu Cheng'en", 35.99);
+        Book b4 = new Book(new ObjectId().toHexString(),"Dream of the Red Chamber", "Bla","Cao Xueqin", 35.99);
+        Book b5 = new Book(new ObjectId().toHexString(),"The Plum in the Golden Vase", "Bla","The Scoffing Scholar of Lanling", 35.99);
+        Book b6 = new Book(new ObjectId().toHexString(),"The Golden Lotus", "Bla","Wu Jingzi", 35.99);
 
-        Chapter c1 = new Chapter(new ObjectId().toHexString(), 1,"Name 1");
-        Chapter c2 = new Chapter(new ObjectId().toHexString(), 2,"Name 2");
-        Chapter c3 = new Chapter(new ObjectId().toHexString(),1,"Name 3");
-        Chapter c4 = new Chapter(new ObjectId().toHexString(),2,"Name 4");
+        Chapter c1 = new Chapter(new ObjectId().toHexString(), 1,"The Story of the East");
+        Chapter c2 = new Chapter(new ObjectId().toHexString(), 2,"Hey Alexa");
+        Chapter c3 = new Chapter(new ObjectId().toHexString(),1,"Monkey Mountain");
+        Chapter c4 = new Chapter(new ObjectId().toHexString(),2,"The Beast");
 
         String str1 = "洁面仪配合洁面深层清洁毛孔 清洁鼻孔面膜碎觉使劲挤才能出一点点皱纹 脸颊毛孔修复的看不见啦 草莓鼻历史遗留问题没辙 脸和脖子差不多颜色的皮肤才是健康的 长期使用安全健康的比同龄人显小五到十岁 28岁的妹子看看你们的鱼尾纹";
         String str2 = "亂數 假 文 產 生器 。\n亂數 假 文 產 生器 。";
@@ -148,7 +147,6 @@ public class DBInitializer implements CommandLineRunner {
         bookService.save(b4);
         bookService.save(b5);
         bookService.save(b6);
-        bookService.save(b7);
 
         chapterService.save(c1);
         chapterService.save(c2);
