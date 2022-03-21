@@ -159,7 +159,6 @@
       ease-in-out" style="align-self:center;margin-right: 10px;"
       v-if=checkRole()
       @click.prevent="view(course)"
-      :class="{ invisible: !yourCourse(course) }"
       >
       View
             </button>
