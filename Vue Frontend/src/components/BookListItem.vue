@@ -65,7 +65,6 @@
       transition
       duration-150
       ease-in-out" style="align-self:center;margin-right: 10px;"
-      v-if=checkRole()
       @click.prevent="$emit('view', book.id)"
       >
       View
