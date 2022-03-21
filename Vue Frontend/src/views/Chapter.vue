@@ -26,7 +26,7 @@
       ease-in-out" style="align-self:center;"
       v-if=checkRole() @click.prevent="showNewchapterForm"
       >
-      Create forum
+      Create chapter
       </button>
     </div>
     </div>
@@ -105,6 +105,7 @@
       transition
       duration-150
       ease-in-out" style="align-self:center;margin-right: 10px;"
+      v-if=checkRole()
       @click.prevent="view(chapter)"
       >
       View
