@@ -211,7 +211,8 @@ export default {
           this.wordList.forEach((grammarWord) => {
             if (grammarWord.word == json.word) {
               json.id = grammarWord.id
-              json.color = 'yellow'
+              if (grammarWord.color == "Green") grammarWord.color = "#a8edb8"
+              json.color = grammarWord.color
             }
           })
           if (json.pinyin == "") {
@@ -265,7 +266,8 @@ export default {
             var grammarWord = this.wordList[m]
             if (word.word == grammarWord.word) {
               word.id = grammarWord.id
-              word.color = 'yellow'
+              if (grammarWord.color == "Green") grammarWord.color = "#a8edb8"
+              word.color = grammarWord.color
             }
           }
         })

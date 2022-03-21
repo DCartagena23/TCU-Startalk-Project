@@ -14,6 +14,7 @@ public class GrammarWord implements Serializable {
     private String id;
     private String word;
     private String desc;
+    private String color;
 
     @DBRef
     @JsonBackReference
@@ -98,4 +99,8 @@ public class GrammarWord implements Serializable {
     public void setChapter(Chapter chapter) {
         this.chapter = chapter;
     }
+
+    public String getColor() { return color; }
+
+    public void setColor(String color){ this.color = color; }
 }

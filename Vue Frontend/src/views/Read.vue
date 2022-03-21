@@ -92,6 +92,16 @@
               <label for="chapter-name" class="col-form-label">Desc:</label>
               <textarea class="form-control" id="desc" rows="4" v-model="wordForm.desc"></textarea>
             </div>
+
+            <div class="mb-3">
+              <label for="chapter-name" class="col-form-label">Highlight Color:</label>
+              <select v-model="wordForm.color">
+                <option disabled value="">Please select one</option>
+                <option>Yellow</option>
+                <option>Pink</option>
+                <option>Green</option>
+              </select>
+            </div>
           </form>
         </div>
         <div class="modal-footer">
@@ -246,7 +256,8 @@ export default {
           this.wordList.forEach((grammarWord) => {
             if (grammarWord.word == json.word) {
               json.id = grammarWord.id
-              json.color = 'yellow'
+              if (grammarWord.color == "Green") grammarWord.color = "#a8edb8"
+              json.color = grammarWord.color
             }
           })
           if (json.pinyin == "") {
@@ -341,7 +352,8 @@ export default {
             var grammarWord = this.wordList[m]
             if (word.word == grammarWord.word) {
               word.id = grammarWord.id
-              word.color = 'yellow'
+              if (grammarWord.color == "Green") grammarWord.color = "#a8edb8"
+              word.color = grammarWord.color
             }
           }
         })
