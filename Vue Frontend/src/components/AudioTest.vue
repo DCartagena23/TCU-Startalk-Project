@@ -1,11 +1,35 @@
 <template>
+<div>
   <div class="container">
     <!-- Audio Test List -->
-    <h1 class="display-6">Audio Test List</h1>
-    <div>
-      <a class="btn btn-primary" v-if=checkRole() @click.prevent="showNewTestForm">Create a new Audio Test</a>
+    <div class="py-6">
+    <h1 class="display-6" style="text-align:center;">Audio Test List</h1>
+    <div style="text-align: center;">
+      <!-- <a class="btn btn-primary" v-if=checkRole() @click.prevent="showNewTestForm">Create a new Audio Test</a> -->
+       <button type="button" class="px-6
+       py-2.5
+      bg-indigo-600
+      text-white
+      font-medium
+      text-xs
+      leading-tight
+      uppercase
+      rounded
+      shadow-md
+      hover:bg-indigo-700 hover:shadow-lg
+      focus:bg-indigo-600 focus:shadow-lg focus:outline-none focus:ring-0
+      active:bg-indigo-800 active:shadow-lg
+      transition
+      duration-150
+      ease-in-out" style="align-self:center;margin-right: 10px;"
+      v-if=checkRole()
+      @click.prevent="showNewTestForm"
+      >
+      Create a New Audio Test
+      </button>
     </div>
-    <hr />
+    </div>
+    <!-- <hr /> -->
     <table class="table table-striped table-hover">
       <thead>
         <tr>
@@ -17,20 +41,100 @@
       </thead>
       <tbody>
         <tr :key="test.id" v-for="test in testList">
-          <td v-if="test.active">{{ test.id }}</td>   
+          <td v-if="test.active">{{ test.id }}</td>
           <td v-if="test.active">{{ test.title }}</td>
           <td v-if="test.active">{{ test.prepTime }}</td>
           <td v-if="test.active">
-            <a class="btn btn-success" style="margin-right: 10px" @click.prevent="startTest(test.id)">Start Test</a>
-            <a class="btn btn-warning" v-if=checkRole() style="margin-right: 10px" @click.prevent="showEditTestForm(test.id)">Edit</a>
-            <a class="btn btn-danger"  v-if=checkRole() style="margin-right: 10px" @click.prevent="deleteTest(test.id)">Delete</a>
-            <a class="btn btn-success" style="margin-right: 10px" @click.prevent="viewAnswer(test.id)">View Submitted Answer</a>
+            <!-- <a class="btn btn-success" style="margin-right: 10px" @click.prevent="startTest(test.id)">Start Test</a> -->
+             <button type="button" class="px-6
+       py-2.5
+      bg-indigo-600
+      text-white
+      font-medium
+      text-xs
+      leading-tight
+      uppercase
+      rounded
+      shadow-md
+      hover:bg-indigo-700 hover:shadow-lg
+      focus:bg-indigo-600 focus:shadow-lg focus:outline-none focus:ring-0
+      active:bg-indigo-800 active:shadow-lg
+      transition
+      duration-150
+      ease-in-out" style="align-self:center;margin-right: 10px;"
+      @click.prevent="startTest(test.id)"
+      >
+      Start Test
+            </button>
+            <!-- <a class="btn btn-warning" v-if=checkRole() style="margin-right: 10px" @click.prevent="showEditTestForm(test.id)">Edit</a> -->
+              <button type="button" class="px-6
+       py-2.5
+      bg-indigo-600
+      text-white
+      font-medium
+      text-xs
+      leading-tight
+      uppercase
+      rounded
+      shadow-md
+      hover:bg-indigo-700 hover:shadow-lg
+      focus:bg-indigo-600 focus:shadow-lg focus:outline-none focus:ring-0
+      active:bg-indigo-800 active:shadow-lg
+      transition
+      duration-150
+      ease-in-out" style="align-self:center;margin-right: 10px;"
+      @click.prevent="showEditTestForm(test.id)"
+      >
+      Edit
+            </button>
+            <!-- <a class="btn btn-danger"  v-if=checkRole() style="margin-right: 10px" @click.prevent="deleteTest(test.id)">Delete</a> -->
+            <button type="button" class="px-6
+       py-2.5
+      bg-indigo-600
+      text-white
+      font-medium
+      text-xs
+      leading-tight
+      uppercase
+      rounded
+      shadow-md
+      hover:bg-indigo-700 hover:shadow-lg
+      focus:bg-indigo-600 focus:shadow-lg focus:outline-none focus:ring-0
+      active:bg-indigo-800 active:shadow-lg
+      transition
+      duration-150
+      ease-in-out" style="align-self:center;margin-right: 10px;"
+      @click.prevent="deleteTest(test.id)"
+      >
+      Delete
+            </button>
+            <!-- <a class="btn btn-success" style="margin-right: 10px" @click.prevent="viewAnswer(test.id)">View Submitted Answer</a> -->
+            <button type="button" class="px-6
+       py-2.5
+      bg-indigo-600
+      text-white
+      font-medium
+      text-xs
+      leading-tight
+      uppercase
+      rounded
+      shadow-md
+      hover:bg-indigo-700 hover:shadow-lg
+      focus:bg-indigo-600 focus:shadow-lg focus:outline-none focus:ring-0
+      active:bg-indigo-800 active:shadow-lg
+      transition
+      duration-150
+      ease-in-out" style="align-self:center;margin-right: 10px;"
+      @click.prevent="viewAnswer(test.id)"
+      >
+      View Submitted Answer
+            </button>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-  
+
   <div class="modal fade" id="testForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -62,6 +166,7 @@
         </div>
       </div>
     </div>
+  </div>
   </div>
 </template>
 

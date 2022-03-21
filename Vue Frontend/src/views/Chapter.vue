@@ -1,10 +1,34 @@
 <template>
+<div>
 <Breadcrumb/>
+<TeacherHeader />
   <div class="container">
     <!-- Chapter List -->
-    <h1 class="display-6">{{ book.title }}</h1>
-    <div>
-      <a class="btn btn-primary" v-if=checkRole() @click.prevent="showNewchapterForm">Add a New Chapter</a>
+    <div class="py-10">
+    <h1 class="display-6" style="text-align: center;">{{ book.title }}</h1>
+    <div style="text-align: center;">
+      <!-- <a class="btn btn-primary" v-if=checkRole() @click.prevent="showNewchapterForm" >Add a New Chapter</a> -->
+      <button type="button" class="px-6
+      py-2.5
+      bg-indigo-600
+      text-white
+      font-medium
+      text-xs
+      leading-tight
+      uppercase
+      rounded
+      shadow-md
+      hover:bg-indigo-700 hover:shadow-lg
+      focus:bg-indigo-600 focus:shadow-lg focus:outline-none focus:ring-0
+      active:bg-indigo-800 active:shadow-lg
+      transition
+      duration-150
+      ease-in-out" style="align-self:center;"
+      v-if=checkRole() @click.prevent="showNewchapterForm"
+      >
+      Create chapter
+      </button>
+    </div>
     </div>
     <hr />
     <table class="table table-striped table-hover">
@@ -20,10 +44,93 @@
           <td>Chapter {{ chapter.number }}</td>
           <td>{{ chapter.title }}</td>
           <td>
-            <a class="btn btn-warning" v-if=checkRole() style="margin-right: 10px" @click.prevent="showEditchapterForm(chapter.id)">Edit</a>
-            <a class="btn btn-danger" v-if=checkRole() style="margin-right: 10px" @click.prevent="deleteChapter(chapter.id)">Delete</a>
-            <a class="btn btn-success" style="margin-right: 10px" @click.prevent="view(chapter)">View</a>
-            <a class="btn btn-success" v-if=checkRole() @click.prevent="studentView(chapter)">Student View</a>
+            <!-- <a class="btn btn-warning" v-if=checkRole() style="margin-right: 10px" @click.prevent="showEditchapterForm(chapter.id)">Edit</a> -->
+             <button type="button" class="px-6
+       py-2.5
+      bg-indigo-600
+      text-white
+      font-medium
+      text-xs
+      leading-tight
+      uppercase
+      rounded
+      shadow-md
+      hover:bg-indigo-700 hover:shadow-lg
+      focus:bg-indigo-600 focus:shadow-lg focus:outline-none focus:ring-0
+      active:bg-indigo-800 active:shadow-lg
+      transition
+      duration-150
+      ease-in-out" style="align-self:center;margin-right: 10px;"
+      v-if=checkRole()
+      @click.prevent="showEditchapterForm(chapter.id)"
+      >
+      Edit
+            </button>
+            <!-- <a class="btn btn-danger" v-if=checkRole() style="margin-right: 10px" @click.prevent="deleteChapter(chapter.id)">Delete</a> -->
+            <button type="button" class="px-6
+       py-2.5
+      bg-indigo-600
+      text-white
+      font-medium
+      text-xs
+      leading-tight
+      uppercase
+      rounded
+      shadow-md
+      hover:bg-indigo-700 hover:shadow-lg
+      focus:bg-indigo-600 focus:shadow-lg focus:outline-none focus:ring-0
+      active:bg-indigo-800 active:shadow-lg
+      transition
+      duration-150
+      ease-in-out" style="align-self:center;margin-right: 10px;"
+      v-if=checkRole()
+      @click.prevent="deleteChapter(chapter.id)"
+      >
+      Delete
+            </button>
+            <!-- <a class="btn btn-success" style="margin-right: 10px" @click.prevent="view(chapter)">View</a> -->
+            <button type="button" class="px-6
+       py-2.5
+      bg-indigo-600
+      text-white
+      font-medium
+      text-xs
+      leading-tight
+      uppercase
+      rounded
+      shadow-md
+      hover:bg-indigo-700 hover:shadow-lg
+      focus:bg-indigo-600 focus:shadow-lg focus:outline-none focus:ring-0
+      active:bg-indigo-800 active:shadow-lg
+      transition
+      duration-150
+      ease-in-out" style="align-self:center;margin-right: 10px;"
+      v-if=checkRole()
+      @click.prevent="view(chapter)"
+      >
+      View
+            </button>
+            <!-- <a class="btn btn-success" v-if=checkRole() @click.prevent="studentView(chapter)">Student View</a> -->
+            <button type="button" class="px-6
+       py-2.5
+      bg-indigo-600
+      text-white
+      font-medium
+      text-xs
+      leading-tight
+      uppercase
+      rounded
+      shadow-md
+      hover:bg-indigo-700 hover:shadow-lg
+      focus:bg-indigo-600 focus:shadow-lg focus:outline-none focus:ring-0
+      active:bg-indigo-800 active:shadow-lg
+      transition
+      duration-150
+      ease-in-out" style="align-self:center;margin-right: 10px;"
+      @click.prevent="studentView(chapter)"
+      >
+      Student View
+            </button>
           </td>
         </tr>
       </tbody>
@@ -59,15 +166,18 @@
       </div>
     </div>
   </div>
+  </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import Breadcrumb from '@/components/Breadcrumb.vue'
+import TeacherHeader from '@/components/TeacherHeader.vue'
 export default {
   name: 'Chapter',
   components: {
-    Breadcrumb
+    Breadcrumb,
+    TeacherHeader,
   },
   data: function () {
     return {

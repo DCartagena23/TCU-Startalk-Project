@@ -8,7 +8,7 @@
           </h1>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <!-- Replace with your content -->
-          <div class="grid grid-cols-3" id="forumSection">
+          <div class="grid" id="forumSection" style="grid-template-columns: repeat(3, 1fr);">
             <!-- <div class="col-start-3 rounded-lg bg-indigo-600 text-white" style="margin-bottom:2.5rem; max-width:20rem;">
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Similique in non expedita saepe veritatis officia ratione. Nihil commodi voluptas quidem, ratione aperiam aliquam. Sapiente doloremque similique repudiandae praesentium eveniet officia.
             </div>
@@ -62,12 +62,11 @@ import Breadcrumb from '@/components/Breadcrumb.vue'
 import Header from '@/components/Header.vue'
 const posts = [
   {
-    name: 'John Doe',
+    name: '',
     id: 0,
-    text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Similique in non expedita saepe veritatis officia ratione. Nihil commodi voluptas quidem, ratione aperiam aliquam. Sapiente doloremque similique repudiandae praesentium eveniet officia.',
+    text: '',
   },
 ]
-
 export default {
     setup() {
 
@@ -82,6 +81,11 @@ export default {
         posts,
       }
     },
+    computed: {
+      currentUser() {
+        return this.$store.state.auth.user;
+      }
+  },
     methods: {
       submitFunction: function(){
         var example = document.getElementById('response').value;
@@ -89,17 +93,22 @@ export default {
         // alert(example);
         const newPost = {
           name: 'Jane Doe',
-          email: 'someone1@something.com',
+          id: this.objectId(),
           text: example,
-          audio: '',
-          video: '',
         }
         posts.push(newPost);
         var post = document.createElement('div');
-        post.innerHTML = posts[posts.length-1].name + ': ' + posts[posts.length - 1].text;
-        post.style.columnSpan = '3';
+        post.innerHTML = newPost.name + ': ' + newPost.text;
+        if(post.id == 1){
+          document.write('<br>');
+          post.style.backgroundColor = 'rgba(79,20,229)';
+          post.style.gridColumnStart = '3';
+        }
+        else{
+          post.style.backgroundColor = 'rgba(5,150,105)';
+          post.style.gridColumnStart = '1';
+        }
         post.style.borderRadius = '.5rem';
-        post.style.backgroundColor = 'rgba(5,150,105)';
         post.style.color = 'white';
         post.style.marginBottom = '2.5rem';
         post.style.maxWidth = '20rem';
@@ -113,20 +122,58 @@ export default {
       if (res.status == 200) {
         console.log(res.data)
       }
+      while(posts.length>0){
+        posts.pop()
       }
+      console.log(posts)
+      res.data.messages.forEach((post) => {
+        var newPost = {
+          name: post.user.username,
+          id: post.id,
+          text: post.content,
+        }
+        console.log(newPost)
+        posts.push(newPost)
+        console.log(posts)
+      })
+      },
+      addMessages: function(){
+        posts.forEach((post) => {
+          var forumSection = document.getElementById('forumSection');
+          var newPost = document.createElement('div');
+          newPost.innerHTML = post.name + ': ' + post.text;
+          newPost.style.borderRadius = '.5rem';
+          if(post.name == this.currentUser.username){
+            newPost.style.backgroundColor = 'rgba(79,20,229)';
+            newPost.style.gridColumnStart = '3';
+          }
+          else{
+            newPost.style.backgroundColor = 'rgba(5,150,105)';
+            newPost.style.gridColumnStart = '1';
+          }
+          newPost.style.color = 'white';
+          newPost.style.marginBottom = '2.5rem';
+          newPost.style.maxWidth = '20rem';
+          forumSection.appendChild(newPost);
+        })
+        this.postBool = false;
+        this.postBool = true;
+      },
+      objectId() {
+      var timestamp = ((new Date().getTime() / 1000) | 0).toString(16)
+      return (
+        timestamp +
+        'xxxxxxxxxxxxxxxx'
+          .replace(/[x]/g, function () {
+            return ((Math.random() * 16) | 0).toString(16)
+          })
+          .toLowerCase()
+      )
+    },
     },
     mounted(){
-      this.getMessages("622f6aa94b37c718a9e4fa10");
-      var forumSection = document.getElementById('forumSection');
-      var post = document.createElement('div');
-      post.innerHTML = posts[0].name + ': ' + posts[0].text;
-      post.style.gridColumnStart = '3';
-      post.style.borderRadius = '.5rem';
-      post.style.backgroundColor = 'rgba(79,20,229)';
-      post.style.color = 'white';
-      post.style.marginBottom = '2.5rem';
-      post.style.maxWidth = '20rem';
-      forumSection.appendChild(post);
+      this.getMessages(this.$route.params.forumId);
+      this.addMessages();
     }
 }
 </script>

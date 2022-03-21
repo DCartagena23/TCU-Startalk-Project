@@ -1,6 +1,7 @@
 package edu.cs.tcu.tcustartalkproject.Forum;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import edu.cs.tcu.tcustartalkproject.Authentication.Models.User;
 import edu.cs.tcu.tcustartalkproject.Message.Message;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -14,6 +15,11 @@ import java.util.List;
 public class Forum implements Serializable {
     @Id
     private String id;
+
+    private User author;
+    private String title;
+    private String desc;
+
 
     @DBRef
     @JsonManagedReference
@@ -32,6 +38,30 @@ public class Forum implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public List<Message> getMessages() {
