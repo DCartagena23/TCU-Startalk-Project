@@ -150,7 +150,7 @@
                   {{ post.title }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-left">
-                  {{ post.author }}
+                  {{ post.author.username }}
                 </td>
                <td class="px-6 py-4 whitespace-nowrap text-left">
                   <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
@@ -188,15 +188,20 @@ import Breadcrumb from '@/components/Breadcrumb.vue'
 import Header from '@/components/Header.vue'
 const posts = [
   {
-    author: 'Jane Cooper',
-    description: 'Sample description',
     id: '',
-    messages: [],
+    author : {
+      id: '',
+      username: '',
+      email: '',
+      password: '',
+      roles: [],
+    },
     title: 'Post 1',
+    desc: 'Sample description',
+    messages: [],
   },
   // More people...
 ]
-
 
 export default {
   setup() {
@@ -209,6 +214,11 @@ export default {
     Breadcrumb,
     Header
   },
+  computed: {
+      currentUser() {
+        return this.$store.state.auth.user;
+      }
+  },
   data: function(){
     return{
       forumBool:true,
@@ -220,11 +230,17 @@ export default {
       var forumArea = document.getElementById('forumArea').value;
       // alert(forumArea);
       var newPost = {
-        author: 'John Doe',
-        title: forumTitle,
-        description: forumArea,
-        messages: [],
         id: this.objectId(),
+        author: {
+          id: this.currentUser.id,
+          username: this.currentUser.username,
+          email: this.currentUser.email,
+          password: this.currentUser.password,
+          roles: this.currentUser.roles,
+        },
+        title: forumTitle,
+        desc: forumArea,
+        messages: [],
       };
       posts.push(newPost);
       this.addForum();
@@ -244,11 +260,17 @@ export default {
       }
       res.data.forEach((post) => {
         var newPost = {
-          author: post.author,
+          id: post.id,
+          author: {
+            id: post.author.id,
+            username: post.author.username,
+            email: post.author.email,
+            password: post.author.password,
+            roles: post.author.roles,
+        },
           title: post.title,
           description: post.desc,
           role: 'Admin',
-          id: post.id,
           messages: post.messages
         }
         posts.push(newPost);
