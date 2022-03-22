@@ -4,8 +4,11 @@
   <Header />
     <main v-show="postBool">
         <h1 class="text-3xl font-bold leading-tight text-gray-900" style="padding-top: 2.5rem;padding-bottom:2.5rem;text-align: center;">
-            Sample Title
+            {{forum[forum.length-1].title}}
           </h1>
+          <div style="text-align:center;padding-bottom:2.5rem;">
+            {{forum[forum.length-1].desc}}
+          </div>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <!-- Replace with your content -->
           <div class="grid" id="forumSection" style="grid-template-columns: repeat(3, 1fr);">
@@ -62,10 +65,21 @@ import Breadcrumb from '@/components/Breadcrumb.vue'
 import Header from '@/components/Header.vue'
 const posts = [
   {
-    name: '',
-    id: 0,
-    text: '',
+    id: '0',
+    user: 'ryantest',
+    content: 'This is a test message',
+    mediaURL: '',
   },
+]
+
+const forum = [
+  {
+  id: '',
+  author: '',
+  title: '',
+  desc: '',
+  messages: [],
+}
 ]
 export default {
     setup() {
@@ -79,6 +93,7 @@ export default {
       return{
         postBool:true,
         posts,
+        forum,
       }
     },
     computed: {
@@ -92,14 +107,15 @@ export default {
         var forumSection = document.getElementById('forumSection');
         // alert(example);
         const newPost = {
-          name: 'Jane Doe',
           id: this.objectId(),
-          text: example,
+          user: this.currentUser.username,
+          content: example,
+          mediaURL: '',
         }
         posts.push(newPost);
         var post = document.createElement('div');
-        post.innerHTML = newPost.name + ': ' + newPost.text;
-        if(post.id == 1){
+        post.innerHTML = newPost.user + ': ' + newPost.content;
+        if(newPost.user == this.currentUser.username){
           document.write('<br>');
           post.style.backgroundColor = 'rgba(79,20,229)';
           post.style.gridColumnStart = '3';
@@ -113,6 +129,7 @@ export default {
         post.style.marginBottom = '2.5rem';
         post.style.maxWidth = '20rem';
         forumSection.appendChild(post);
+        this.postMessage(this.$route.params.forumId);
         this.postBool = false;
         this.postBool = true;
         document.getElementById('response').value = '';
@@ -128,22 +145,26 @@ export default {
       console.log(posts)
       res.data.messages.forEach((post) => {
         var newPost = {
-          name: post.user.username,
           id: post.id,
-          text: post.content,
+          user: post.user,
+          content: post.content,
+          mediaURL: post.mediaURL,
         }
         console.log(newPost)
         posts.push(newPost)
         console.log(posts)
+        this.addMessages()
+        this.postBool = false;
+        this.postBool = true;
       })
       },
       addMessages: function(){
         posts.forEach((post) => {
           var forumSection = document.getElementById('forumSection');
           var newPost = document.createElement('div');
-          newPost.innerHTML = post.name + ': ' + post.text;
+          newPost.innerHTML = post.user + ': ' + post.content;
           newPost.style.borderRadius = '.5rem';
-          if(post.name == this.currentUser.username){
+          if(post.user == this.currentUser.username){
             newPost.style.backgroundColor = 'rgba(79,20,229)';
             newPost.style.gridColumnStart = '3';
           }
@@ -170,8 +191,29 @@ export default {
           .toLowerCase()
       )
     },
+    async postMessage(id){
+    console.log(posts[posts.length-1])
+    const { data: res } = await this.$http.post(`/messages/saveMessage/${id}`,posts[posts.length-1])
+    console.log(res.data)
+    },
+    async setForum(id){
+      const { data: res } = await this.$http.get(`forums/findOne/${id}`)
+      if (res.status == 200) {
+        console.log(res.data)
+        var newPost = {
+          id:res.data.id,
+          author: res.data.author,
+          title: res.data.title,
+          desc: res.data.desc,
+          messages: res.data.messages,
+        }
+        forum.push(newPost);
+        console.log(forum[1])
+      }
+    },
     },
     mounted(){
+      this.setForum(this.$route.params.forumId);
       this.getMessages(this.$route.params.forumId);
       this.addMessages();
     }

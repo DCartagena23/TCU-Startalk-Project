@@ -136,9 +136,9 @@
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Status
                 </th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <!-- <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Role
-                </th>
+                </th> -->
                 <th scope="col" class="relative px-6 py-3">
                   <span class="sr-only">Edit</span>
                 </th>
@@ -150,16 +150,16 @@
                   {{ post.title }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-left">
-                  {{ post.author.username }}
+                  {{ post.author }}
                 </td>
                <td class="px-6 py-4 whitespace-nowrap text-left">
                   <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                     Active
                   </span>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-left">
+                <!-- <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-left">
                   {{ post.role }}
-                </td>
+                </td> -->
                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                   <a href="#" class="text-indigo-600 hover:text-indigo-900" v-show="toggleEditButton">Edit</a>
                 </td>
@@ -189,13 +189,7 @@ import Header from '@/components/Header.vue'
 const posts = [
   {
     id: '',
-    author : {
-      id: '',
-      username: '',
-      email: '',
-      password: '',
-      roles: [],
-    },
+    author : '',
     title: 'Post 1',
     desc: 'Sample description',
     messages: [],
@@ -231,13 +225,7 @@ export default {
       // alert(forumArea);
       var newPost = {
         id: this.objectId(),
-        author: {
-          id: this.currentUser.id,
-          username: this.currentUser.username,
-          email: this.currentUser.email,
-          password: this.currentUser.password,
-          roles: this.currentUser.roles,
-        },
+        author: this.currentUser.username,
         title: forumTitle,
         desc: forumArea,
         messages: [],
@@ -258,20 +246,14 @@ export default {
       while (posts.length > 0){
         posts.pop()
       }
+      console.log(posts)
       res.data.forEach((post) => {
         var newPost = {
           id: post.id,
-          author: {
-            id: post.author.id,
-            username: post.author.username,
-            email: post.author.email,
-            password: post.author.password,
-            roles: post.author.roles,
-        },
+          author: post.author,
           title: post.title,
           description: post.desc,
-          role: 'Admin',
-          messages: post.messages
+          messages: post.messages,
         }
         posts.push(newPost);
       })
