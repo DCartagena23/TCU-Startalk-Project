@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class Message implements Serializable {
     @Id
     private String id;
-    private User user;
+    private String user;
     private String content;
     private String mediaURL;
 
@@ -24,7 +24,7 @@ public class Message implements Serializable {
     public Message(){
     }
 
-    public Message(String id, User user, String content, String mediaURL){
+    public Message(String id, String user, String content, String mediaURL){
         this.id = id;
         this.user = user;
         this.content = content;
@@ -39,11 +39,11 @@ public class Message implements Serializable {
         this.id = id;
     }
 
-    public User getUser() {
+    public String getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(String user) {
         this.user = user;
     }
 

@@ -16,7 +16,7 @@ public class Forum implements Serializable {
     @Id
     private String id;
 
-    private User author;
+    private String author;
     private String title;
     private String desc;
 
@@ -40,11 +40,11 @@ public class Forum implements Serializable {
         this.id = id;
     }
 
-    public User getAuthor() {
+    public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(User author) {
+    public void setAuthor(String author) {
         this.author = author;
     }
 

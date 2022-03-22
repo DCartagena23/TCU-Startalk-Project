@@ -53,7 +53,7 @@ public class DBInitializer implements CommandLineRunner {
     }
 
     public void run(String... args) throws Exception {
-//        loadData();
+        //loadData();
     }
 
     private void loadData() {
@@ -126,13 +126,13 @@ public class DBInitializer implements CommandLineRunner {
         user2.setId(new ObjectId().toHexString());
 
         Message message1 = new Message();
-        message1.setUser(user1);
+        message1.setUser("ryantest");
         message1.setContent("ABCXYZ");
         message1.setId(new ObjectId().toHexString());
         message1.setForum(forum1);
 
         Message message2 = new Message();
-        message2.setUser(user2);
+        message2.setUser("ryantest");
         message2.setContent("Concax");
         message2.setId(new ObjectId().toHexString());
         message2.setForum(forum1);
