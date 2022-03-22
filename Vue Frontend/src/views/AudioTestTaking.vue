@@ -130,8 +130,16 @@ export default {
         },
 
         toggle(){
-          this.flag = !this.flag
-          this.countDownTimer()
+          var taken = false
+          this.test.answers.forEach(element => {
+            if (element.user == this.$store.state.auth.user.username) taken = true
+          });
+          if (taken) alert("You had already taken this test.")
+          else{
+            this.flag = !this.flag
+            this.countDownTimer()            
+          }
+
         },
             setHeader(){
       var current = new Date().getTime() / 1000

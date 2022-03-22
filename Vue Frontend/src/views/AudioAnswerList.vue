@@ -97,6 +97,7 @@ export default {
         async getTest(id) {
             const { data: res } = await this.$http.get(`/audioTests/findOne/${id}`)
             this.test = res.data
+            
             this.countDown = this.test.prepTime
             console.log(this.test)
         },

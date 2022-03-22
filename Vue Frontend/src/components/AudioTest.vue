@@ -62,7 +62,7 @@
       transition
       duration-150
       ease-in-out" style="align-self:center;margin-right: 10px;"
-      @click.prevent="startTest(test.id)"
+      @click.prevent="startTest(test)"
       >
       Start Test
             </button>
@@ -83,7 +83,7 @@
       transition
       duration-150
       ease-in-out" style="align-self:center;margin-right: 10px;"
-      @click.prevent="showEditTestForm(test.id)"
+      @click.prevent="showEditTestForm(test)"
       >
       Edit
             </button>
@@ -198,6 +198,7 @@ export default {
     async getTestList(id) {
       const { data: res } = await this.$http.get(`/courses/getTestList/${id}`)
       this.testList = res.data
+      console.log(this.testList)
     },
 
     showNewTestForm() {
@@ -260,8 +261,8 @@ export default {
       }
     },
 
-    startTest(id) {
-      this.$router.push({ path: `/audioTestTaking/${this.$route.params.courseId}/${id}` })
+    startTest(test) { 
+      this.$router.push({ path: `/audioTestTaking/${this.$route.params.courseId}/${test.id}` })
     },
 
     viewAnswer(id) {
