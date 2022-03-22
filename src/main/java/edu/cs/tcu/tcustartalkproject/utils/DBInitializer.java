@@ -118,6 +118,9 @@ public class DBInitializer implements CommandLineRunner {
         c1.addGrammarWords(grammarWord3);
 
         Forum forum1 = new Forum();
+        forum1.setTitle("test 10");
+        forum1.setAuthor("ryantest");
+        forum1.setDesc("This is a test description");
         forum1.setId(new ObjectId().toHexString());
 
         User user1 = new User();
