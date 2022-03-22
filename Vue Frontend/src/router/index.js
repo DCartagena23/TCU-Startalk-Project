@@ -20,6 +20,7 @@ import Course from '@/views/Course'
 import Forum from '@/views/Forum'
 import ForumPost from '@/views/ForumPost'
 import Help from '@/views/Help'
+import TeacherHelp from '@/views/TeacherHelp'
 
 const routes = [
   {
@@ -134,6 +135,12 @@ const routes = [
     path: '/help',
     name: 'Help',
     component: Help,
+    props: true,
+  },
+  {
+    path: '/teacherhelp',
+    name: 'TeacherHelp',
+    component: TeacherHelp,
     props: true,
   }
 ]

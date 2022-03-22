@@ -6,7 +6,7 @@
         <div class="flex justify-start lg:w-0 lg:flex-1">
           <a href="#">
             <span class="sr-only">Workflow</span>
-            <img class="h-8 w-auto sm:h-10" src="../assets/startalk.png" alt="" />
+            <img v-on:click="toggleTextbook" class="h-8 w-auto sm:h-10" src="../assets/startalk.png" alt="" />
           </a>
         </div>
         <div class="-mr-2 -my-2 md:hidden">
@@ -52,7 +52,7 @@
           </Popover>
 
           <div v-on:click="toggleTextbook" class="section text-base font-medium text-gray-500 hover:text-gray-900">
-            Textbook
+            Courses
           </div>
           <!-- <div v-on:click="toggleAssignment" class=" section text-base font-medium text-gray-500 hover:text-gray-900">
             Assignment
@@ -273,7 +273,7 @@ export default {
       this.$router.push({ path: '/forum' })
     },
     toggleTextbook: function(){
-      this.$router.push({ path: '/student' })
+      this.$router.push({ path: '/home' })
     },
     toggleHelp: function(){
       this.$router.push({ path: '/help' })
