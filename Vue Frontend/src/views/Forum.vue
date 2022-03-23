@@ -187,13 +187,13 @@
 import Breadcrumb from '@/components/Breadcrumb.vue'
 import Header from '@/components/Header.vue'
 const posts = [
-  {
-    id: '',
-    author : '',
-    title: 'Post 1',
-    desc: 'Sample description',
-    messages: [],
-  },
+  // {
+  //   id: '',
+  //   author : '',
+  //   title: 'Post 1',
+  //   desc: 'Sample description',
+  //   messages: [],
+  // },
   // More people...
 ]
 

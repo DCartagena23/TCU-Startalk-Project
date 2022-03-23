@@ -64,12 +64,12 @@
 import Breadcrumb from '@/components/Breadcrumb.vue'
 import Header from '@/components/Header.vue'
 const posts = [
-  {
-    id: '0',
-    user: 'ryantest',
-    content: 'This is a test message',
-    mediaURL: '',
-  },
+  // {
+  //   id: '0',
+  //   user: 'ryantest',
+  //   content: 'This is a test message',
+  //   mediaURL: '',
+  // },
 ]
 
 const forum = [
@@ -103,8 +103,9 @@ export default {
   },
     methods: {
       submitFunction: function(){
-        var example = document.getElementById('response').value;
-        var forumSection = document.getElementById('forumSection');
+        const textarea = document.getElementById('response');
+        var example = textarea.value;
+        const forumSection = document.getElementById('forumSection');
         // alert(example);
         const newPost = {
           id: this.objectId(),
@@ -115,8 +116,8 @@ export default {
         posts.push(newPost);
         var post = document.createElement('div');
         post.innerHTML = newPost.user + ': ' + newPost.content;
+        // forumSection.appendChild('<br>');
         if(newPost.user == this.currentUser.username){
-          document.write('<br>');
           post.style.backgroundColor = 'rgba(79,20,229)';
           post.style.gridColumnStart = '3';
         }
@@ -130,9 +131,11 @@ export default {
         post.style.maxWidth = '20rem';
         forumSection.appendChild(post);
         this.postMessage(this.$route.params.forumId);
+        // console.log("do we get here?");
         this.postBool = false;
         this.postBool = true;
-        document.getElementById('response').value = '';
+        textarea.value = '';
+        // location.reload();
       },
       async getMessages(id){
       const { data: res } = await this.$http.get(`/forums/findOne/${id}`)
@@ -162,6 +165,7 @@ export default {
         posts.forEach((post) => {
           var forumSection = document.getElementById('forumSection');
           var newPost = document.createElement('div');
+          // forumSection.appendChild('<br>');
           newPost.innerHTML = post.user + ': ' + post.content;
           newPost.style.borderRadius = '.5rem';
           if(post.user == this.currentUser.username){
