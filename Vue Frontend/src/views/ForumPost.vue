@@ -4,10 +4,10 @@
   <Header />
     <main v-show="postBool">
         <h1 class="text-3xl font-bold leading-tight text-gray-900" style="padding-top: 2.5rem;padding-bottom:2.5rem;text-align: center;">
-            {{forum[forum.length-1].title}}
+            {{forum.title}}
           </h1>
           <div style="text-align:center;padding-bottom:2.5rem;">
-            {{forum[forum.length-1].desc}}
+            {{forum.desc}}
           </div>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <!-- Replace with your content -->
@@ -72,15 +72,13 @@ const posts = [
   // },
 ]
 
-const forum = [
+const forum =
   {
   id: '',
   author: '',
   title: '',
   desc: '',
-  messages: [],
 }
-]
 export default {
     setup() {
 
@@ -115,6 +113,7 @@ export default {
         }
         posts.push(newPost);
         var post = document.createElement('div');
+        // var space = document.createElement('br');
         post.innerHTML = newPost.user + ': ' + newPost.content;
         // forumSection.appendChild('<br>');
         if(newPost.user == this.currentUser.username){
@@ -129,6 +128,7 @@ export default {
         post.style.color = 'white';
         post.style.marginBottom = '2.5rem';
         post.style.maxWidth = '20rem';
+        // forumSection.appendChild(space);
         forumSection.appendChild(post);
         this.postMessage(this.$route.params.forumId);
         // console.log("do we get here?");
@@ -138,12 +138,12 @@ export default {
         // location.reload();
       },
       async getMessages(id){
+      while(posts.length>0){
+        posts.pop()
+      }
       const { data: res } = await this.$http.get(`/forums/findOne/${id}`)
       if (res.status == 200) {
         console.log(res.data)
-      }
-      while(posts.length>0){
-        posts.pop()
       }
       console.log(posts)
       res.data.messages.forEach((post) => {
@@ -153,9 +153,9 @@ export default {
           content: post.content,
           mediaURL: post.mediaURL,
         }
-        console.log(newPost)
+        // console.log(newPost)
         posts.push(newPost)
-        console.log(posts)
+        // console.log(posts)
         this.addMessages()
         this.postBool = false;
         this.postBool = true;
@@ -165,6 +165,7 @@ export default {
         posts.forEach((post) => {
           var forumSection = document.getElementById('forumSection');
           var newPost = document.createElement('div');
+          // var space = document.createElement('br');
           // forumSection.appendChild('<br>');
           newPost.innerHTML = post.user + ': ' + post.content;
           newPost.style.borderRadius = '.5rem';
@@ -180,6 +181,8 @@ export default {
           newPost.style.marginBottom = '2.5rem';
           newPost.style.maxWidth = '20rem';
           forumSection.appendChild(newPost);
+          // forumSection.appendChild(space);
+          // forumSection.appendChild(space);
         })
         this.postBool = false;
         this.postBool = true;
@@ -201,18 +204,32 @@ export default {
     console.log(res.data)
     },
     async setForum(id){
+      // while(forum.length>0){
+      //   forum.pop()
+      // }
+      forum.id = ''
+      forum.author = ''
+      forum.title = 'Page loading...'
+      forum.desc = 'Page loading...'
       const { data: res } = await this.$http.get(`forums/findOne/${id}`)
       if (res.status == 200) {
         console.log(res.data)
-        var newPost = {
-          id:res.data.id,
-          author: res.data.author,
-          title: res.data.title,
-          desc: res.data.desc,
-          messages: res.data.messages,
-        }
-        forum.push(newPost);
-        console.log(forum[1])
+        forum.id = res.data.id
+        forum.author = res.data.author
+        forum.title = res.data.title
+        forum.desc = res.data.desc
+        this.postBool = false;
+        this.postBool = true;
+        // forum.messages = res.data.messages
+        // var newPost = {
+        //   id:res.data.id,
+        //   author: res.data.author,
+        //   title: res.data.title,
+        //   desc: res.data.desc,
+        //   messages: res.data.messages,
+        // }
+        // forum.push(newPost);
+        // console.log(forum[0])
       }
     },
     },
