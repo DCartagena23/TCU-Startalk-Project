@@ -69,17 +69,18 @@ public class S3RestController {
         Base64.Decoder decoder = Base64.getDecoder();
         byte[] decodedByte = decoder.decode(base64Audio.split(",")[1]);
         String filename = user+ "_" +test.getTitle()+ ".wav";
-        String filepath = "./src/main/java/temp/"+filename;
+        File tempFile = File.createTempFile(user+ "_" +test.getTitle(), ".wav", null);
+//        String filepath = "./src/main/java/temp/"+filename;
         String key = test.getTitle() + "/" + filename;
         String url = "s3://" + bucketname + "/" + key;
-        FileOutputStream fos = new FileOutputStream(filepath);
+        FileOutputStream fos = new FileOutputStream(tempFile);
         fos.write(decodedByte);
         fos.close();
 
         s3client.putObject(
                 bucketname,
                 key,
-                new File(filepath)
+                tempFile
         );
 
         AudioAnswer answer = new AudioAnswer(new ObjectId().toHexString(), user, key);
@@ -163,13 +164,13 @@ public class S3RestController {
         }
         return new Result(StatusCode.SUCCESS, "Get Audio Successful", targetAnswer);
     }
-//    @PostMapping("/uploadFile")
-//    public String uploadFile(@RequestPart(value = "file") MultipartFile file) {
-//        return this.amazonClient.uploadFile(file);
-//    }
-//
-//    @DeleteMapping("/deleteFile")
-//    public String deleteFile(@RequestPart(value = "url") String fileUrl) {
-//        return this.amazonClient.deleteFileFromS3Bucket(fileUrl);
-//    }
+////    @PostMapping("/uploadFile")
+////    public String uploadFile(@RequestPart(value = "file") MultipartFile file) {
+////        return this.amazonClient.uploadFile(file);
+////    }
+////
+////    @DeleteMapping("/deleteFile")
+////    public String deleteFile(@RequestPart(value = "url") String fileUrl) {
+////        return this.amazonClient.deleteFileFromS3Bucket(fileUrl);
+////    }
 }
