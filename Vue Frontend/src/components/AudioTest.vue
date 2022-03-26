@@ -84,6 +84,7 @@
       duration-150
       ease-in-out" style="align-self:center;margin-right: 10px;"
       @click.prevent="showEditTestForm(test)"
+      v-if=checkRole()
       >
       Edit
             </button>
@@ -105,6 +106,7 @@
       duration-150
       ease-in-out" style="align-self:center;margin-right: 10px;"
       @click.prevent="deleteTest(test.id)"
+      v-if=checkRole()
       >
       Delete
             </button>

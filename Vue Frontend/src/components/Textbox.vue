@@ -38,7 +38,6 @@
       </div>
     </div>
     <button type="button" :disabled=previousDisable @click="previous()" class=" btn btn-primary inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" v-on:click="goPrevPage" style="float: left; margin: 5px 5px 5px 0">Previous Chapter</button>
-    <button type="button" v-if=checkRole() @click="edit()" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" style="margin: 5px 0 0 0">Edit Passage</button>
     <button type="button" :disabled=nextDisable @click="next()" class="btn btn-primary inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" v-on:click="goNextPage" style="float: right; margin: 5px 0 5px 5px">Next Chapter</button>
 
     <nav class="navbar fixed-bottom navbar-expand-lg navbar-dark bg-dark" style="text-align: center">
