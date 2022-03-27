@@ -395,7 +395,6 @@ export default {
       
       this.list.forEach((paragraph) => {
         paragraph.forEach((word) => {
-          console.log(word.pinyin)
 
           if (this.pinyinForm.id == word.word){
             word.pinyin = this.pinyinForm.pinyin
@@ -411,7 +410,6 @@ export default {
         var chapter = {
           title: json.word,
         }
-        console.log(chapter)
         const { data: res } = await this.$http.put(`/vocabWords/findOne`,chapter)
         if (res.status == 200) {
           json.pinyin = res.data.pinyin

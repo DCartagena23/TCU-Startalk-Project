@@ -6,6 +6,7 @@
   <li v-if="student"><a href="#" @click.prevent="goStudent">Read</a></li>
   <li v-if="read"><a href="#" @click.prevent="goRead">Read (Teacher)</a></li>
   <li v-if="edit"><a href="#" @click.prevent="goEdit">Edit</a></li>  
+  <li v-if="homework"><a href="#" @click.prevent="goHomework">Homework</a></li>
   <li v-if="test"><a href="#" @click.prevent="goTest">Test</a></li>
   <li v-if="answer"><a href="#" @click.prevent="goAnswer">View Answer</a></li>
   <li v-if="comment"><a href="#" @click.prevent="goComment">Comment</a></li>
@@ -60,6 +61,7 @@ export default {
       test: false,
       answer: false,
       comment: false,
+      homework: false,
     }
   },
   created(){
@@ -86,17 +88,24 @@ export default {
       this.read = true
       this.edit = true
     }
+    if (this.path == "audioTest"){
+      this.course = true
+      this.homework = true
+    }
     if (this.path == "audioTestTaking"){
       this.course = true
+      this.homework = true
       this.test = true
     }
     if (this.path == "audioAnswerList"){
       this.course = true
+      this.homework = true
       this.test = true
       this.answer = true
     }
     if (this.path == "audioAnswerComment"){
       this.course = true
+      this.homework = true
       this.test = true
       this.answer = true
       this.comment = true
@@ -122,14 +131,17 @@ export default {
     goEdit(){
       this.$router.push({ path: `/edit/${this.$route.params.courseId}/${this.$route.params.bookId}/${this.$route.params.id}` })
     },
+    goHomework(){
+      this.$router.push({ path: `/audioTest/${this.$route.params.courseId}/${this.$route.params.homeworkId}` })   
+    },
     goTest(){
-      this.$router.push({ path: `/audioTestTaking/${this.$route.params.courseId}/${this.$route.params.id}` })   
+      this.$router.push({ path: `/audioTestTaking/${this.$route.params.courseId}/${this.$route.params.homeworkId}/${this.$route.params.id}` })   
     },
     goAnswer(){
-      this.$router.push({ path: `/audioAnswerList/${this.$route.params.courseId}/${this.$route.params.id}` })   
+      this.$router.push({ path: `/audioAnswerList/${this.$route.params.courseId}/${this.$route.params.homeworkId}/${this.$route.params.id}` })   
     },
     goComment(){
-      this.$router.push({ path: `/audioAnswerComment/${this.$route.params.courseId}/${this.$route.params.id}/${this.$route.params.answerId}` })   
+      this.$router.push({ path: `/audioAnswerComment/${this.$route.params.courseId}/${this.$route.params.homeworkId}/${this.$route.params.id}/${this.$route.params.answerId}` })   
     },
   }
 }

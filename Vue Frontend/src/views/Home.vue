@@ -5,9 +5,34 @@
   <div class="container">
     <!-- <hr /> -->
     <div class="py-10">
+          <form>
+            <div style="display : inline-flex " class="mb-3">
+      <button type="button" class="px-6
+      py-2.5
+      bg-indigo-600
+      text-white
+      font-medium
+      text-xs
+      leading-tight
+      uppercase
+      rounded
+      shadow-md
+      hover:bg-indigo-700 hover:shadow-lg
+      focus:bg-indigo-600 focus:shadow-lg focus:outline-none focus:ring-0
+      active:bg-indigo-800 active:shadow-lg
+      transition
+      duration-150
+      ease-in-out" style="align-self:center;margin-right: 10px;"
+      @click.prevent="search(idsearch)">
+      ID Search
+      </button>
+              <input style="width:300px" type="text" class="form-control" id="chapter-title" v-model="idsearch" />
+            </div>
+          </form>
     <h6 class="display-3" v-if="flag" style="text-align: center;">Your Course</h6>
     <h6 class="display-3" v-else style="text-align: center;">All Courses</h6>
-    <div class="py-6" style="text-align: center;">
+
+    <div v-if="checkRole()" class="py-6" style="text-align: center;">
       <!-- <a class="btn btn-primary" v-if=checkRole() @click.prevent="showNewCourseForm">Add a New Course</a> -->
       <button type="button" class="px-6
       py-2.5
@@ -195,13 +220,44 @@
           <form>
             <div class="mb-3">
               <label for="chapter-name" class="col-form-label">Course Title:</label>
-              <input type="text" @keypress="validateNumber" class="form-control" id="chapter-title" v-model="courseForm.title" />
+              <input type="text" class="form-control" id="chapter-title" v-model="courseForm.title" />
             </div>
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary" @click="saveOrUpdateCourse">Save</button>
+        </div>
+      </div>
+    </div>
+    </div>
+
+      <div class="modal fade" id="searchForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            Search Result
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="chapter-name" class="col-form-label">Course Title:</label>
+              <input disabled type="text" class="form-control" id="chapter-title" v-model="searchForm.title" />
+            </div>
+          </form>
+          <form>
+            <div class="mb-3">
+              <label for="chapter-name" class="col-form-label">Course Teacher:</label>
+              <input disabled type="text" class="form-control" id="chapter-title" v-model="teacherUsername" />
+            </div>  
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-success" @click="joinCourse(searchForm)">Join</button>
         </div>
       </div>
     </div>
@@ -220,6 +276,11 @@ export default {
     return {
       database:[],
       flag: true,
+      idsearch:"",
+      teacherUsername:"",
+
+      searchForm: {},
+      searchFormModal: null,
 
       courseForm: {},
       courseFormName: '',
@@ -232,6 +293,8 @@ export default {
   },
   mounted: function () {
     this.courseFormModal = new this.$bootstrap.Modal(document.getElementById('courseForm'), {})
+    this.searchFormModal = new this.$bootstrap.Modal(document.getElementById('searchForm'), {})
+
   },
   created() {
     this.setHeader()
@@ -257,8 +320,10 @@ export default {
       try {
         const { data: res } = await this.$http.get(`/courses/findOne/${id}`)
         if (res.status == 200) {
-          this.database = []
-          this.database = [...this.database, res.data]
+          const { data: res } = await this.$http.get(`/courses/findOne/${id}`)
+          this.searchForm = res.data
+          this.teacherUsername = this.searchForm.teacher.username
+          this.searchFormModal.show()
         }
       } catch (error) {
         alert('No Course Found!')

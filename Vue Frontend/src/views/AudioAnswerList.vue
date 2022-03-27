@@ -136,7 +136,7 @@ export default {
       },
     
     viewComment(id){
-      this.$router.push({ path: `/audioAnswerComment/${this.$route.params.courseId}/${this.$route.params.id}/${id}` })
+      this.$router.push({ path: `/audioAnswerComment/${this.$route.params.courseId}/${this.$route.params.homeworkId}/${this.$route.params.id}/${id}` })
     },
 
     objectId() {

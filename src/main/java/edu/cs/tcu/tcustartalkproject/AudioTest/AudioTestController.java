@@ -24,11 +24,13 @@ public class AudioTestController {
      */
     private final AudioTestService testService;
     private final CourseService courseService;
+    private final HomeworkService homeworkService;
 
     @Autowired
-    public AudioTestController(CourseService courseService, AudioTestService testService){
+    public AudioTestController(CourseService courseService, AudioTestService testService, HomeworkService homeworkService){
         this.testService = testService;
         this.courseService = courseService;
+        this.homeworkService = homeworkService;
     }
 
     /**
@@ -53,10 +55,10 @@ public class AudioTestController {
     @PostMapping("/save/{id}")
     @ResponseBody
     public Result saveTest(@PathVariable String id, @RequestBody AudioTest test) {
-        Course course = courseService.findById(id);
+        Homework hw = homeworkService.findById(id);
         AudioTest savedTest = testService.save(test);
-        course.addTest(savedTest);
-        courseService.save(course);
+        hw.addTest(savedTest);
+        homeworkService.save(hw);
         return new Result(StatusCode.SUCCESS, "Test Saved!", savedTest);
     }
 
@@ -73,15 +75,6 @@ public class AudioTestController {
         AudioTest test = testService.findById(id);
         test.setActive(false);
         testService.save(test);
-//        List<Chapter> chapters = book.getChapter();
-//        bookService.delete(id);
-//        for (Chapter c : chapters){
-//            List<GrammarWord> grammarWords = c.getGrammarWords();
-//            chapterService.delete(c.getId());
-//            for (GrammarWord g : grammarWords){
-//                grammarWordService.delete(g.getId());
-//            }
-//        }
         return new Result(StatusCode.SUCCESS, "Test Deleted!", null);
     }
 
