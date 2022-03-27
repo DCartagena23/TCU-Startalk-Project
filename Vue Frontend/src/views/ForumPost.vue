@@ -156,15 +156,16 @@ export default {
         // console.log(newPost)
         posts.push(newPost)
         // console.log(posts)
-        this.addMessages()
-        this.postBool = false;
-        this.postBool = true;
       })
+      this.addMessages()
+      this.postBool = false;
+      this.postBool = true;
       },
       addMessages: function(){
         posts.forEach((post) => {
           var forumSection = document.getElementById('forumSection');
           var newPost = document.createElement('div');
+          var space = document.createElement('div');
           // var space = document.createElement('br');
           // forumSection.appendChild('<br>');
           newPost.innerHTML = post.user + ': ' + post.content;
@@ -180,7 +181,13 @@ export default {
           newPost.style.color = 'white';
           newPost.style.marginBottom = '2.5rem';
           newPost.style.maxWidth = '20rem';
+          space.style.gridColumnStart = '3';
           forumSection.appendChild(newPost);
+          if(post.user != this.currentUser.username){
+            console.log("do i get here?")
+            forumSection.appendChild(space);
+            // forumSection.appendChild(space);
+          }
           // forumSection.appendChild(space);
           // forumSection.appendChild(space);
         })
@@ -199,7 +206,7 @@ export default {
       )
     },
     async postMessage(id){
-    console.log(posts[posts.length-1])
+    // console.log(posts[posts.length-1])
     const { data: res } = await this.$http.post(`/messages/saveMessage/${id}`,posts[posts.length-1])
     console.log(res.data)
     },
