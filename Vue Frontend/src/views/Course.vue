@@ -3,21 +3,21 @@
 <Breadcrumb/>
 <TeacherHeader />
 <Book/>
-<AudioTest/>
+<Homework/>
 </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import Book from '@/components/Book'
-import AudioTest from '@/components/AudioTest'
+import Homework from '@/components/Homework'
 import Breadcrumb from '@/components/Breadcrumb.vue'
 import TeacherHeader from '@/components/TeacherHeader.vue'
 export default {
   name: 'Course',
   components: {
     Book,
-    AudioTest,
+    Homework,
     Breadcrumb,
     TeacherHeader,
   },

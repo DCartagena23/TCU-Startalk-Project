@@ -279,7 +279,6 @@ export default {
         var chapter = {
           title: json.word,
         }
-        console.log(chapter)
         const { data: res } = await this.$http.put(`/vocabWords/findOne`,chapter)
         if (res.status == 200) {
           json.pinyin = res.data.pinyin

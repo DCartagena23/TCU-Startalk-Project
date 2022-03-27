@@ -1,9 +1,9 @@
 <template>
 <div>
   <div class="container">
-    <!-- Audio Test List -->
+    <!-- Homework List -->
     <div class="py-6">
-    <h1 class="display-6" style="text-align:center;">Audio Test List</h1>
+    <h1 class="display-6" style="text-align:center;">Homework List</h1>
     <div style="text-align: center;">
       <!-- <a class="btn btn-primary" v-if=checkRole() @click.prevent="showNewTestForm">Create a new Audio Test</a> -->
        <button type="button" class="px-6
@@ -23,9 +23,9 @@
       duration-150
       ease-in-out" style="align-self:center;margin-right: 10px;"
       v-if=checkRole()
-      @click.prevent="showNewTestForm"
+      @click.prevent="showNewHwForm"
       >
-      Create a New Audio Test
+      Create a New Homework
       </button>
     </div>
     </div>
@@ -35,16 +35,14 @@
         <tr>
           <th>Id</th>
           <th>Title</th>
-          <th>Prepare Time (seconds)</th>
           <th>Operations</th>
         </tr>
       </thead>
       <tbody>
-        <tr :key="test.id" v-for="test in testList">
-          <td v-if="test.active">{{ test.id }}</td>
-          <td v-if="test.active">{{ test.title }}</td>
-          <td v-if="test.active">{{ test.prepTime }}</td>
-          <td v-if="test.active">
+        <tr :key="homework.id" v-for="homework in homeworkList">
+          <td v-if="homework.active">{{ homework.id }}</td>
+          <td v-if="homework.active">{{ homework.title }}</td>
+          <td v-if="homework.active">
             <!-- <a class="btn btn-success" style="margin-right: 10px" @click.prevent="startTest(test.id)">Start Test</a> -->
              <button type="button" class="px-6
        py-2.5
@@ -62,9 +60,9 @@
       transition
       duration-150
       ease-in-out" style="align-self:center;margin-right: 10px;"
-      @click.prevent="startTest(test)"
+      @click.prevent="view(homework.id)"
       >
-      Start Test
+      View
             </button>
             <!-- <a class="btn btn-warning" v-if=checkRole() style="margin-right: 10px" @click.prevent="showEditTestForm(test.id)">Edit</a> -->
               <button type="button" class="px-6
@@ -83,7 +81,7 @@
       transition
       duration-150
       ease-in-out" style="align-self:center;margin-right: 10px;"
-      @click.prevent="showEditTestForm(test)"
+      @click.prevent="showEditHwForm(homework.id)"
       v-if=checkRole()
       >
       Edit
@@ -105,31 +103,10 @@
       transition
       duration-150
       ease-in-out" style="align-self:center;margin-right: 10px;"
-      @click.prevent="deleteTest(test.id)"
+      @click.prevent="deleteHw(homework.id)"
       v-if=checkRole()
       >
       Delete
-            </button>
-            <!-- <a class="btn btn-success" style="margin-right: 10px" @click.prevent="viewAnswer(test.id)">View Submitted Answer</a> -->
-            <button type="button" class="px-6
-       py-2.5
-      bg-indigo-600
-      text-white
-      font-medium
-      text-xs
-      leading-tight
-      uppercase
-      rounded
-      shadow-md
-      hover:bg-indigo-700 hover:shadow-lg
-      focus:bg-indigo-600 focus:shadow-lg focus:outline-none focus:ring-0
-      active:bg-indigo-800 active:shadow-lg
-      transition
-      duration-150
-      ease-in-out" style="align-self:center;margin-right: 10px;"
-      @click.prevent="viewAnswer(test.id)"
-      >
-      View Submitted Answer
             </button>
           </td>
         </tr>
@@ -137,34 +114,26 @@
     </table>
   </div>
 
-  <div class="modal fade" id="testForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="homeworkForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">
-            {{ testFormName }}
+            {{ homeworkFormName }}
           </h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form>
             <div class="mb-3">
-              <label for="chapter-name" class="col-form-label">Test Name:</label>
-              <input type="text" class="form-control" v-model="testForm.title" />
-            </div>
-            <div class="mb-3">
-              <label for="chapter-name" class="col-form-label">Prepare Time:</label>
-              <input type="text" class="form-control" v-model="testForm.prepTime" />
-            </div>
-            <div class="mb-3">
-              <label for="chapter-name" class="col-form-label">Speaking Prompt:</label>
-              <textarea class="form-control" rows="4" v-model="testForm.prompt"></textarea>
+              <label for="chapter-name" class="col-form-label">Homework Name:</label>
+              <input type="text" class="form-control" v-model="homeworkForm.title" />
             </div>
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" @click="saveOrUpdateTest">Save</button>
+          <button type="button" class="btn btn-primary" @click="saveOrUpdateHw">Save</button>
         </div>
       </div>
     </div>
@@ -176,71 +145,71 @@
 // @ is an alias to /src
 
 export default {
-  name: 'AudioTest',
+  name: 'Homework',
 
   data: function () {
     return {
-      testList: [],
+      homeworkList: [],
       book: {},
       chapter: {},
 
-      testForm: {},
-      testFormName: '',
-      testFormModal: null,
+      homeworkForm: {},
+      homeworkFormName: '',
+      homeworkFormModal: null,
     }
   },
   mounted: function () {
-    this.testFormModal = new this.$bootstrap.Modal(document.getElementById('testForm'), {})
+    this.homeworkFormModal = new this.$bootstrap.Modal(document.getElementById('homeworkForm'), {})
   },
   created() {
     this.setHeader()
-    this.getTestList(this.$route.params.courseId)
+    this.getHwList(this.$route.params.courseId)
   },
   methods: {
-    async getTestList(id) {
-      const { data: res } = await this.$http.get(`/courses/getTestList/${id}`)
-      this.testList = res.data
-      console.log(this.testList)
+    async getHwList(id) {
+      const { data: res } = await this.$http.get(`/courses/getHomeworkList/${id}`)
+      this.homeworkList = res.data
+      console.log(this.homeworkList)
     },
 
-    showNewTestForm() {
-      this.testFormName = 'Create a Audio Test'
-      this.testForm = {}
-      this.testFormModal.show()
+    showNewHwForm() {
+      this.homeworkFormName = 'Create a Homework'
+      this.homeworkForm = {}
+      this.homeworkFormModal.show()
     },
-    async showEditTestForm(id) {
-      this.testFormName = 'Edit a Audio Test'
-      const { data: res } = await this.$http.get(`/audioTests/findOne/${id}`)
-      this.testForm = res.data
-      this.testFormModal.show()
+    async showEditHwForm(id) {
+      this.homeworkFormName = 'Edit a Homework'
+      const { data: res } = await this.$http.get(`/homeworks/findOne/${id}`)
+      this.homeworkForm = res.data
+      this.homeworkFormModal.show()
     },
-    async saveOrUpdateTest() {
-      if (this.testForm.id) {
+    async saveOrUpdateHw() {
+      if (this.homeworkForm.id) {
         // update an existing chapter
-        await this.$http.put(`/audioTests/update`, this.testForm)
+        await this.$http.put(`/homeworks/update`, this.homeworkForm)
       } else {
         // save a new chapter
-        this.testForm.id = this.objectId()
-        this.testForm.active = true
-        await this.$http.post(`/audioTests/save/${this.$route.params.courseId}`, this.testForm)
+        this.homeworkForm.id = this.objectId()
+        this.homeworkForm.active = true
+        await this.$http.post(`/homeworks/save/${this.$route.params.courseId}`, this.homeworkForm)
       }
-      this.getTestList(this.$route.params.courseId)
-      this.testFormModal.hide()
+      this.getHwList(this.$route.params.courseId)
+      this.homeworkFormModal.hide()
     },
 
-    async deleteTest(id) {
-      if (confirm('Do you want to delete this Test?')) {
-        const { data: res } = await this.$http.delete(`/audioTests/delete/${id}`)
+    async deleteHw(id) {
+      if (confirm('Do you want to delete this Homework?')) {
+        const { data: res } = await this.$http.delete(`/homeworks/delete/${id}`)
         if (res.status == 200) {
           //delete Chapter with id from list
           //Step1, find index of the Chapter to be deleted
-          let index = this.testList.findIndex((test) => {
-            return test.id == id
+          let index = this.homeworkList.findIndex((homework) => {
+            return homework.id == id
           })
           //Step2, delete this Chapter
-          this.testList.splice(index, 1)
+          this.homeworkList.splice(index, 1)
         } else {
-          alert('Cannot delete Test!')
+          alert('Cannot delete Homework!')
         }
       }
     },
@@ -256,19 +225,8 @@ export default {
       )
     },
 
-    validateNumber: (event) => {
-      let keyCode = event.keyCode
-      if (keyCode < 48 || keyCode > 57) {
-        event.preventDefault()
-      }
-    },
-
-    startTest(test) { 
-      this.$router.push({ path: `/audioTestTaking/${this.$route.params.courseId}/${test.id}` })
-    },
-
-    viewAnswer(id) {
-      this.$router.push({ path: `/audioAnswerList/${this.$route.params.courseId}/${id}` })
+    view(id) {
+      this.$router.push({ path: `/audioTest/${this.$route.params.courseId}/${id}` })
     },
 
     checkRole(){

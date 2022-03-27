@@ -14,7 +14,6 @@
         <hr />
         <button class="btn btn-primary" id="stop" @click="stop" disabled>Stop</button>
         <button class="btn btn-primary" id="play" @click="playback" disabled>Play</button>
-        <a id="download" disabled>Download</a>
       </div>
   </div>
 </template>
@@ -92,11 +91,6 @@ export default {
                 }
                 http.post('/storage/uploadAudioAnswer', chapter)
               }
-              
-              const a = document.getElementById("download");
-              a.href = audioUrl;
-              // the filename you want
-              a.download = 'answer.wav';
             });
         },
 
