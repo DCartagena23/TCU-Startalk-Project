@@ -16,7 +16,6 @@ import User from '@/views/BoardStudent'
 import AudioTestTaking from '@/views/AudioTestTaking'
 import AudioAnswerList from '@/views/AudioAnswerList'
 import AudioAnswerComment from '@/views/AudioAnswerComment'
-import AudioTest from '@/views/AudioTest'
 import Course from '@/views/Course'
 import Forum from '@/views/Forum'
 import ForumPost from '@/views/ForumPost'
@@ -103,25 +102,19 @@ const routes = [
     props: true,
   },
   {
-    path: '/audioTest/:courseId/:homeworkId',
-    name: 'AudioTest',
-    component: AudioTest,
-    props: true,
-  },
-  {
-    path: '/audioTestTaking/:courseId/:homeworkId/:id',
+    path: '/audioTestTaking/:courseId/:id',
     name: 'AudioTestTaking',
     component: AudioTestTaking,
     props: true,
   },
   {
-    path: '/audioAnswerList/:courseId/:homeworkId/:id',
+    path: '/audioAnswerList/:courseId/:id',
     name: 'AudioAnswerList',
     component: AudioAnswerList,
     props: true,
   },
   {
-    path: '/audioAnswerComment/:courseId/:homeworkId/:id/:answerId',
+    path: '/audioAnswerComment/:courseId/:id/:answerId',
     name: 'AudioAnswerComment',
     component: AudioAnswerComment,
     props: true,
@@ -153,7 +146,8 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(import.meta.env.BASE_URL,
+    ),
   routes,
 })
 
