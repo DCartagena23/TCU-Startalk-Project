@@ -79,6 +79,19 @@ const forum =
   title: '',
   desc: '',
 }
+
+window.onload = function(){
+  while(posts.length>0){
+        posts.pop()
+  }
+};
+
+window.onbeforeunload = function(){
+  while(posts.length>0){
+        posts.pop()
+  }
+};
+
 export default {
     setup() {
 
