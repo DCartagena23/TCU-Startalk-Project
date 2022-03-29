@@ -32,7 +32,7 @@ import './assets/tailwind.css'
 
 library.add(faVolumeUp)
 
-// const bootstrap = require('bootstrap')
+const bootstrap = require('bootstrap')
 
 const app = createApp(App)
 app.component('font-awesome-icon', FontAwesomeIcon)
@@ -41,7 +41,7 @@ app.component('font-awesome-icon', FontAwesomeIcon)
 // The equivalent in Vue 3 is config.globalProperties.
 // To make axios and bootstrap object accessible in all Vue components, we add them to the // globalProperties.
 app.config.globalProperties.$http = axios
-// app.config.globalProperties.$bootstrap = bootstrap
+app.config.globalProperties.$bootstrap = bootstrap
 
 //axios.defaults.baseURL = 'http://localhost:8081'
 axios.defaults.baseURL = 'https://tcu-cnn22.herokuapp.com/'
