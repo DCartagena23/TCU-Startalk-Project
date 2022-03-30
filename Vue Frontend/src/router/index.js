@@ -22,6 +22,7 @@ import Forum from '@/views/Forum'
 import ForumPost from '@/views/ForumPost'
 import Help from '@/views/Help'
 import TeacherHelp from '@/views/TeacherHelp'
+import Board from '@/views/Board'
 
 const routes = [
   {
@@ -127,7 +128,7 @@ const routes = [
     props: true,
   },
   {
-    path: '/forum',
+    path: '/forum/:boardId',
     name: 'Forum',
     component: Forum,
     props: true,
@@ -148,6 +149,12 @@ const routes = [
     path: '/teacherhelp',
     name: 'TeacherHelp',
     component: TeacherHelp,
+    props: true,
+  },
+  {
+    path: '/board',
+    name: 'Board',
+    component: Board,
     props: true,
   }
 ]
