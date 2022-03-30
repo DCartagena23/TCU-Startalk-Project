@@ -270,7 +270,7 @@ export default {
       this.$router.push('/login');
     },
     toggleForum: function(){
-      this.$router.push({ path: '/forum' })
+      this.$router.push({ path: '/board' })
     },
     toggleTextbook: function(){
       this.$router.push({ path: '/home' })

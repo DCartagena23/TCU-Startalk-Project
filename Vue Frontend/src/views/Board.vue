@@ -7,11 +7,8 @@
   <header style="padding-bottom: 2.5em;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 class="text-3xl font-bold leading-tight text-gray-900" style="text-align:center;">
-            {{board.title}}
+            Discussion Boards
           </h1>
-          <div style="text-align: center">
-            {{board.desc}}
-          </div>
           <div style="text-align: center">
             <button type="button" class="px-6
       py-2.5
@@ -29,7 +26,7 @@
       transition
       duration-150
       ease-in-out" style="align-self:center;" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Create forum
+  Create board
             </button>
           </div>
 
@@ -190,42 +187,20 @@
 import Breadcrumb from '@/components/Breadcrumb.vue'
 import Header from '@/components/Header.vue'
 const posts = [
-  // {
-  //   id: '',
-  //   author : '',
-  //   title: 'Post 1',
-  //   desc: 'Sample description',
-  //   messages: [],
-  // },
-  // More people...
+  {
+    id: '1',
+    author : '',
+    title: 'Post 1',
+    desc: 'Sample description',
+    messages: [],
+  },
 ]
-
-const board = {
-  id: '',
-  author: '',
-  title: 'Sample title',
-  desc: 'Sample description',
-  forums: []
-}
-
-// window.onload = function(){
-//   while(posts.length>0){
-//         posts.pop()
-//   }
-// };
-
-// window.onbeforeunload = function(){
-//   while(posts.length>0){
-//         posts.pop()
-//   }
-// };
 
 export default {
   setup() {
 
     return {
       posts,
-      board
     }
   },
   components: {
@@ -255,15 +230,15 @@ export default {
         messages: [],
       };
       posts.push(newPost);
-      this.addForum();
+    //   this.addForum();
       this.forumBool = false;
       this.forumBool = true;
     },
     toggleForumPost(id){
-      this.$router.push({ path: `/post/${id}` })
+      this.$router.push({ path: `/forum/${id}` })
     },
      async getAllForums(){
-      const { data: res } = await this.$http.get(`/forums/findAll`)
+      const { data: res } = await this.$http.get(`/boards/findAll`)
       if (res.status == 200) {
         console.log(res.data)
       }
@@ -277,7 +252,7 @@ export default {
           author: post.author,
           title: post.title,
           description: post.desc,
-          messages: post.messages,
+          forums: post.forums,
         }
         posts.push(newPost);
       })
@@ -298,7 +273,7 @@ export default {
     },
   async addForum(){
     console.log(posts[posts.length-1])
-    const { data: res } = await this.$http.post(`/forums/saveForum`,posts[posts.length-1])
+    const { data: res } = await this.$http.post(`/boards/saveForum`,posts[posts.length-1])
     console.log(res.data)
   },
   },
@@ -306,10 +281,7 @@ export default {
     toggleEditButton: Boolean
   },
   mounted(){
-    this.getAllForums()
+    // this.getAllForums()
   }
 }
 </script>
-© 2022 Tailwind Labs Inc. All rights reserved.
-
-Privacy Policy
