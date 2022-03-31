@@ -1,8 +1,6 @@
 package edu.cs.tcu.tcustartalkproject.Board;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import edu.cs.tcu.tcustartalkproject.Authentication.Models.User;
 import edu.cs.tcu.tcustartalkproject.Forum.Forum;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -50,8 +48,9 @@ public class Board implements Serializable {
         return forums;
     }
 
-    public void setForums(List<Forum> forums) {
-        this.forums = forums;
+    public void addForum(Forum forum){
+        this.forums.add(forum);
+        forum.setBoard(this);
     }
 
     public String getDesc() {

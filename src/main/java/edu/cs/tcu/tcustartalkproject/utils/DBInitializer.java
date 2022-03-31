@@ -5,6 +5,9 @@ import edu.cs.tcu.tcustartalkproject.Authentication.JWTRepos.UserRepository;
 import edu.cs.tcu.tcustartalkproject.Authentication.Models.ERole;
 import edu.cs.tcu.tcustartalkproject.Authentication.Models.Role;
 import edu.cs.tcu.tcustartalkproject.Authentication.Models.User;
+import edu.cs.tcu.tcustartalkproject.Board.Board;
+import edu.cs.tcu.tcustartalkproject.Board.BoardRepository;
+import edu.cs.tcu.tcustartalkproject.Board.BoardService;
 import edu.cs.tcu.tcustartalkproject.Book.Book;
 import edu.cs.tcu.tcustartalkproject.Book.BookService;
 import edu.cs.tcu.tcustartalkproject.Chapter.Chapter;
@@ -38,10 +41,11 @@ public class DBInitializer implements CommandLineRunner {
     private final RoleService roleService;
     private final CourseService courseService;
     private final UserRepository userRepository;
+    private final BoardService boardService;
 
     @Autowired
-    public DBInitializer(UserRepository userRepository ,CourseService courseService, BookService bookService, ChapterService chapterService, GrammarWordService grammarWordService,
-                         MessageService messageService, ForumService forumService, RoleService roleService){
+    public DBInitializer(UserRepository userRepository , CourseService courseService, BookService bookService, ChapterService chapterService, GrammarWordService grammarWordService,
+                         MessageService messageService, ForumService forumService, RoleService roleService, BoardService boardService){
         this.bookService = bookService;
         this.chapterService = chapterService;
         this.grammarWordService = grammarWordService;
@@ -50,6 +54,7 @@ public class DBInitializer implements CommandLineRunner {
         this.roleService = roleService;
         this.userRepository = userRepository;
         this.courseService = courseService;
+        this.boardService = boardService;
     }
 
     public void run(String... args) throws Exception {
@@ -117,6 +122,12 @@ public class DBInitializer implements CommandLineRunner {
         c1.addGrammarWords(grammarWord2);
         c1.addGrammarWords(grammarWord3);
 
+        Board board1 = new Board();
+        board1.setTitle("ABC");
+        board1.setDesc("This is board");
+        board1.setId(new ObjectId().toHexString());
+        board1.setAuthor("someone");
+
         Forum forum1 = new Forum();
         forum1.setTitle("test 10");
         forum1.setAuthor("ryantest");
@@ -140,6 +151,8 @@ public class DBInitializer implements CommandLineRunner {
         message2.setId(new ObjectId().toHexString());
         message2.setForum(forum1);
 
+        board1.addForum(forum1);
+
         forum1.addMessage(message1);
         forum1.addMessage(message2);
 
@@ -160,6 +173,7 @@ public class DBInitializer implements CommandLineRunner {
         grammarWordService.save(grammarWord2);
         grammarWordService.save(grammarWord3);
 
+        boardService.save(board1);
         forumService.save(forum1);
         messageService.save(message1);
         messageService.save(message2);

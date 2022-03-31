@@ -1,5 +1,7 @@
 package edu.cs.tcu.tcustartalkproject.Forum;
 
+import edu.cs.tcu.tcustartalkproject.Board.Board;
+import edu.cs.tcu.tcustartalkproject.Board.BoardService;
 import edu.cs.tcu.tcustartalkproject.utils.Result;
 import edu.cs.tcu.tcustartalkproject.utils.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +14,12 @@ import java.util.List;
 @RequestMapping("/forums")
 public class ForumController {
     private final ForumService forumService;
+    private final BoardService boardService;
 
     @Autowired
-    public ForumController(ForumService forumService){
+    public ForumController(BoardService boardService, ForumService forumService){
         this.forumService = forumService;
+        this.boardService = boardService;
     }
 
     @GetMapping("/findAll")
@@ -32,18 +36,21 @@ public class ForumController {
         return new Result(StatusCode.SUCCESS, "Find Forum Success", forum);
     }
 
-    @PostMapping("/saveForum")
+    @PostMapping("/saveForum/{boardId}")
     @ResponseBody
-    public Result saveForum(@RequestBody Forum forum) {
-        Forum savedForum = forumService.save(forum);
-        return new Result(StatusCode.SUCCESS, "Forum Saved!", savedForum);
+    public Result saveForum(@PathVariable String boardId, @RequestBody Forum forum) {
+        Board board = boardService.findById(boardId);
+        board.addForum(forum);
+        boardService.save(board);
+        forumService.save(forum);
+        return new Result(StatusCode.SUCCESS, "Forum Saved!", forum);
     }
 
     @PutMapping("/updateForum")
     @ResponseBody
     public Result updateForum(@RequestBody Forum forum) {
-        Forum updateForum = forumService.update(forum);
-        return new Result(StatusCode.SUCCESS, "Forum Updated!", updateForum);
+        forumService.update(forum);
+        return new Result(StatusCode.SUCCESS, "Forum Updated!", forum);
     }
 
     @DeleteMapping("/deleteForum/{id}")
