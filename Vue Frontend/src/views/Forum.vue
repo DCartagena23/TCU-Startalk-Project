@@ -201,11 +201,11 @@ const posts = [
 ]
 
 const board = {
-  id: '',
-  author: '',
-  title: 'Page loading...',
-  desc: 'Page loading...',
-  forums: []
+  // id: '',
+  // author: '',
+  // title: 'Page loading...',
+  // desc: 'Page loading...',
+  // forums: []
 }
 
 window.onload = function(){
