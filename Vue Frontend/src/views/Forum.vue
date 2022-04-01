@@ -203,8 +203,8 @@ const posts = [
 const board = {
   id: '',
   author: '',
-  title: 'Sample title',
-  desc: 'Sample description',
+  title: 'Page loading...',
+  desc: 'Page loading...',
   forums: []
 }
 
@@ -300,10 +300,10 @@ export default {
       // while(forum.length>0){
       //   forum.pop()
       // }
-      board.id = ''
-      board.author = ''
-      board.title = 'Page loading...'
-      board.desc = 'Page loading...'
+      // board.id = ''
+      // board.author = ''
+      // board.title = 'Page loading...'
+      // board.desc = 'Page loading...'
       const { data: res } = await this.$http.get(`boards/findOne/${id}`)
       if (res.status == 200) {
         console.log(res.data)
