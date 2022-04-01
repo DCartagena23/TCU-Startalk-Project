@@ -208,17 +208,17 @@ const board = {
   forums: []
 }
 
-// window.onload = function(){
-//   while(posts.length>0){
-//         posts.pop()
-//   }
-// };
+window.onload = function(){
+  while(posts.length>0){
+        posts.pop()
+  }
+};
 
-// window.onbeforeunload = function(){
-//   while(posts.length>0){
-//         posts.pop()
-//   }
-// };
+window.onbeforeunload = function(){
+  while(posts.length>0){
+        posts.pop()
+  }
+};
 
 export default {
   setup() {
@@ -255,23 +255,23 @@ export default {
         messages: [],
       };
       posts.push(newPost);
-      this.addForum();
+      this.addForum(this.$route.params.boardId);
       this.forumBool = false;
       this.forumBool = true;
     },
     toggleForumPost(id){
       this.$router.push({ path: `/post/${id}` })
     },
-     async getAllForums(){
-      const { data: res } = await this.$http.get(`/forums/findAll`)
+     async getAllForums(id){
+      const { data: res } = await this.$http.get(`/boards/findOne/${id}`)
       if (res.status == 200) {
         console.log(res.data)
       }
       while (posts.length > 0){
         posts.pop()
       }
-      console.log(posts)
-      res.data.forEach((post) => {
+      // console.log(posts)
+      res.data.forums.forEach((post) => {
         var newPost = {
           id: post.id,
           author: post.author,
@@ -296,9 +296,38 @@ export default {
           .toLowerCase()
       )
     },
-  async addForum(){
+    async setForum(id){
+      // while(forum.length>0){
+      //   forum.pop()
+      // }
+      board.id = ''
+      board.author = ''
+      board.title = 'Page loading...'
+      board.desc = 'Page loading...'
+      const { data: res } = await this.$http.get(`boards/findOne/${id}`)
+      if (res.status == 200) {
+        console.log(res.data)
+        board.id = res.data.id
+        board.author = res.data.author
+        board.title = res.data.title
+        board.desc = res.data.desc
+        this.postBool = false;
+        this.postBool = true;
+        // forum.messages = res.data.messages
+        // var newPost = {
+        //   id:res.data.id,
+        //   author: res.data.author,
+        //   title: res.data.title,
+        //   desc: res.data.desc,
+        //   messages: res.data.messages,
+        // }
+        // forum.push(newPost);
+        // console.log(forum[0])
+      }
+    },
+  async addForum(id){
     console.log(posts[posts.length-1])
-    const { data: res } = await this.$http.post(`/forums/saveForum`,posts[posts.length-1])
+    const { data: res } = await this.$http.post(`/forums/saveForum/${id}`,posts[posts.length-1])
     console.log(res.data)
   },
   },
@@ -306,10 +335,9 @@ export default {
     toggleEditButton: Boolean
   },
   mounted(){
-    this.getAllForums()
+    this.setForum(this.$route.params.boardId);
+    // this.getMessages(this.$route.params.forumId);
+    this.getAllForums(this.$route.params.boardId)
   }
 }
 </script>
-© 2022 Tailwind Labs Inc. All rights reserved.
-
-Privacy Policy

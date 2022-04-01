@@ -187,14 +187,26 @@
 import Breadcrumb from '@/components/Breadcrumb.vue'
 import Header from '@/components/Header.vue'
 const posts = [
-  {
-    id: '1',
-    author : '',
-    title: 'Post 1',
-    desc: 'Sample description',
-    messages: [],
-  },
+//   {
+//     id: '1',
+//     author : 'Jane Cooper',
+//     title: 'Post 1',
+//     desc: 'Sample description',
+//     messages: [],
+//   },
 ]
+
+// window.onload = function(){
+//   while(posts.length>0){
+//         posts.pop()
+//   }
+// };
+
+// window.onbeforeunload = function(){
+//   while(posts.length>0){
+//         posts.pop()
+//   }
+// };
 
 export default {
   setup() {
@@ -230,7 +242,7 @@ export default {
         messages: [],
       };
       posts.push(newPost);
-    //   this.addForum();
+      this.addForum();
       this.forumBool = false;
       this.forumBool = true;
     },
@@ -273,7 +285,7 @@ export default {
     },
   async addForum(){
     console.log(posts[posts.length-1])
-    const { data: res } = await this.$http.post(`/boards/saveForum`,posts[posts.length-1])
+    const { data: res } = await this.$http.post(`/boards/saveBoard`,posts[posts.length-1])
     console.log(res.data)
   },
   },
@@ -281,7 +293,7 @@ export default {
     toggleEditButton: Boolean
   },
   mounted(){
-    // this.getAllForums()
+    this.getAllForums()
   }
 }
 </script>
