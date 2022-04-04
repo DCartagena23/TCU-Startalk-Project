@@ -51,7 +51,7 @@
           </div>
 
           <div class="form-group">
-            <label for="teacher">Teacher</label>
+            <label for="teacher">Create a Teacher Account</label>
               <input
               v-model="teacher"
               type="checkbox"
