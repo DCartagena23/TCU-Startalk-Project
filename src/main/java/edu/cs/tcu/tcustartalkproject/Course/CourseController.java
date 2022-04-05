@@ -4,6 +4,7 @@ import edu.cs.tcu.tcustartalkproject.AudioTest.AudioTest;
 import edu.cs.tcu.tcustartalkproject.AudioTest.Homework;
 import edu.cs.tcu.tcustartalkproject.Authentication.JWTRepos.UserService;
 import edu.cs.tcu.tcustartalkproject.Authentication.Models.User;
+import edu.cs.tcu.tcustartalkproject.Board.Board;
 import edu.cs.tcu.tcustartalkproject.Book.Book;
 import edu.cs.tcu.tcustartalkproject.Chapter.Chapter;
 import edu.cs.tcu.tcustartalkproject.GrammarWord.GrammarWord;
@@ -129,6 +130,14 @@ public class CourseController {
         Course course = courseService.findById(id);
         List<Homework> hws = course.getHws();
         return new Result(StatusCode.SUCCESS, "Get Hw List!", hws);
+    }
+
+    @GetMapping("/getBoardList/{id}")
+    @ResponseBody
+    public Result getBoardList(@PathVariable String id) {
+        Course course = courseService.findById(id);
+        List<Board> board = course.getBoards();
+        return new Result(StatusCode.SUCCESS, "Get Board List!", board);
     }
 
     @GetMapping("/getName/{id}")

@@ -10,6 +10,9 @@
   <li v-if="test"><a href="#" @click.prevent="goTest">Test</a></li>
   <li v-if="answer"><a href="#" @click.prevent="goAnswer">View Answer</a></li>
   <li v-if="comment"><a href="#" @click.prevent="goComment">Comment</a></li>
+  <li v-if="board"><a href="#" @click.prevent="goBoard">Board</a></li>
+  <li v-if="forum"><a href="#" @click.prevent="goForum">Forum</a></li>
+  <li v-if="post"><a href="#" @click.prevent="goPost">Post</a></li>
 </ul> 
 </template>
 
@@ -62,6 +65,9 @@ export default {
       answer: false,
       comment: false,
       homework: false,
+      board: false,
+      forum: false,
+      post: false,
     }
   },
   created(){
@@ -110,6 +116,21 @@ export default {
       this.answer = true
       this.comment = true
     }
+    if (this.path == "board"){
+      this.course = true
+      this.board = true
+    }
+    if (this.path == "forum"){
+      this.course = true
+      this.board = true
+      this.forum= true
+    }
+    if (this.path == "post"){
+      this.course = true
+      this.board = true
+      this.forum = true
+      this.post = true
+    }
   },
   methods: {
     goHome(){
@@ -143,6 +164,15 @@ export default {
     goComment(){
       this.$router.push({ path: `/audioAnswerComment/${this.$route.params.courseId}/${this.$route.params.homeworkId}/${this.$route.params.id}/${this.$route.params.answerId}` })   
     },
+    goBoard(){
+      this.$router.push({ path: `/board/${this.$route.params.courseId}` }) 
+    },
+    goForum(){
+      this.$router.push({ path: `/forum/${this.$route.params.courseId}/${this.$route.params.boardId}` }) 
+    },
+    goPost(){
+      this.$router.push({ path: `/post/${this.$route.params.courseId}/${this.$route.params.boardId}/${this.$route.params.forumId}` }) 
+    }
   }
 }
 </script>

@@ -260,7 +260,7 @@ export default {
       this.forumBool = true;
     },
     toggleForumPost(id){
-      this.$router.push({ path: `/post/${id}` })
+      this.$router.push({ path: `/post/${this.$route.params.courseId}/${this.$route.params.boardId}/${id}` })
     },
      async getAllForums(id){
       const { data: res } = await this.$http.get(`/boards/findOne/${id}`)

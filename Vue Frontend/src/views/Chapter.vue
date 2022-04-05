@@ -64,7 +64,7 @@
       v-if=checkRole()
       @click.prevent="showEditchapterForm(chapter.id)"
       >
-      Edit
+      Change Detail
             </button>
             <!-- <a class="btn btn-danger" v-if=checkRole() style="margin-right: 10px" @click.prevent="deleteChapter(chapter.id)">Delete</a> -->
             <button type="button" class="px-6

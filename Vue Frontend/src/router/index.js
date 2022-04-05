@@ -128,13 +128,13 @@ const routes = [
     props: true,
   },
   {
-    path: '/forum/:boardId',
+    path: '/forum/:courseId/:boardId',
     name: 'Forum',
     component: Forum,
     props: true,
   },
   {
-    path: '/post/:forumId',
+    path: '/post/:courseId/:boardId/:forumId',
     name: 'ForumPost',
     component: ForumPost,
     props: true,
@@ -152,7 +152,7 @@ const routes = [
     props: true,
   },
   {
-    path: '/board',
+    path: '/board/:courseId',
     name: 'Board',
     component: Board,
     props: true,

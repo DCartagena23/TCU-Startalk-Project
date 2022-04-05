@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import edu.cs.tcu.tcustartalkproject.AudioTest.AudioTest;
 import edu.cs.tcu.tcustartalkproject.AudioTest.Homework;
 import edu.cs.tcu.tcustartalkproject.Authentication.Models.User;
+import edu.cs.tcu.tcustartalkproject.Board.Board;
 import edu.cs.tcu.tcustartalkproject.Book.Book;
 import edu.cs.tcu.tcustartalkproject.GrammarWord.GrammarWord;
 import org.springframework.data.annotation.Id;
@@ -45,6 +46,10 @@ public class Course implements Serializable {
     @DBRef(lazy = true)
     @JsonIgnoreProperties({"course"})
     private List<Homework> hws = new ArrayList<Homework>();
+
+    @DBRef(lazy = true)
+    @JsonIgnoreProperties({"course"})
+    private List<Board> boards = new ArrayList<Board>();
 
     public Course() {
     }
@@ -122,6 +127,17 @@ public class Course implements Serializable {
     }
     public void addHw(Homework hw) {
         this.hws.add(hw);
+    }
+
+    public List<Board> getBoards() {
+        return boards;
+    }
+
+    public void setBoards(List<Board> boards) {
+        this.boards = boards;
+    }
+    public void addBoard(Board boards) {
+        this.boards.add(boards);
     }
 
 }

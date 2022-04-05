@@ -136,32 +136,45 @@
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Status
                 </th>
-                <!-- <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Role
-                </th> -->
-                <th scope="col" class="relative px-6 py-3">
-                  <span class="sr-only">Edit</span>
+                <th v-if=checkRole() scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Operation
                 </th>
               </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
               <tr v-for="post in posts" :key="post.email">
-                <td v-on:click="toggleForumPost(post.id)" id="toForumBoard" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-left">
+                <td v-if="post.active" v-on:click="toggleForumPost(post.id)" id="toForumBoard" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-left">
                   {{ post.title }}
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-left">
+                <td v-if="post.active" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-left">
                   {{ post.author }}
                 </td>
-               <td class="px-6 py-4 whitespace-nowrap text-left">
+               <td v-if="post.active" class="px-6 py-4 whitespace-nowrap text-left">
                   <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                     Active
                   </span>
                 </td>
-                <!-- <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-left">
-                  {{ post.role }}
-                </td> -->
-                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  <a href="#" class="text-indigo-600 hover:text-indigo-900" v-show="toggleEditButton">Edit</a>
+               <td v-if="post.active && checkRole()"  class="px-6 py-4 whitespace-nowrap text-left">
+            <button type="button" class="px-6
+       py-2.5
+      bg-indigo-600
+      text-white
+      font-medium
+      text-xs
+      leading-tight
+      uppercase
+      rounded
+      shadow-md
+      hover:bg-indigo-700 hover:shadow-lg
+      focus:bg-indigo-600 focus:shadow-lg focus:outline-none focus:ring-0
+      active:bg-indigo-800 active:shadow-lg
+      transition
+      duration-150
+      ease-in-out" style="align-self:center;margin-right: 10px;"
+      @click.prevent="deleteBoard(post.id)"
+      >
+      Delete
+            </button>
                 </td>
               </tr>
             </tbody>
@@ -247,10 +260,10 @@ export default {
       this.forumBool = true;
     },
     toggleForumPost(id){
-      this.$router.push({ path: `/forum/${id}` })
+      this.$router.push({ path: `/forum/${this.$route.params.courseId}/${id}` })
     },
      async getAllForums(){
-      const { data: res } = await this.$http.get(`/boards/findAll`)
+      const { data: res } = await this.$http.get(`/courses/getBoardList/${this.$route.params.courseId}`)
       if (res.status == 200) {
         console.log(res.data)
       }
@@ -265,6 +278,7 @@ export default {
           title: post.title,
           description: post.desc,
           forums: post.forums,
+          active: post.active,
         }
         posts.push(newPost);
       })
@@ -284,10 +298,26 @@ export default {
       )
     },
   async addForum(){
-    console.log(posts[posts.length-1])
-    const { data: res } = await this.$http.post(`/boards/saveBoard`,posts[posts.length-1])
+    var newBoard = posts[posts.length-1] 
+    newBoard.active = true
+    const { data: res } = await this.$http.post(`/boards/saveBoard/${this.$route.params.courseId}`,newBoard)
     console.log(res.data)
   },
+      checkRole(){
+      if (this.$store.state.auth.user.roles[0] == "ROLE_TEACHER") return true
+      else return false
+    },  
+
+    async deleteBoard(id) {
+      if (confirm('Do you want to delete this Board?')) {
+        const { data: res } = await this.$http.delete(`/boards/deleteBoard/${id}`)
+        if (res.status == 200) {
+          this.getAllForums()
+          }
+        } else {
+          alert('Cannot delete Board!')
+        }
+      },
   },
   props: {
     toggleEditButton: Boolean
