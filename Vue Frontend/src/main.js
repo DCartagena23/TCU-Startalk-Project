@@ -7,7 +7,7 @@ import axios from 'axios'
 // Importing Compiled CSS and JS from Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
-import 'bootstrap/dist/js/bootstrap.bundle.js' 
+
 // Vue Router
 import router from './router'
 
@@ -18,21 +18,19 @@ import store from './store'
 import * as VeeValidate from 'vee-validate'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
+import { faVolumeUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { fas } from './free-solid-svg-icons'
 import {
-    faVolumeUp,
-    faBars,
-    faTrash,
     faHome,
     faUser,
     faUserPlus,
     faSignInAlt,
-    faSignOutAlt,
-    faTrashAlt
+    faSignOutAlt
   } from '@fortawesome/free-solid-svg-icons';
-library.add(faHome, faUser, faUserPlus, faSignInAlt, faSignOutAlt,faVolumeUp,faBars,faTrash,faTrashAlt,fas);
+library.add(faHome, faUser, faUserPlus, faSignInAlt, faSignOutAlt);
 import './assets/tailwind.css'
+
+library.add(faVolumeUp)
 
 const bootstrap = require('bootstrap')
 
