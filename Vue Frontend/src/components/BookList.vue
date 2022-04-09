@@ -1,12 +1,12 @@
 <template>
-  <table class="table table-striped table-hover">
+  <table class="table table-hover">
     <thead>
       <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Author</th>
+        <th style="width: 200px;">Id</th>
+        <th style="min-width: 200px;">Name</th>
+        <th style="min-width: 200px;" >Author</th>
         <th>Description</th>
-        <th>Operations</th>
+        <th style="width: 100px; text-align: center;" v-if=checkRole()>Operations</th>
       </tr>
     </thead>
     <tbody>
@@ -30,5 +30,11 @@ export default {
     return {}
   },
   emits: ['edit', 'delete', 'view'],
+  methods:{
+    checkRole(){
+      if (this.$store.state.auth.user.roles[0] == "ROLE_TEACHER") return true
+      else return false
+    },
+  }
 }
 </script>
