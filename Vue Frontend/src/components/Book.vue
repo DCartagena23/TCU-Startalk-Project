@@ -1,8 +1,7 @@
 <template>
   <div class="container">
     <!-- Book List -->
-    <div class="py-10">
-    <h6 class="display-3" style="text-align:center;">Course: {{title}}</h6>
+    <div class="py-6">
     <h1 class="display-6" style="text-align:center;">Book List</h1>
     <div style="text-align: center;">
       <!-- <a class="btn btn-primary" v-if=checkRole() @click.prevent="showNewBookForm">Add a New Book</a> -->
@@ -54,11 +53,7 @@
               </div>
               <div class="mb-3">
                 <label for="book-description" class="col-form-label">Description:</label>
-                <input type="text" class="form-control" id="book-description" v-model="bookForm.desc" />
-              </div>
-              <div class="mb-3">
-                <label for="book-price" class="col-form-label">Price:</label>
-                <input type="text" class="form-control" id="book-price" v-model="bookForm.price" />
+                <textarea type="text" class="form-control" rows="4" id="book-description" v-model="bookForm.desc" />
               </div>
             </form>
           </div>
@@ -84,7 +79,6 @@ export default {
   data: function () {
     return {
       course: {},
-      title:"",
       database: [],
       bookForm: {},
       bookFormName: '',
@@ -96,7 +90,6 @@ export default {
     this.setHeader()
     this.bookFormModal = new this.$bootstrap.Modal(document.getElementById('bookForm'), {})
     this.getBookList(this.$route.params.courseId)
-    this.getName(this.$route.params.courseId)
   },
   methods: {
 
@@ -104,13 +97,6 @@ export default {
       const { data: res } = await this.$http.get(`/courses/getBookList/${id}`)
       if (res.status == 200) {
         this.database = res.data
-      }
-    },
-
-    async getName(id) {
-      const { data: res } = await this.$http.get(`/courses/getName/${id}`)
-      if (res.status == 200) {
-        this.title = res.data
       }
     },
 
