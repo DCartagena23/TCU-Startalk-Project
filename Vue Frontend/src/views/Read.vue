@@ -64,11 +64,14 @@
           <td style="width: 100px; text-align: center;">
             <div class="btn-group">
               <button type="button" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
-                <font-awesome-icon :icon="['fas', 'bars']" />
+                <img style="height:20px; width:20px" src="../assets/menu.png"/> 
               </button>
-              <ul class="dropdown-menu" style="min-width: 30px; text-align: center;">
-                <li><a class="dropdown-item" @click.prevent="showEditForm(word.id)"><font-awesome-icon :icon="['fas', 'gear']" /> </a></li> 
-                <li><a class="dropdown-item" @click.prevent="deletew(word.id)"><font-awesome-icon :icon="['fas', 'trash']" /></a></li>              </ul>
+              <ul class="dropdown-menu" style="min-width: 55px; text-align: center;">
+                <li><a class="dropdown-item" @click.prevent="showEditForm(word.id)">
+                  <img style="text-align: center; height:20px; width:20px" src="../assets/gear.png"/> </a></li> 
+                <li><a class="dropdown-item" @click.prevent="deletew(word.id)">
+                  <img style="text-align: center; height:20px; width:20px" src="../assets/trash.png"/> </a></li> 
+              </ul>
             </div>
           </td>
         </tr>

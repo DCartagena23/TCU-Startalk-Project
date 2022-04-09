@@ -50,12 +50,17 @@
           <td style="width: 100px; text-align: center;" v-if="test.active">
             <div class="btn-group">
               <button type="button" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
-                <font-awesome-icon :icon="['fas', 'bars']" />
+                <img style="height:20px; width:20px" src="../assets/menu.png"/> 
               </button>
-              <ul class="dropdown-menu" style="min-width: 30px; text-align: center;">
-                <li><a class="dropdown-item" v-if=checkRole() @click.prevent="showEditTestForm(test.id)"><font-awesome-icon :icon="['fas', 'gear']" /> </a></li> 
-                <li><a class="dropdown-item" @click.prevent="viewAnswer(test.id)"><span title="View Submitted Answer."><font-awesome-icon :icon="['fas', 'eye']" /></span></a></li>    
-                <li><a class="dropdown-item" v-if=checkRole() @click.prevent="deleteTest(test.id)"><font-awesome-icon :icon="['fas', 'trash']" /></a></li>              </ul>
+              <ul class="dropdown-menu" style="min-width: 55px; text-align: center;">
+                <li><a class="dropdown-item" v-if=checkRole() @click.prevent="showEditTestForm(test.id)">
+                  <img style="text-align: center; height:20px; width:20px" src="../assets/gear.png"/></a></li> 
+                <li><a class="dropdown-item" @click.prevent="viewAnswer(test.id)">
+                  <span title="View Submitted Answer.">
+                    <img style="text-align: center; height:20px; width:20px" src="../assets/eye.png"/> </span></a></li>    
+                <li><a class="dropdown-item" v-if=checkRole() @click.prevent="deleteTest(test.id)">
+                  <img style="text-align: center; height:20px; width:20px" src="../assets/trash.png"/></a></li>            
+              </ul>
             </div>
           </td>
         </tr>
