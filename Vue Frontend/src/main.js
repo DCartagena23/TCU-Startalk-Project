@@ -17,7 +17,7 @@ import store from './store'
 //VeeValidate
 import * as VeeValidate from 'vee-validate'
 
-import { library } from '@fortawesome/fontawesome-svg-core'
+import { library } from './fontawesome-svg-core'
 import { faVolumeUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
