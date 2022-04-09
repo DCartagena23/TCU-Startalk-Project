@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <Breadcrumb/>
     <TeacherHeader />
   <div class="container">

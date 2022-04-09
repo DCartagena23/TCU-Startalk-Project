@@ -19,6 +19,8 @@ import store from './store'
 //VeeValidate
 import * as VeeValidate from 'vee-validate'
 
+import './assets/css/all.css'
+import './assets/css/solid.css'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { fas } from '@fortawesome/free-solid-svg-icons'
@@ -30,9 +32,11 @@ import {
     faSignOutAlt
   } from '@fortawesome/free-solid-svg-icons';
 library.add(faHome, faUser, faUserPlus, faSignInAlt, faSignOutAlt);
+library.add(fas  )
+
 import './assets/tailwind.css'
 
-library.add(fas  )
+
 
 const bootstrap = require('bootstrap')
 
