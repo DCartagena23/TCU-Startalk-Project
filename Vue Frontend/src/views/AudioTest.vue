@@ -33,30 +33,107 @@
     </div>
     </div>
     <!-- <hr /> -->
-    <table class="table table-hover">
+    <table class="table table-striped table-hover">
       <thead>
         <tr>
-          <th style="width: 200px;">Id</th>
+          <th>Id</th>
           <th>Title</th>
-          <th style="width: 400px;">Prepare Time (seconds)</th>
-          <th style="width: 100px; text-align: center;" >Operations</th>
+          <th>Prepare Time (seconds)</th>
+          <th>Operations</th>
         </tr>
       </thead>
       <tbody>
         <tr :key="test.id" v-for="test in testList">
-          <td style="width: 200px;" v-if="test.active">{{ test.id }}</td>
-          <td @click.prevent="startTest(test)" onmouseover="this.style.color='orange';" onmouseout="this.style.color='';" v-if="test.active">{{ test.title }}</td>
-          <td style="width: 400px;" v-if="test.active">{{ test.prepTime }}</td>
-          <td style="width: 100px; text-align: center;" v-if="test.active">
-            <div class="btn-group">
-              <button type="button" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
-                <font-awesome-icon :icon="['fas', 'bars']" />
-              </button>
-              <ul class="dropdown-menu" style="min-width: 30px; text-align: center;">
-                <li><a class="dropdown-item" v-if=checkRole() @click.prevent="showEditTestForm(test.id)"><font-awesome-icon :icon="['fas', 'gear']" /> </a></li> 
-                <li><a class="dropdown-item" @click.prevent="viewAnswer(test.id)"><span title="View Submitted Answer."><font-awesome-icon :icon="['fas', 'eye']" /></span></a></li>    
-                <li><a class="dropdown-item" v-if=checkRole() @click.prevent="deleteTest(test.id)"><font-awesome-icon :icon="['fas', 'trash']" /></a></li>              </ul>
-            </div>
+          <td v-if="test.active">{{ test.id }}</td>
+          <td v-if="test.active">{{ test.title }}</td>
+          <td v-if="test.active">{{ test.prepTime }}</td>
+          <td v-if="test.active">
+            <!-- <a class="btn btn-success" style="margin-right: 10px" @click.prevent="startTest(test.id)">Start Test</a> -->
+             <button type="button" class="px-6
+       py-2.5
+      bg-indigo-600
+      text-white
+      font-medium
+      text-xs
+      leading-tight
+      uppercase
+      rounded
+      shadow-md
+      hover:bg-indigo-700 hover:shadow-lg
+      focus:bg-indigo-600 focus:shadow-lg focus:outline-none focus:ring-0
+      active:bg-indigo-800 active:shadow-lg
+      transition
+      duration-150
+      ease-in-out" style="align-self:center;margin-right: 10px;"
+      @click.prevent="startTest(test)"
+      >
+      Start Test
+            </button>
+            <!-- <a class="btn btn-warning" v-if=checkRole() style="margin-right: 10px" @click.prevent="showEditTestForm(test.id)">Edit</a> -->
+              <button type="button" class="px-6
+       py-2.5
+      bg-indigo-600
+      text-white
+      font-medium
+      text-xs
+      leading-tight
+      uppercase
+      rounded
+      shadow-md
+      hover:bg-indigo-700 hover:shadow-lg
+      focus:bg-indigo-600 focus:shadow-lg focus:outline-none focus:ring-0
+      active:bg-indigo-800 active:shadow-lg
+      transition
+      duration-150
+      ease-in-out" style="align-self:center;margin-right: 10px;"
+      @click.prevent="showEditTestForm(test.id)"
+      v-if=checkRole()
+      >
+      Edit
+            </button>
+            <!-- <a class="btn btn-danger"  v-if=checkRole() style="margin-right: 10px" @click.prevent="deleteTest(test.id)">Delete</a> -->
+            <button type="button" class="px-6
+       py-2.5
+      bg-indigo-600
+      text-white
+      font-medium
+      text-xs
+      leading-tight
+      uppercase
+      rounded
+      shadow-md
+      hover:bg-indigo-700 hover:shadow-lg
+      focus:bg-indigo-600 focus:shadow-lg focus:outline-none focus:ring-0
+      active:bg-indigo-800 active:shadow-lg
+      transition
+      duration-150
+      ease-in-out" style="align-self:center;margin-right: 10px;"
+      @click.prevent="deleteTest(test.id)"
+      v-if=checkRole()
+      >
+      Delete
+            </button>
+            <!-- <a class="btn btn-success" style="margin-right: 10px" @click.prevent="viewAnswer(test.id)">View Submitted Answer</a> -->
+            <button type="button" class="px-6
+       py-2.5
+      bg-indigo-600
+      text-white
+      font-medium
+      text-xs
+      leading-tight
+      uppercase
+      rounded
+      shadow-md
+      hover:bg-indigo-700 hover:shadow-lg
+      focus:bg-indigo-600 focus:shadow-lg focus:outline-none focus:ring-0
+      active:bg-indigo-800 active:shadow-lg
+      transition
+      duration-150
+      ease-in-out" style="align-self:center;margin-right: 10px;"
+      @click.prevent="viewAnswer(test.id)"
+      >
+      View Submitted Answer
+            </button>
           </td>
         </tr>
       </tbody>
