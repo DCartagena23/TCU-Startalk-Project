@@ -52,24 +52,18 @@
     <table class="table table-striped table-hover">
       <thead>
         <tr>
-          <th style="width: 300px;">Grammar Word</th>
+          <th>Grammar Word</th>
           <th>Description</th>
-          <th style="width: 100px; text-align: center;">Operations</th>
+          <th>Operations</th>
         </tr>
       </thead>
       <tbody>
         <tr :key="word.id" v-for="word in wordList">
-          <td style="width: 300px;">{{ word.word }}</td>
+          <td>{{ word.word }}</td>
           <td>{{ word.desc }}</td>
-          <td style="width: 100px; text-align: center;">
-            <div class="btn-group">
-              <button type="button" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
-                <font-awesome-icon :icon="['fas', 'bars']" />
-              </button>
-              <ul class="dropdown-menu" style="min-width: 30px; text-align: center;">
-                <li><a class="dropdown-item" @click.prevent="showEditForm(word.id)"><font-awesome-icon :icon="['fas', 'gear']" /> </a></li> 
-                <li><a class="dropdown-item" @click.prevent="deletew(word.id)"><font-awesome-icon :icon="['fas', 'trash']" /></a></li>              </ul>
-            </div>
+          <td>
+            <a class="btn btn-warning" style="margin-right: 10px" @click.prevent="showEditForm(word.id)">Edit</a>
+            <a class="btn btn-danger" style="margin-right: 10px" @click.prevent="deletew(word.id)">Delete</a>
           </td>
         </tr>
       </tbody>
