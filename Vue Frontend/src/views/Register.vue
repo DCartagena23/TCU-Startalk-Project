@@ -30,6 +30,7 @@
               name="email"
               :rules="isRequired"
             />
+            </div>
             <!-- <div
               v-if="submitted && errors.has('email')"
               class="alert-danger"
@@ -39,7 +40,7 @@
             <label for="password">Password</label>
               <input
               v-model="password"
-              type="password" 
+              type="password"
               class="form-control"
               name="password"
               :rules="isRequired"
@@ -49,7 +50,18 @@
               class="alert-danger"
             >{{errors.first('password')}}</div> -->
           </div>
-
+<!--
+            <div class="form-group">
+              <label for="rePassword">Confirm password</label>
+              <input
+                  v-model="rePassword"
+                  type="rePassword"
+                  class="form-control"
+                  name="rePassword"
+                  :rules="isRequired"
+              />
+              </div>
+-->
           <div class="form-group">
             <label for="teacher">Teacher</label>
               <input
@@ -61,8 +73,7 @@
               class="alert-danger"
             >{{errors.first('password')}}</div> -->
           </div>
-
-          </div>
+          
           <div class="form-group">
             <button class="btn btn-primary btn-block">Sign Up</button>
           </div>
@@ -85,6 +96,7 @@ export default {
       username:"",
       email:"",
       password:"",
+      //rePassword:"",
       teacher:false,
       submitted: false,
       successful: false,
@@ -114,6 +126,7 @@ export default {
       var user ={
         username: this.username,
         password: this.password,
+        //rePassword: this.rePassword,
         email: this.email,
         roles: roles
       }
