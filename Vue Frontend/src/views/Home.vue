@@ -83,7 +83,7 @@
               <ul class="dropdown-menu" style="min-width: 55px; text-align: center;">
                 <li><a class="dropdown-item" @click.prevent="showEditCourseForm(course.id)">
                   <img style="text-align: center; height:20px; width:20px" src="../assets/gear.png"/>  </a></li> 
-                <li><a class="dropdown-item" @click.prevent="deleteCourse(course.id)">
+                <li><a class="dropdown-item" @click.prevent="deleteCourse(course)">
                   <img style="text-align: center; height:20px; width:20px" src="../assets/trash.png"/> </a></li>
               </ul>
             </div>
@@ -239,9 +239,10 @@ export default {
       }
       this.courseFormModal.hide()
     },
-    async deleteCourse(id) {
-      if (confirm('Do you want to delete this Course?')) {
-        const { data: res } = await this.$http.delete(`/courses/deleteCourse/${id}`)
+    async deleteCourse(course) {
+      if (this.$store.state.auth.user.id != course.teacher.id) alert('You are not the course owner.')
+      else if (confirm('Do you want to delete this Course?')) {
+        const { data: res } = await this.$http.delete(`/courses/deleteCourse/${course.id}`)
         if (res.status == 200) {
           this.getCourseList()
           }
