@@ -1,19 +1,17 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 <template>
 <div>
-<Breadcrumb />
-<Header />
 <div class="py-10" v-show="forumBool">
   <header style="padding-bottom: 2.5em;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 class="text-3xl font-bold leading-tight text-gray-900" style="text-align:center;">
             Discussion Boards
           </h1>
-          <div style="text-align: center">
+          <div v-if=checkRole() style="text-align: center">
             <button type="button" class="px-6
       py-2.5
       bg-indigo-600
-      text-white
+      text-white  
       font-medium
       text-xs
       leading-tight
@@ -197,8 +195,6 @@
 </style>
 
 <script>
-import Breadcrumb from '@/components/Breadcrumb.vue'
-import Header from '@/components/Header.vue'
 const posts = [
 //   {
 //     id: '1',
@@ -222,16 +218,14 @@ const posts = [
 // };
 
 export default {
+name: 'BoardModule',
   setup() {
 
     return {
       posts,
     }
   },
-  components: {
-    Breadcrumb,
-    Header
-  },
+
   computed: {
       currentUser() {
         return this.$store.state.auth.user;

@@ -17,6 +17,7 @@ public class Board implements Serializable {
     private String author;
     private String title;
     private String desc;
+    private boolean active;
 
     @DBRef
     @JsonManagedReference
@@ -68,4 +69,7 @@ public class Board implements Serializable {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    public void setActive(boolean active) { this.active = active; }
+    public boolean getActive() { return active; }
 }

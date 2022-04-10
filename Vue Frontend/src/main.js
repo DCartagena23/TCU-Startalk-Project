@@ -1,3 +1,4 @@
+
 import { createApp } from 'vue'
 
 import App from './App.vue'
@@ -7,6 +8,7 @@ import axios from 'axios'
 // Importing Compiled CSS and JS from Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
+import 'bootstrap/dist/js/bootstrap.bundle.js' 
 
 // Vue Router
 import router from './router'
@@ -18,7 +20,6 @@ import store from './store'
 import * as VeeValidate from 'vee-validate'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faVolumeUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
     faHome,
@@ -30,7 +31,7 @@ import {
 library.add(faHome, faUser, faUserPlus, faSignInAlt, faSignOutAlt);
 import './assets/tailwind.css'
 
-library.add(faVolumeUp)
+
 
 const bootstrap = require('bootstrap')
 

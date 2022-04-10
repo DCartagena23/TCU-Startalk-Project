@@ -52,18 +52,27 @@
     <table class="table table-striped table-hover">
       <thead>
         <tr>
-          <th>Grammar Word</th>
+          <th style="width: 300px;">Grammar Word</th>
           <th>Description</th>
-          <th>Operations</th>
+          <th style="width: 100px; text-align: center;">Operations</th>
         </tr>
       </thead>
       <tbody>
         <tr :key="word.id" v-for="word in wordList">
-          <td>{{ word.word }}</td>
+          <td style="width: 300px;">{{ word.word }}</td>
           <td>{{ word.desc }}</td>
-          <td>
-            <a class="btn btn-warning" style="margin-right: 10px" @click.prevent="showEditForm(word.id)">Edit</a>
-            <a class="btn btn-danger" style="margin-right: 10px" @click.prevent="deletew(word.id)">Delete</a>
+          <td style="width: 100px; text-align: center;">
+            <div class="btn-group">
+              <button type="button" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
+                <img style="height:20px; width:20px" src="../assets/menu.png"/> 
+              </button>
+              <ul class="dropdown-menu" style="min-width: 55px; text-align: center;">
+                <li><a class="dropdown-item" @click.prevent="showEditForm(word.id)">
+                  <img style="text-align: center; height:20px; width:20px" src="../assets/gear.png"/> </a></li> 
+                <li><a class="dropdown-item" @click.prevent="deletew(word.id)">
+                  <img style="text-align: center; height:20px; width:20px" src="../assets/trash.png"/> </a></li> 
+              </ul>
+            </div>
           </td>
         </tr>
       </tbody>

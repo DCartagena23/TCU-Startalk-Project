@@ -31,106 +31,33 @@
     </div>
     </div>
     <hr />
-    <table class="table table-striped table-hover">
+    <table class="table table-hover">
       <thead>
         <tr>
           <th>Chapter</th>
           <th>Name</th>
-          <th>Operations</th>
+          <th style="width: 100px; text-align: center;" v-if=checkRole() >Operations</th>
         </tr>
       </thead>
       <tbody>
         <tr :key="chapter.id" v-for="chapter in chapList">
           <td>Chapter {{ chapter.number }}</td>
-          <td>{{ chapter.title }}</td>
-          <td>
-            <!-- <a class="btn btn-warning" v-if=checkRole() style="margin-right: 10px" @click.prevent="showEditchapterForm(chapter.id)">Edit</a> -->
-             <button type="button" class="px-6
-       py-2.5
-      bg-indigo-600
-      text-white
-      font-medium
-      text-xs
-      leading-tight
-      uppercase
-      rounded
-      shadow-md
-      hover:bg-indigo-700 hover:shadow-lg
-      focus:bg-indigo-600 focus:shadow-lg focus:outline-none focus:ring-0
-      active:bg-indigo-800 active:shadow-lg
-      transition
-      duration-150
-      ease-in-out" style="align-self:center;margin-right: 10px;"
-      v-if=checkRole()
-      @click.prevent="showEditchapterForm(chapter.id)"
-      >
-      Edit
-            </button>
-            <!-- <a class="btn btn-danger" v-if=checkRole() style="margin-right: 10px" @click.prevent="deleteChapter(chapter.id)">Delete</a> -->
-            <button type="button" class="px-6
-       py-2.5
-      bg-indigo-600
-      text-white
-      font-medium
-      text-xs
-      leading-tight
-      uppercase
-      rounded
-      shadow-md
-      hover:bg-indigo-700 hover:shadow-lg
-      focus:bg-indigo-600 focus:shadow-lg focus:outline-none focus:ring-0
-      active:bg-indigo-800 active:shadow-lg
-      transition
-      duration-150
-      ease-in-out" style="align-self:center;margin-right: 10px;"
-      v-if=checkRole()
-      @click.prevent="deleteChapter(chapter.id)"
-      >
-      Delete
-            </button>
-            <!-- <a class="btn btn-success" style="margin-right: 10px" @click.prevent="view(chapter)">View</a> -->
-            <button type="button" class="px-6
-       py-2.5
-      bg-indigo-600
-      text-white
-      font-medium
-      text-xs
-      leading-tight
-      uppercase
-      rounded
-      shadow-md
-      hover:bg-indigo-700 hover:shadow-lg
-      focus:bg-indigo-600 focus:shadow-lg focus:outline-none focus:ring-0
-      active:bg-indigo-800 active:shadow-lg
-      transition
-      duration-150
-      ease-in-out" style="align-self:center;margin-right: 10px;"
-      v-if=checkRole()
-      @click.prevent="view(chapter)"
-      >
-      View
-            </button>
-            <!-- <a class="btn btn-success" v-if=checkRole() @click.prevent="studentView(chapter)">Student View</a> -->
-            <button type="button" class="px-6
-       py-2.5
-      bg-indigo-600
-      text-white
-      font-medium
-      text-xs
-      leading-tight
-      uppercase
-      rounded
-      shadow-md
-      hover:bg-indigo-700 hover:shadow-lg
-      focus:bg-indigo-600 focus:shadow-lg focus:outline-none focus:ring-0
-      active:bg-indigo-800 active:shadow-lg
-      transition
-      duration-150
-      ease-in-out" style="align-self:center;margin-right: 10px;"
-      @click.prevent="studentView(chapter)"
-      >
-      Student View
-            </button>
+          <td @click.prevent="view(chapter)" onmouseover="this.style.color='orange';" onmouseout="this.style.color='';">{{ chapter.title }}</td>
+          <td v-if=checkRole() style="width: 100px; text-align: center;">
+            <div class="btn-group">
+              <button type="button" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
+                <img style="height:20px; width:20px" src="../assets/menu.png"/> 
+              </button>
+              <ul class="dropdown-menu" style="min-width: 55px; text-align: center;">
+                <li><a class="dropdown-item" @click.prevent="showEditchapterForm(chapter.id)">
+                  <img style="text-align: center; height:20px; width:20px" src="../assets/gear.png"/> </a></li> 
+                <li><a class="dropdown-item" @click.prevent="studentView(chapter)">
+                  <span title="Student View.">
+                    <img style="text-align: center; height:20px; width:20px" src="../assets/group.png"/></span></a></li>    
+                <li><a class="dropdown-item" @click.prevent="deleteChapter(chapter.id)">
+                  <img style="text-align: center; height:20px; width:20px" src="../assets/trash.png"/></a></li>              
+              </ul>
+            </div>
           </td>
         </tr>
       </tbody>

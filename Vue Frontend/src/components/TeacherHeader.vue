@@ -60,9 +60,9 @@
           <!-- <div v-on:click="toggleExam" class=" section text-base font-medium text-gray-500 hover:text-gray-900">
             Exam
           </div> -->
-          <!-- <div v-on:click="toggleForum" class="section text-base font-medium text-gray-500 hover:text-gray-900">
+          <div v-if="forumFlag()" v-on:click="toggleForum" class="section text-base font-medium text-gray-500 hover:text-gray-900">
             Forum
-          </div> -->
+          </div>
           <div v-on:click="toggleHelp" class="section text-base font-medium text-gray-500 hover:text-gray-900">
             Help
           </div>
@@ -264,19 +264,29 @@ export default {
       recentPosts,
     }
   },
+  created: function(){
+  },
   methods:{
     signOut: function(){
       this.$store.dispatch('auth/logout')
       this.$router.push('/login');
     },
     toggleForum: function(){
-      this.$router.push({ path: '/forum' })
+      this.$router.push({ path: `/board/${this.$route.params.courseId}` })
     },
     toggleTextbook: function(){
       this.$router.push({ path: '/home' })
     },
     toggleHelp: function(){
       this.$router.push({ path: '/help' })
+    },
+
+    forumFlag: function(){
+      var path = this.$route.path.split("/")[1]
+      if (path == "home"){
+        return false
+      }
+      else return true
     }
   },
   props: {
