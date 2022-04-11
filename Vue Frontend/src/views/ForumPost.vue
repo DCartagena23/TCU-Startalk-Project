@@ -84,10 +84,6 @@ window.onload = function(){
   while(posts.length>0){
         posts.pop()
   }
-  if(!window.location.hash) {
-          window.location = window.location + '#loaded';
-          window.location.reload();
-  }
 };
 
 window.onbeforeunload = function(){
