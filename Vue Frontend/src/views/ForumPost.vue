@@ -84,10 +84,14 @@ window.onload = function(){
   while(posts.length>0){
         posts.pop()
   }
-  if(!window.location.hash) {
-          window.location = window.location + '#loaded';
-          window.location.reload();
-  }
+  if (window.localStorage) {
+    if (!localStorage.getItem('reload')) {
+      localStorage['reload'] = true;
+      window.location.reload();
+    }else {
+      localStorage.removeItem('reload');
+      }
+    }
 };
 
 window.onbeforeunload = function(){
@@ -261,6 +265,7 @@ export default {
       this.setForum(this.$route.params.forumId);
       this.getMessages(this.$route.params.forumId);
       this.addMessages();
+      // location.reload();
     }
 }
 </script>
