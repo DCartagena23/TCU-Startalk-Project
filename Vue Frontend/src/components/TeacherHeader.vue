@@ -63,9 +63,9 @@
           <div v-if="forumFlag()" v-on:click="toggleForum" class="section text-base font-medium text-gray-500 hover:text-gray-900">
             Forum
           </div>
-          <div v-on:click="toggleHelp" class="section text-base font-medium text-gray-500 hover:text-gray-900">
+          <!-- <div v-on:click="toggleHelp" class="section text-base font-medium text-gray-500 hover:text-gray-900">
             Help
-          </div>
+          </div> -->
           <div v-on:click="signOut" class="section text-base font-medium text-gray-500 hover:text-gray-900">
             Sign Out
           </div>
