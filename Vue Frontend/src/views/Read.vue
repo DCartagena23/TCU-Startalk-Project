@@ -2,42 +2,42 @@
 <Breadcrumb/>
   <div class="container">
     <!-- Text Area -->
-    <div :key="paragraph" v-for="paragraph in list">
-      <div :key="word" v-for="word in paragraph">
-        <table v-if="word.timeStampHere" style="float: left; text-align: center; margin-right: 10px">
-          <tr style="text-align: center">
-            <td style="text-align: center; height: 30px; min-width: 10px">{{ word.timeStampValue }}</td>
-          </tr>
-          <tr style="text-align: center">
-            <td style="text-align: center; height: 30px; min-width: 10px"><font-awesome-icon :icon="['fas', 'volume-up']" /></td>
-          </tr>
-        </table>
-        <table style="float: left; text-align: center">
-          <tr style="text-align: center" class="noselect">
-            <td v-if="flag" style="text-align: center; height: 30px"></td>
-            <td v-else style="text-align: center; height: 30px" class="noselect" @click="showPinyinForm(word)">{{ word.pinyin }}</td>
-          </tr>
-          <tr style="text-align: center">
-            <td style="text-align: center; height: 30px" @dblclick="viewInfo(word.id)" v-bind:style="{ backgroundColor: word.color }">
-              {{ word.word }}
-            </td>
-          </tr>
-        </table>
-        <table style="float: left; text-align: center">
-          <tr style="text-align: center">
-            <td style="text-align: center; height: 30px; width: 2px"></td>
-          </tr>
-          <tr style="text-align: center">
-            <td style="text-align: center; height: 30px; width: 2px"></td>
-          </tr>
-        </table>
-      </div>
+    <div style="position: relative;" @mouseup="contextMenu($event)" id="element">
+                
+                <ul id="menu" class="container__menu container__menu--hidden" style="min-width: 55px; text-align: center;">
+                <li><a class="dropdown-item" @click.prevent="translatePhrase()">
+                  <img style="text-align: center; height:20px; width:20px" src="../assets/translate.png"/> </a></li> 
+                <li><a class="dropdown-item" @click.prevent="tts()">
+                  <img style="text-align: center; height:20px; width:20px" src="../assets/volume.png"/> </a></li> 
+                </ul>
 
-      <div style="clear: both"></div>
+      <div :key="paragraph" v-for="paragraph in list">
+        <div :key="word" v-for="word in paragraph">
+          <table style="float: left; text-align: center">
+            <tr style="text-align: center" class="noselect">
+              <td v-if="flag" style="text-align: center; height: 30px"></td>
+              <td v-else style="text-align: center; height: 30px" class="noselect" @click="showPinyinForm(word)">{{ word.pinyin }}</td>
+            </tr>
+            <tr style="text-align: center">
+              <td style="text-align: center; height: 30px" @dblclick="viewInfo(word.id)" v-bind:style="{ backgroundColor: word.color }">
+                {{ word.word }}
+              </td>
+            </tr>
+          </table>
+          <table style="float: left; text-align: center">
+            <tr style="text-align: center">
+              <td style="text-align: center; height: 30px; width: 2px"></td>
+            </tr>
+            <tr style="text-align: center">
+              <td style="text-align: center; height: 30px; width: 2px"></td>
+            </tr>
+          </table>
+        </div>
+
+        <div style="clear: both"></div>
+      </div>
     </div>
-    <button @click="toggle" class="btn btn-primary" style="margin-top: 10px">Toggle</button>
-    <button @click="tts()" class="btn btn-primary" style="margin-left: 10px; margin-top: 10px">TTS</button>
-    <button @click="translatePhrase()" class="btn btn-primary" style="margin-left: 10px; margin-top: 10px">Translate</button>
+    <button @click="toggle" class="btn btn-primary" style="margin-top: 10px">Pinyin</button>
     <button @click="edit()" class="btn btn-primary" style="margin-left: 10px; margin-top: 10px">Edit</button>
     <button @click="studentView()" class="btn btn-primary" style="margin-left: 10px; margin-top: 10px">Student View</button>
     <!-- Text Area -->
@@ -208,11 +208,13 @@ export default {
       translateForm: {},
       translateFormModal: null,
       translateFlag: true,
+
+      menu: false,
+      select:"",
     }
   },
   mounted: function () {
     this.init()
-    console.log(this.$route.params.id)
 
     this.wordFormModal = new this.$bootstrap.Modal(document.getElementById('wordForm'), {})
     this.pinyinFormModal = new this.$bootstrap.Modal(document.getElementById('pinyinForm'), {})
@@ -221,6 +223,7 @@ export default {
   created() {
     this.setHeader()
     this.getChapter(this.$route.params.id)
+    
   },
   methods: {
     //get the chapter using id
@@ -254,8 +257,6 @@ export default {
             word: element,
             color: 'white',
             pinyin: '',
-            timeStampHere: false,
-            timeStampValue: '',
           }
           this.pinyinList.forEach((pinyin) => {
             if (pinyin.id == json.word) {
@@ -288,7 +289,7 @@ export default {
           this.list.push(paragraph)
         }
       })
-      console.log(this.list)
+      //console.log(this.list)
     },  
 
     //get the grammar word list
@@ -452,7 +453,7 @@ export default {
     },
 
     //get highlight text
-    getSelectText() {
+    checkSelectText() {
       if (window.getSelection) {
         var stringList = window.getSelection().toString().split('\n')
         var str = ''
@@ -464,9 +465,21 @@ export default {
       }
     },
 
+    saveSelectText() {
+      if (window.getSelection) {
+        var stringList = window.getSelection().toString().split('\n')
+        var str = ''
+        stringList.forEach((element) => {
+          element = element.replace('\r', '')
+          str = str + element
+        })
+        this.select = str;
+      }
+    },
+
     //read highlight text and output to tts
     async tts() {
-      var str = this.getSelectText()
+      var str = this.select
       var chapter = {
         title: str,
       }
@@ -479,7 +492,7 @@ export default {
 
     //read highlight text and translate
     async translatePhrase() {
-      var str = this.getSelectText()
+      var str = this.select
       var chapter = {
         title: str,
       }
@@ -490,7 +503,6 @@ export default {
 
       const { data: res } = await this.$http.post(`/translate`, chapter)
       if (res.status == 200) {
-        console.log(res.data)
         this.translateForm.translate = res.data
       }
     },
@@ -524,33 +536,29 @@ export default {
       }
       else this.$http.defaults.headers.common['Authorization'] = this.$store.state.auth.token; 
     },
+    contextMenu(event) {
+      var text = this.checkSelectText();
+      if (text.length > 0 && !this.menu){
+        this.saveSelectText();
+        event.preventDefault();
+        const menu = document.getElementById('menu');
+        const ele = document.getElementById('element');
+        const rect = ele.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY  - rect.top;
 
-    // async getWord(id) {
-    // try{
-    //   const { data: res } = await this.$http.get(`/words/findOne/${id}`)
-    //   if (res.status == 200) {
-    //       this.wordList.push(res.data)
-    //   }
-    // } catch (error){
-    //     this.createWord(id)
-    // }
-    // },
+        // Set the position for menu
+        menu.style.top = `${y}px`;
+        menu.style.left = `${x}px`;
 
-    // async createWord(id) {
-    // const { data: res } = await this.$http.get(`/words/create/${id}`)
-    // if (res.status == 200) {
-    //   this.wordList.push(res.data)
-    // }
-    // },
-    // getList(){
-    //     var paragraph = this.chapter.text.split("\n")
-    //     for (var j = 0; j<paragraph.length;j++){
-    //       var word = paragraph[j].split("")
-    //       for (var i = 0; i<word.length; i++) {
-    //         this.getWord(word[i])
-    //       }
-    //   }
-    // }
+        menu.classList.remove('container__menu--hidden');
+        this.menu = true;
+      }
+      else{
+        document.getElementById("menu").className = "container__menu container__menu--hidden";
+        this.menu = false;
+      }
+    },
   },
 }
 </script>
@@ -564,4 +572,48 @@ export default {
   user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
 }
+            .container {
+                position: relative;
+            }
+            .container__trigger {
+                /* Center the content */
+                align-items: center;
+                display: flex;
+                justify-content: center;
+
+                /* Size */
+                height: 16rem;
+                width: 16rem;
+
+                /* Misc */
+                border: 1px solid #cbd5e0;
+            }
+            .container__menu {
+                /* Absolute position */
+                position: absolute;
+
+                /* Reset */
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+
+                /* Misc */
+                border: 1px solid #cbd5e0;
+                border-radius: 0.25rem;
+                background-color: #f7fafc;
+            }
+            .container__menu--hidden {
+                display: none;
+            }
+            .container__item {
+                padding: 0.5rem 1rem;
+                white-space: nowrap;
+            }
+            .container__item:hover {
+                background-color: #bee3f8;
+            }
+            .container__divider {
+                border-bottom: 1px solid #cbd5e0;
+                height: 1px;
+            }
 </style>
