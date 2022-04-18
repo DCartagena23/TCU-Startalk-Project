@@ -1,72 +1,37 @@
-package edu.cs.tcu.tcustartalkproject.Authentication.JWTRepos;
+package edu.cs.tcu.tcustartalkproject.Password.Services;
 
-import com.google.rpc.context.AttributeContext;
+import edu.cs.tcu.tcustartalkproject.Authentication.JWTRepos.UserRepository;
 import edu.cs.tcu.tcustartalkproject.Authentication.Models.User;
-import edu.cs.tcu.tcustartalkproject.Course.Course;
-import edu.cs.tcu.tcustartalkproject.Course.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-
-import java.util.UUID;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
-public class UserService {
-    /**
-     * Repository for basic operations: findAll(), findById(), delete(), save(), update()
-     */
-    private final UserRepository userRepository;
-    @Autowired
-    PasswordEncoder encoder;
+public class PasswordService {
 
-    @Autowired
-    public UserService(UserRepository userRepository) {
+    private final UserRepository userRepository;
+
+    public PasswordService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    /**
-     * Method to query all chapters in a book.
-     * @return List of found chapters.
-     */
-    public List<User> findAll() {
-        return userRepository.findAll();
-    }
+    public User findByToken(String token) { return userRepository.findByToken(token); }
 
-    /**
-     * Method to query one chapter by index.
-     * @param id index of the chapter to be sought.
-     * @return Chapter to be sought.
-     */
-    public User findById(final String id) {
-        return userRepository.findById(id).get();
-    }
-
-    /**
-     * Method to delete one chapter by index.
-     * @param id index of the chapter to be deleted.
-     */
-    public void delete(String id) {
-        userRepository.deleteById(id);
-    }
-
-    public User save(User user) {
-        return userRepository.save(user);
-    }
-
-    public User update(User user) {
-        return userRepository.save(user);
-    }
-
-    public User findByEmail(String email) { return userRepository.findByEmail(email); }
+    public User Save(User user) { return userRepository.save(user); }
 
     private static final long EXPIRE_TOKEN_AFTER_MINUTES = 30;
-/*
+
     public String forgotPassword(String email) {
+
 
         Optional<User> userOptional = Optional
                 .ofNullable(userRepository.findByEmail(email));
@@ -84,7 +49,7 @@ public class UserService {
         return user.getToken();
     }
 
-    public String resetPassword(String token, String password) {
+    public String resetPassword(String token) {
 
         Optional<User> userOptional = Optional
                 .ofNullable(userRepository.findByToken(token));
@@ -100,40 +65,29 @@ public class UserService {
 
         }
 
-        User user = userOptional.get();
-        encoder.encode(password);
-        user.setPassword(password);
-        user.setToken(null);
-        user.setTokenCreationDate(null);
-
-        userRepository.save(user);
-        System.out.println("success update");
-
-        return "Your password successfully updated.";
+        return "Valid token.";
     }
-*/
+
+
     /**
      * Generate unique token. You may add multiple parameters to create a strong
      * token.
      *
      * @return unique token
      */
-
-    /*
     private String generateToken() {
         StringBuilder token = new StringBuilder();
 
         return token.append(UUID.randomUUID().toString())
                 .append(UUID.randomUUID().toString()).toString();
     }
-*/
+
     /**
      * Check whether the created token expired or not.
      *
      * @param tokenCreationDate
      * @return true or false
      */
-    /*
     private boolean isTokenExpired(final LocalDateTime tokenCreationDate) {
 
         LocalDateTime now = LocalDateTime.now();
@@ -141,5 +95,5 @@ public class UserService {
 
         return diff.toMinutes() >= EXPIRE_TOKEN_AFTER_MINUTES;
     }
-    */
+
 }

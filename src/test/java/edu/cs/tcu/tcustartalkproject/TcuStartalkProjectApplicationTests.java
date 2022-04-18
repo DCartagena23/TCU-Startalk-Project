@@ -38,7 +38,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 @SpringBootTest
 class TcuStartalkProjectApplicationTests {
     // Sample JUnit test
-    @Test
+//    @Test
     void testLengthTokenize2() {
         Chapter chapter = new Chapter("32f2", 1, "Harry Potter");
         chapter.setTextFromString("洁面仪配合洁面深层清洁毛孔清洁鼻孔面膜碎觉使劲挤才能出一点点皱纹");
@@ -63,7 +63,7 @@ class TcuStartalkProjectApplicationTests {
 //        String translatedText = "Facial Cleanser with Cleansing Deep Clean Pore Cleansing Nose";
 //        assertEquals(returnedText, translatedText);
 //    }
-    @Test
+//    @Test
         //Tests translate when string being translated is multiple languages
     void testLongLengthTranslate() throws Exception {
         Chapter chapter = new Chapter("32f2", 1, "洁面仪配合洁面深层清洁\"hello\"毛孔清洁鼻");
@@ -77,7 +77,7 @@ class TcuStartalkProjectApplicationTests {
     /*
     Test for tts
      */
-    @Test
+//    @Test
     void testTTS() throws Exception {
         Chapter chapter = new Chapter("32f2", 1, "Harry Potter");
         chapter.setTextFromString("洁面仪配合洁面深层清洁\"hello\"毛孔清洁鼻");
