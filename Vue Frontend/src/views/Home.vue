@@ -5,8 +5,9 @@
   <div class="container">
     <!-- <hr /> -->
     <div class="py-10">
-          <form>
-            <div style="display : inline-flex " class="mb-3">
+    <h6 class="display-3" v-if="flag" style="text-align: center;">Your Course</h6>
+         <form>
+            <div class="mb-3 py-3" style="display : flex; align-items: center; justify-content: center;">
       <button type="button" class="px-6
       py-2.5
       bg-indigo-600
@@ -29,9 +30,7 @@
               <input style="width:300px" type="text" class="form-control" id="chapter-title" v-model="idsearch" />
             </div>
           </form>
-    <h6 class="display-3" v-if="flag" style="text-align: center;">Your Course</h6>
-
-    <div v-if="checkRole()" class="py-6" style="text-align: center;">
+    <div v-if="checkRole()" class="py-1" style="text-align: center;">
       <!-- <a class="btn btn-primary" v-if=checkRole() @click.prevent="showNewCourseForm">Add a New Course</a> -->
       <button type="button" class="px-6
       py-2.5
