@@ -7,7 +7,7 @@
   <li v-if="read"><a href="#" @click.prevent="goRead">Read (Teacher)</a></li>
   <li v-if="edit"><a href="#" @click.prevent="goEdit">Edit</a></li>  
   <li v-if="homework"><a href="#" @click.prevent="goHomework">Homework</a></li>
-  <li v-if="test"><a href="#" @click.prevent="goTest">Test</a></li>
+  <li v-if="test"><a href="#" @click.prevent="goTest">Question</a></li>
   <li v-if="answer"><a href="#" @click.prevent="goAnswer">View Answer</a></li>
   <li v-if="comment"><a href="#" @click.prevent="goComment">Comment</a></li>
   <li v-if="board"><a href="#" @click.prevent="goBoard">Board</a></li>

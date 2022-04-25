@@ -1,15 +1,15 @@
 <template>
       <Breadcrumb/>
   <div class="container">
-      <h1 class="display-6">{{test.title}}</h1>
+      <h1 class="display-3">{{test.title}}</h1>
       <button class="btn btn-primary" v-if="flag" @click="toggle">Begin Test</button>
       <div v-else>
-        <div>Speaking Prompt: {{test.prompt}}</div>
+        <div class="display-6">Speaking Prompt: {{test.prompt}}</div>
         <hr />
-        <div v-if="finished">Finish.</div>
+        <div class="display-6" v-if="finished">Finish.</div>
         <div v-else>
-          <div v-if="recording">Recording ...</div>
-          <div v-else>Record start in {{countDown}} seconds.</div>
+          <div class="display-6" v-if="recording">Recording ...</div>
+          <div class="display-6" v-else>Record start in {{countDown}} seconds.</div>
         </div>
         <hr />
         <button class="btn btn-primary" id="stop" @click="stop" disabled>Stop</button>
