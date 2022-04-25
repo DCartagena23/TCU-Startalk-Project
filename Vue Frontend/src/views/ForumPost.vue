@@ -3,13 +3,13 @@
   <Breadcrumb />
   <Header />
     <main v-show="postBool">
-        <h1 class="text-3xl font-bold leading-tight text-gray-900" style="padding-top: 2.5rem;padding-bottom:2.5rem;text-align: center;">
+        <h1 class="max-w-5xl text-3xl font-bold leading-tight text-gray-900" style="padding-top: 2.5rem;padding-bottom:2.5rem;text-align: center; margin: 0 auto;">
             {{forum.title}}
           </h1>
-          <div style="text-align:center;padding-bottom:2.5rem;">
+          <div class="max-w-5xl text-xl" style="text-align:center;padding-bottom:2.5rem; margin: 0 auto;">
             {{forum.desc}}
           </div>
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
           <!-- Replace with your content -->
           <div class="grid" id="forumSection" style="grid-template-columns: repeat(3, 1fr);">
             <!-- <div class="col-start-3 rounded-lg bg-indigo-600 text-white" style="margin-bottom:2.5rem; max-width:20rem;">
@@ -192,15 +192,16 @@ export default {
           newPost.innerHTML = post.user + ': ' + post.content;
           newPost.style.borderRadius = '.5rem';
           if(post.user == this.currentUser.username){
-            newPost.style.backgroundColor = 'rgba(79,20,229)';
+            newPost.style.backgroundColor = 'rgba(159,90,253)';
             newPost.style.gridColumnStart = '3';
           }
           else{
-            newPost.style.backgroundColor = 'rgba(5,150,105)';
+            newPost.style.backgroundColor = 'rgba(13,180,185)';
             newPost.style.gridColumnStart = '1';
           }
           newPost.style.color = 'white';
           newPost.style.marginBottom = '2.5rem';
+          newPost.style.padding = '.5rem';
           newPost.style.maxWidth = '20rem';
           space.style.gridColumnStart = '3';
           forumSection.appendChild(newPost);
@@ -266,6 +267,8 @@ export default {
       this.getMessages(this.$route.params.forumId);
       this.addMessages();
       // location.reload();
+      this.postBool = false;
+      this.postBool = true;
     }
 }
 </script>

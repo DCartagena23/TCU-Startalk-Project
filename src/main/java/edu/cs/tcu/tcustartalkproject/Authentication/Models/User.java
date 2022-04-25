@@ -1,5 +1,6 @@
 package edu.cs.tcu.tcustartalkproject.Authentication.Models;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -31,6 +32,8 @@ public class User {
     private String password;
     @DBRef
     private Set<Role> roles = new HashSet<>();
+    private String token;
+    private LocalDateTime tokenCreationDate;
 
     @DBRef(lazy = true)
     @JsonIgnoreProperties({"teacher","students"})
@@ -78,6 +81,18 @@ public class User {
     }
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+    public String getToken() {
+        return token;
+    }
+    public void setToken(String token) {
+        this.token = token;
+    }
+    public LocalDateTime getTokenCreationDate() {
+        return tokenCreationDate;
+    }
+    public void setTokenCreationDate(LocalDateTime tokenCreationDate) {
+        this.tokenCreationDate = tokenCreationDate;
     }
 
     public List<Course> getCourseCreate() {

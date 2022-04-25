@@ -6,7 +6,7 @@
 <div class="py-10" v-show="forumBool">
   <header style="padding-bottom: 2.5em;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 class="text-3xl font-bold leading-tight text-gray-900" style="text-align:center;">
+          <h1 class="text-3xl font-bold leading-tight text-gray-900 py-2.5" style="text-align:center;">
             Discussion Boards
           </h1>
           <div style="text-align: center">
@@ -155,7 +155,7 @@
                   </span>
                 </td>
                <td v-if="post.active && checkRole()"  class="px-6 py-4 whitespace-nowrap text-left">
-            <button type="button" class="px-6
+            <button v-show="yourCourse(post)" type="button" class="px-6
        py-2.5
       bg-indigo-600
       text-white
@@ -261,6 +261,7 @@ export default {
     },
     toggleForumPost(id){
       this.$router.push({ path: `/forum/${this.$route.params.courseId}/${id}` })
+      // location.reload();
     },
      async getAllForums(){
       const { data: res } = await this.$http.get(`/courses/getBoardList/${this.$route.params.courseId}`)
@@ -298,7 +299,7 @@ export default {
       )
     },
   async addForum(){
-    var newBoard = posts[posts.length-1] 
+    var newBoard = posts[posts.length-1]
     newBoard.active = true
     const { data: res } = await this.$http.post(`/boards/saveBoard/${this.$route.params.courseId}`,newBoard)
     console.log(res.data)
@@ -306,7 +307,7 @@ export default {
       checkRole(){
       if (this.$store.state.auth.user.roles[0] == "ROLE_TEACHER") return true
       else return false
-    },  
+    },
 
     async deleteBoard(id) {
       if (confirm('Do you want to delete this Board?')) {
@@ -318,6 +319,14 @@ export default {
           alert('Cannot delete Board!')
         }
       },
+    yourCourse(course){
+      var flag = false
+        if (this.$store.state.auth.user.username == course.author) flag = true
+        // course.students.forEach(student => {
+        //   if (student.id == this.$store.state.auth.user.id) flag = true
+        // })
+      return flag
+    },
   },
   props: {
     toggleEditButton: Boolean

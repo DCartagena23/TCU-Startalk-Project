@@ -51,24 +51,24 @@
             </transition>
           </Popover>
 
-          <div v-on:click="toggleTextbook" class="section text-base font-medium text-gray-500 hover:text-gray-900">
+          <!-- <div v-on:click="toggleTextbook" class="section text-base font-medium text-gray-500 hover:text-gray-900">
             Courses
-          </div>
+          </div> -->
           <!-- <div v-on:click="toggleAssignment" class=" section text-base font-medium text-gray-500 hover:text-gray-900">
             Assignment
           </div> -->
           <!-- <div v-on:click="toggleExam" class=" section text-base font-medium text-gray-500 hover:text-gray-900">
             Exam
           </div> -->
-          <div v-if="forumFlag()" v-on:click="toggleForum" class="section text-base font-medium text-gray-500 hover:text-gray-900">
+          <!-- <div v-if="forumFlag()" v-on:click="toggleForum" class="section text-base font-medium text-gray-500 hover:text-gray-900">
             Forum
-          </div>
+          </div> -->
           <!-- <div v-on:click="toggleHelp" class="section text-base font-medium text-gray-500 hover:text-gray-900">
             Help
           </div> -->
-          <div v-on:click="signOut" class="section text-base font-medium text-gray-500 hover:text-gray-900">
+          <!-- <div v-on:click="signOut" class="section text-base font-medium text-gray-500 hover:text-gray-900">
             Sign Out
-          </div>
+          </div> -->
           <!-- <div v-on:click="toggleGrades" class="section text-base font-medium text-gray-500 hover:text-gray-900">
             Grades
           </div> -->
@@ -122,12 +122,9 @@
           </Popover> -->
         </PopoverGroup>
         <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-          <!-- <a href="#" class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
-            Sign in
-          </a>
-          <a href="#" class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">
-            Sign up
-          </a> -->
+          <div v-on:click="signOut" class="section text-base font-medium text-gray-500 hover:text-gray-900">
+            Sign Out
+          </div>
         </div>
       </div>
     </div>
