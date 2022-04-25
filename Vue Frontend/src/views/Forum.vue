@@ -6,10 +6,10 @@
 <div class="py-10" v-show="forumBool">
   <header style="padding-bottom: 2.5em;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 class="text-3xl font-bold leading-tight text-gray-900" style="text-align:center;">
+          <h1 class="text-3xl font-bold leading-tight text-gray-900 py-2.5" style="text-align:center;">
             {{board.title}}
           </h1>
-          <div style="text-align: center">
+          <div class="max-w-3xl py-2.5" style="text-align: center; margin: 0 auto;">
             {{board.desc}}
           </div>
           <div style="text-align: center">
@@ -212,6 +212,14 @@ window.onload = function(){
   while(posts.length>0){
         posts.pop()
   }
+  // if (window.localStorage) {
+  //   if (!localStorage.getItem('reload')) {
+  //     localStorage['reload'] = true;
+  //     window.location.reload();
+  //   }else {
+  //     localStorage.removeItem('reload');
+  //     }
+  // }
 };
 
 window.onbeforeunload = function(){
@@ -261,6 +269,7 @@ export default {
     },
     toggleForumPost(id){
       this.$router.push({ path: `/post/${this.$route.params.courseId}/${this.$route.params.boardId}/${id}` })
+      // location.reload();
     },
      async getAllForums(id){
       const { data: res } = await this.$http.get(`/boards/findOne/${id}`)
